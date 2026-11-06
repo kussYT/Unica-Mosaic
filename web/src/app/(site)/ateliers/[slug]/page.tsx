@@ -1,29 +1,32 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { Agenda } from '@/components/Agenda'
 import { Photo } from '@/components/Photo'
-import { workshops } from '@/data/site'
+import { formatDuration, formatEuros, getPublicWorkshops, getUpcomingSessions } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
+import '@/styles/agenda.css'
 
 type Args = { params: Promise<{ slug: string }> }
 
-export function generateStaticParams() {
-  return workshops.map((workshop) => ({ slug: workshop.slug }))
-}
-
-export const dynamicParams = false
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
   const { slug } = await params
-  const workshop = workshops.find((item) => item.slug === slug)
+  const workshop = (await getPublicWorkshops()).find((item) => item.slug === slug)
   if (!workshop) return {}
-  return pageMeta(workshop.name, workshop.intro) as Metadata
+  return pageMeta(workshop.name, workshop.intro)
 }
 
 export default async function WorkshopPage({ params }: Args) {
   const { slug } = await params
+  const workshops = await getPublicWorkshops()
   const workshop = workshops.find((item) => item.slug === slug)
   if (!workshop) notFound()
+  const sessions = await getUpcomingSessions(slug)
+  const price = workshop.priceCents == null ? 'À confirmer' : formatEuros(workshop.priceCents)
+  const deposit = workshop.depositCents == null ? null : formatEuros(workshop.depositCents)
+  const duration = workshop.durationMinutes == null ? null : formatDuration(workshop.durationMinutes)
 
   return (
     <>
@@ -33,7 +36,11 @@ export default async function WorkshopPage({ params }: Args) {
       </div>
       <section className={`workshop-detail wrap tone-${workshop.tone}`}>
         <div className="detail-photo">
-          <Photo name={workshop.image} alt={workshop.alt} eager />
+          {workshop.imageUrl ? (
+            <img src={workshop.imageUrl} alt={workshop.alt} />
+          ) : workshop.image ? (
+            <Photo name={workshop.image} alt={workshop.alt} eager />
+          ) : null}
         </div>
         <div className="detail-copy">
           <p className="eyebrow">{workshop.label}</p>
@@ -42,7 +49,7 @@ export default async function WorkshopPage({ params }: Args) {
           <a className="button" href={`/contact/?sujet=${encodeURIComponent(workshop.name)}`}>
             Préparer ma demande <span aria-hidden="true">↗</span>
           </a>
-          <p className="quiet-note">Calendrier et réservations bientôt disponibles.</p>
+          <p className="quiet-note">La réservation en ligne n’est pas ouverte. Cette page ne retient aucune place.</p>
         </div>
       </section>
       <section className="section wrap detail-info">
@@ -54,27 +61,34 @@ export default async function WorkshopPage({ params }: Args) {
             <em>une pièce à imaginer.</em>
           </h2>
           <p>{workshop.description}</p>
-          <p>{workshop.detail}</p>
+          {workshop.detail ? <p>{workshop.detail}</p> : null}
         </div>
         <aside className="info-panel">
           <h3>Les infos pratiques</h3>
           <dl>
             <div>
               <dt>Dates</dt>
-              <dd>Calendrier à venir</dd>
+              <dd>{sessions.length === 0 ? 'Aucune session programmée' : `${sessions.length} session${sessions.length > 1 ? 's' : ''} à venir`}</dd>
             </div>
             <div>
               <dt>Durée & tarif</dt>
-              <dd>À confirmer pour chaque séance</dd>
+              <dd>{duration ? `${duration} · ${price}` : price === 'À confirmer' ? 'À confirmer pour chaque séance' : price}</dd>
             </div>
+            {deposit ? (
+              <div>
+                <dt>Acompte</dt>
+                <dd>{deposit}</dd>
+              </div>
+            ) : null}
             <div>
               <dt>Lieu & matériel</dt>
-              <dd>Précisés à l’ouverture des réservations</dd>
+              <dd>{workshop.practicalInfo || sessions.find((session) => session.place)?.place || 'Précisés pour chaque session confirmée'}</dd>
             </div>
           </dl>
-          <p>Les informations définitives seront indiquées ici avant toute réservation.</p>
+          <p>Les informations définitives sont celles confirmées dans l’administration. Aucun paiement n’est demandé ici.</p>
         </aside>
       </section>
+      <Agenda sessions={sessions} heading={false} />
       <section className="section wrap other-workshops">
         <h2>
           Encore un peu <em>curieux ?</em>

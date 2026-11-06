@@ -1,12 +1,16 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { fr } from '@payloadcms/translations/languages/fr'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Media } from './collections/Media'
+import { Sessions } from './collections/Sessions'
 import { Users } from './collections/Users'
+import { Workshops } from './collections/Workshops'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +31,11 @@ export default buildConfig({
       titleSuffix: '— UNICA',
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Workshops, Sessions],
+  i18n: {
+    supportedLanguages: { fr },
+    fallbackLanguage: 'fr',
+  },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -37,6 +45,9 @@ export default buildConfig({
     pool: {
       connectionString: databaseUrl,
     },
+    push: false,
+    migrationDir: path.resolve(dirname, 'migrations'),
+    prodMigrations: migrations,
   }),
   sharp,
   plugins: [],

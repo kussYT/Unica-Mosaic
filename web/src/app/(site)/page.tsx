@@ -3,7 +3,7 @@ import { HeroCollage } from '@/components/HeroCollage'
 import { HomePaths } from '@/components/HomePaths'
 import { Photo } from '@/components/Photo'
 import { WorkshopCard } from '@/components/WorkshopCard'
-import { workshops } from '@/data/site'
+import { getPublicWorkshops } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
 
 export const metadata = pageMeta(
@@ -11,7 +11,10 @@ export const metadata = pageMeta(
   'L’univers UNICA : des créations en mosaïque singulières, des projets sur mesure et des ateliers pour le plaisir de créer ensemble.',
 )
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic'
+
+export default async function HomePage() {
+  const workshops = await getPublicWorkshops()
   return (
     <>
       <section className="home-hero wrap">

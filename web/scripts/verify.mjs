@@ -35,7 +35,15 @@ for (const pathname of ['/ateliers/', '/ateliers/pixel-kids/', '/realisations/',
 }
 
 const workshop = await responseOf('/ateliers/pixel-kids/')
-assert(workshop.text.includes('Calendrier et réservations bientôt disponibles.'), 'La fiche atelier promet une réservation')
+assert(workshop.text.includes('La réservation en ligne n’est pas ouverte.'), 'La fiche atelier promet une réservation')
+assert(!workshop.text.includes('Réserver'), 'La fiche atelier propose une réservation')
+assert(!workshop.text.includes('Payer'), 'La fiche atelier propose un paiement')
+
+const workshopsPage = await responseOf('/ateliers/')
+assert(workshopsPage.text.includes('Aucune session n’est programmée pour le moment.'), 'L’agenda invente des dates')
+
+const workshopWrite = await responseOf('/api/workshops', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' })
+assert([401, 403].includes(workshopWrite.response.status), `Création anonyme d’atelier HTTP ${workshopWrite.response.status}`)
 
 const contact = await responseOf('/contact/')
 assert(contact.text.includes('Aucun message ne sera envoyé.'), 'Le contact laisse croire qu’un message part')

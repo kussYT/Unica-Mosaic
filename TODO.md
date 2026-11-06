@@ -27,7 +27,17 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Assets de `public/` synchronisés vers `web/public` à chaque dev, build et start. La copie n'est pas versionnée. Installation propre `npm ci` vérifiée.
 - [x] `web/.env.example` ne contient aucun secret. Le script administrateur refuse `NODE_ENV=production`.
 - [x] Démarrage Node 24.22.2, PostgreSQL local et application documenté dans `docs/DEVELOPPEMENT.md`.
-- [ ] Calendrier, réservations et Stripe : non commencés, volontairement hors de ce lot.
+- [x] Agenda public des sessions publiées. Aucune réservation ni paiement.
+
+## 1c. Catalogue des ateliers — lot 2
+- [x] Collections Payload Ateliers et Sessions, avec brouillon et publication.
+- [x] Tarif non négatif, acompte entre zéro et le tarif, fin de session après le début.
+- [x] Publication d’un atelier refusée tant que le tarif et l’acompte ne sont pas des nombres.
+- [x] Marie, via un compte éditeur, peut créer et modifier ; la suppression reste réservée à l’administrateur. Les visiteurs ne peuvent pas écrire.
+- [x] Migrations PostgreSQL appliquées sur `unica_mosaic_local`. Aucun tarif, aucune date et aucune capacité inventés.
+- [x] Le site public reprend les ateliers publiés et conserve le catalogue statique en secours. L’agenda reste vide sans session confirmée.
+- [x] Build Next et vérifications réussis. Contrôle visuel en 1440, 768 et 390 px. Administration en français contrôlée.
+- [ ] Réservations, paiement et Stripe : non commencés.
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
@@ -80,6 +90,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : copie de sauvegarde de la version Astro, hors du dossier de travail, 102 fichiers, sans node_modules, dist ni .astro. Aucun commit ni push effectué.
 - 6 novembre 2026 : version Astro commitée localement (`f59469a`), taguée `reference-astro`, puis branche `portage-next-payload`. Socle Next.js 16.4.5, Payload 3.93.0 et PostgreSQL `unica_mosaic_local`. Pages existantes portées dans `web/`. Builds et vérifications réussis. Aucun push.
 - 6 novembre 2026 : finalisation du lot 1. Synchronisation reproductible des assets, exemple d'environnement sans secret, création d'administrateur refusée en production. `npm ci`, builds et vérifications relancés.
+- 6 novembre 2026 : lot 2 commité localement sur `portage-next-payload`. Collections Ateliers et Sessions, migrations PostgreSQL, agenda public vide tant qu’aucune session n’est publiée. Aucun push.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.
@@ -88,5 +99,6 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - Rose #F00087, crème #FCF4F1, violet #59003D. Rose clair selon RVB ; jaune de la campagne Ré-colle-toi meuf et des maquettes.
 - La charte répète le code violet sur deux autres couleurs : utiliser les valeurs RVB et les exports.
 - Aucun âge, tarif, durée, date ou témoignage inventé à partir des maquettes.
+- Un atelier publié dans Payload remplace la fiche statique du même slug. Sans atelier publié, le catalogue statique reste affiché. Une session n’apparaît que si elle est publiée, à venir et non annulée.
 - Images réelles fournies ; aucune image générée présentée comme réalisation.
 - Le contact prépare un brouillon local et ne transmet rien par défaut.

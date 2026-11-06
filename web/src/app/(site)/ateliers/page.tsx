@@ -1,15 +1,21 @@
+import { Agenda } from '@/components/Agenda'
 import { CallToAction } from '@/components/CallToAction'
 import { Photo } from '@/components/Photo'
 import { WorkshopCard } from '@/components/WorkshopCard'
-import { workshops } from '@/data/site'
+import { getPublicWorkshops, getUpcomingSessions } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
+import '@/styles/agenda.css'
 
 export const metadata = pageMeta(
   'Les ateliers créatifs',
   'Découvrez les ateliers UNICA : Ré-colle-toi meuf, Pixel Kids, Ma croix mes couleurs et Numéro de maison.',
 )
 
-export default function WorkshopsPage() {
+export const dynamic = 'force-dynamic'
+
+export default async function WorkshopsPage() {
+  const workshops = await getPublicWorkshops()
+  const sessions = await getUpcomingSessions()
   return (
     <>
       <section className="page-hero pink-hero">
@@ -48,8 +54,9 @@ export default function WorkshopsPage() {
             <WorkshopCard workshop={workshop} index={index} key={workshop.slug} />
           ))}
         </div>
-        <p className="quiet-note">Les prochaines dates, les tarifs et les modalités de chaque atelier seront annoncés prochainement.</p>
+        <p className="quiet-note">Les tarifs et les modalités restent indiqués seulement lorsqu’ils ont été confirmés.</p>
       </section>
+      <Agenda sessions={sessions} />
       <section className="steps-section section wrap">
         <p className="eyebrow">L’ESPRIT D’UN ATELIER</p>
         <h2>Un morceau après l’autre.</h2>
@@ -83,7 +90,7 @@ export default function WorkshopsPage() {
         <div className="faq-list">
           <details>
             <summary>Comment connaître les prochaines dates ?</summary>
-            <p>Le calendrier est en préparation. La page de chaque atelier sera complétée avec les dates et les modalités de réservation.</p>
+            <p>Les dates confirmées sont listées dans l’agenda de cette page. S’il est vide, aucune session n’est programmée.</p>
           </details>
           <details>
             <summary>Quel atelier choisir pour un enfant ?</summary>

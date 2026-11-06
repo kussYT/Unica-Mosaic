@@ -1,14 +1,24 @@
-import type { workshops } from '@/data/site'
-
 import { Photo } from './Photo'
 
-type Workshop = (typeof workshops)[number]
+type CardWorkshop = {
+  slug: string
+  name: string
+  label: string
+  alt: string
+  tone: string
+  image: string | null
+  imageUrl?: string | null
+}
 
-export function WorkshopCard({ workshop, index = 0 }: { workshop: Workshop; index?: number }) {
+export function WorkshopCard({ workshop, index = 0 }: { workshop: CardWorkshop; index?: number }) {
   return (
     <a className={`workshop-card tone-${workshop.tone}`} href={`/ateliers/${workshop.slug}/`}>
       <div className="card-photo">
-        <Photo name={workshop.image} alt={workshop.alt} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 25vw" />
+        {workshop.imageUrl ? (
+          <img src={workshop.imageUrl} alt={workshop.alt} />
+        ) : workshop.image ? (
+          <Photo name={workshop.image} alt={workshop.alt} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 25vw" />
+        ) : null}
         <span className="card-index">0{index + 1}</span>
       </div>
       <div className="card-copy">

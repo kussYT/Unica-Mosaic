@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    workshops: Workshop;
+    sessions: Session;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    workshops: WorkshopsSelect<false> | WorkshopsSelect<true>;
+    sessions: SessionsSelect<false> | SessionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -165,6 +169,58 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workshops".
+ */
+export interface Workshop {
+  id: number;
+  title: string;
+  /**
+   * Identifiant de l’URL, par exemple recolle-toi-meuf. Laisser vide pour le remplir à partir du titre.
+   */
+  slug: string;
+  label?: string | null;
+  summary: string;
+  description: string;
+  tone?: ('pink' | 'blush' | 'plum' | 'cream') | null;
+  gallery?: (number | Media)[] | null;
+  /**
+   * Laisser vide tant que le tarif n’est pas confirmé. Le montant est en centimes : 100 correspond à 1,00 €.
+   */
+  priceCents?: number | null;
+  /**
+   * Montant compris entre zéro et le tarif total. Laisser vide tant qu’il n’est pas confirmé.
+   */
+  depositCents?: number | null;
+  /**
+   * Laisser vide tant que la durée n’est pas confirmée.
+   */
+  durationMinutes?: number | null;
+  practicalInfo?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions".
+ */
+export interface Session {
+  id: number;
+  workshop: number | Workshop;
+  startsAt: string;
+  endsAt: string;
+  /**
+   * Laisser vide tant que la capacité n’est pas confirmée. Ce chiffre n’ouvre pas de réservation.
+   */
+  capacity?: number | null;
+  place?: string | null;
+  state: 'scheduled' | 'full' | 'cancelled';
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -194,6 +250,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'workshops';
+        value: number | Workshop;
+      } | null)
+    | ({
+        relationTo: 'sessions';
+        value: number | Session;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -278,6 +342,41 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workshops_select".
+ */
+export interface WorkshopsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  label?: T;
+  summary?: T;
+  description?: T;
+  tone?: T;
+  gallery?: T;
+  priceCents?: T;
+  depositCents?: T;
+  durationMinutes?: T;
+  practicalInfo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions_select".
+ */
+export interface SessionsSelect<T extends boolean = true> {
+  workshop?: T;
+  startsAt?: T;
+  endsAt?: T;
+  capacity?: T;
+  place?: T;
+  state?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
