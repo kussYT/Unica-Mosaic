@@ -5,7 +5,7 @@
 .calendar-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .calendar-nav p { font-family: var(--serif); font-size: clamp(32px, 3vw, 46px); line-height: 1; letter-spacing: -.04em; }
 .calendar-move { display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--yellow); color: var(--plum); font-size: 20px; }
-.calendar-move .icon-arrow { width: 18px; height: 18px; }
+.calendar-move .icon-arrow { width: 14px; height: 14px; }
 .calendar-move:disabled { opacity: .35; }
 .calendar-weekdays, .calendar-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
 .calendar-weekdays { margin-bottom: 8px; }

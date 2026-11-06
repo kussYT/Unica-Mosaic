@@ -111,6 +111,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : la bougie est replacée devant le blason. Le grand visuel léopard ne la reprend plus. Vérifié en local sur ordinateur et téléphone, puis repris en préproduction.
 - 6 novembre 2026 : la bougie devant le blason est retirée. La photo de droite passe devant le blason, sur ordinateur et téléphone, puis en préproduction.
 - 6 novembre 2026 : les flèches et les astérisques décoratifs sont des tracés SVG, pour éviter les emojis colorés d’iOS. Contrôlé en local à 1440, 768 et 390 px, puis repris en préproduction. Safari iOS n’a pas été ouvert ici.
+- 6 novembre 2026 : les icônes SVG sont réduites. Flèches de bouton à 13 px, flèches de carte à 16 px, astérisque plus petit. Vérifié sur l’accueil local.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.

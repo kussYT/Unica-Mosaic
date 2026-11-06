@@ -125,7 +125,10 @@
   .brand-ribbon span{font-size:7px}
   .brand-ribbon b{font-size:13px}
 }
-.icon-arrow,.icon-star{display:block;width:1em;height:1em;flex:none;overflow:visible}
+.icon-arrow,.icon-star{display:block;width:13px;height:13px;flex:none;overflow:visible}
+.button span .icon-arrow,.text-link span .icon-arrow,.breadcrumb .icon-arrow{width:13px;height:13px}
+.path-arrow .icon-arrow{width:16px;height:16px}
+.icon-star{width:.62em;height:.62em}
 .button span,.text-link span,.path-arrow,.hero-stamp>span,.brand-ribbon b,.breadcrumb a{display:inline-flex;align-items:center}
 .breadcrumb a{gap:.4em}
 .circle-arrow{place-items:center}
