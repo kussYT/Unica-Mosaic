@@ -1,0 +1,266 @@
+[
+  {
+    "name": "blason",
+    "source": "02_Photos_boutique/image00001.jpeg",
+    "variants": [
+      {
+        "file": "blason-480.webp",
+        "width": 480,
+        "height": 652,
+        "bytes": 54636
+      },
+      {
+        "file": "blason-960.webp",
+        "width": 960,
+        "height": 1303,
+        "bytes": 179828
+      },
+      {
+        "file": "blason-1600.webp",
+        "width": 1600,
+        "height": 2172,
+        "bytes": 378410
+      }
+    ]
+  },
+  {
+    "name": "dalida",
+    "source": "03_Realisations/02_Installations_et_commandes/image00073.jpeg",
+    "variants": [
+      {
+        "file": "dalida-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 65824
+      },
+      {
+        "file": "dalida-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 175948
+      },
+      {
+        "file": "dalida-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 359106
+      }
+    ]
+  },
+  {
+    "name": "atelier-mains",
+    "source": "04_Ateliers/05_Reportage_general/Unica Ateliers #1-100.jpg",
+    "variants": [
+      {
+        "file": "atelier-mains-480.webp",
+        "width": 480,
+        "height": 719,
+        "bytes": 32464
+      },
+      {
+        "file": "atelier-mains-960.webp",
+        "width": 960,
+        "height": 1439,
+        "bytes": 89464
+      },
+      {
+        "file": "atelier-mains-1600.webp",
+        "width": 1273,
+        "height": 1908,
+        "bytes": 145744
+      }
+    ]
+  },
+  {
+    "name": "atelier-table",
+    "source": "04_Ateliers/05_Reportage_general/Unica Ateliers #1-10.jpg",
+    "variants": [
+      {
+        "file": "atelier-table-480.webp",
+        "width": 480,
+        "height": 719,
+        "bytes": 42468
+      },
+      {
+        "file": "atelier-table-960.webp",
+        "width": 960,
+        "height": 1439,
+        "bytes": 124420
+      },
+      {
+        "file": "atelier-table-1600.webp",
+        "width": 1273,
+        "height": 1908,
+        "bytes": 243392
+      }
+    ]
+  },
+  {
+    "name": "atelier-partage",
+    "source": "04_Ateliers/06_Evenements_anniversaires/Unica Ateliers #Anniversaire-40.jpg",
+    "variants": [
+      {
+        "file": "atelier-partage-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 38982
+      },
+      {
+        "file": "atelier-partage-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 111298
+      },
+      {
+        "file": "atelier-partage-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 308314
+      }
+    ]
+  },
+  {
+    "name": "pixel-kids",
+    "source": "04_Ateliers/02_Pixel_Kids/Photos/image00027.jpeg",
+    "variants": [
+      {
+        "file": "pixel-kids-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 30040
+      },
+      {
+        "file": "pixel-kids-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 107550
+      },
+      {
+        "file": "pixel-kids-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 397256
+      }
+    ]
+  },
+  {
+    "name": "recolle",
+    "source": "04_Ateliers/01_Recolle-toi_meuf/ff18de7b-e095-4032-ba79-94ad7937ee5a.JPG",
+    "variants": [
+      {
+        "file": "recolle-480.webp",
+        "width": 480,
+        "height": 671,
+        "bytes": 47784
+      },
+      {
+        "file": "recolle-960.webp",
+        "width": 960,
+        "height": 1341,
+        "bytes": 101944
+      },
+      {
+        "file": "recolle-1600.webp",
+        "width": 1145,
+        "height": 1600,
+        "bytes": 123946
+      }
+    ]
+  },
+  {
+    "name": "croix",
+    "source": "04_Ateliers/03_Ma_croix_mes_couleurs/Atelier WhatsApp Image 2026-11-03 at 08.50.15.jpeg",
+    "variants": [
+      {
+        "file": "croix-480.webp",
+        "width": 480,
+        "height": 691,
+        "bytes": 32360
+      },
+      {
+        "file": "croix-960.webp",
+        "width": 960,
+        "height": 1383,
+        "bytes": 102558
+      },
+      {
+        "file": "croix-1600.webp",
+        "width": 1111,
+        "height": 1600,
+        "bytes": 135974
+      }
+    ]
+  },
+  {
+    "name": "boutique",
+    "source": "02_Photos_boutique/image00189.jpeg",
+    "variants": [
+      {
+        "file": "boutique-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 77728
+      },
+      {
+        "file": "boutique-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 258478
+      },
+      {
+        "file": "boutique-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 608374
+      }
+    ]
+  },
+  {
+    "name": "tortue",
+    "source": "03_Realisations/02_Installations_et_commandes/image00027.jpeg",
+    "variants": [
+      {
+        "file": "tortue-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 55388
+      },
+      {
+        "file": "tortue-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 198892
+      },
+      {
+        "file": "tortue-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 470414
+      }
+    ]
+  },
+  {
+    "name": "lion",
+    "source": "03_Realisations/01_Fabrication/57b554de-9fca-48da-8dc0-e25549d5b39f 2.jpg",
+    "variants": [
+      {
+        "file": "lion-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 64460
+      },
+      {
+        "file": "lion-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 201618
+      },
+      {
+        "file": "lion-1600.webp",
+        "width": 1536,
+        "height": 2048,
+        "bytes": 405326
+      }
+    ]
+  }
+]

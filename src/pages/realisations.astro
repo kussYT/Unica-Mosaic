@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { works } from '../data/site';
+---
+<Layout title="Les créations" description="Explorez les créations en mosaïque UNICA : pièces décoratives, projets sur mesure et gestes d’atelier.">
+  <section class="gallery-intro wrap"><p class="eyebrow">LA MOSAÏQUE SOUS TOUTES SES FORMES</p><h1>Des pièces uniques.<br /><em>Du caractère, toujours.</em></h1><p>Des couleurs qui se répondent. Des matières qui accrochent la lumière.<br />Et une autre façon de regarder les petits morceaux.</p></section>
+  <section class="wrap gallery-section" aria-label="Galerie des réalisations"><div class="filter-bar" role="group" aria-label="Filtrer les créations">{['Tout voir', 'Décoration', 'Sur mesure', 'En atelier'].map((filter,index) => <button type="button" data-filter={filter} aria-pressed={index===0}>{filter}</button>)}</div><p id="gallery-count" class="sr-only" role="status" aria-live="polite">6 créations affichées</p><div class="gallery-grid">{works.map((work,index) => <article class="gallery-item" data-category={work.category}><button class="gallery-open" data-image={`/images/${work.image}-1600.webp`} data-title={work.title} data-alt={work.alt} aria-label={`Agrandir : ${work.title}`}><Photo name={work.image} alt={work.alt} eager={index<2} /><span class="circle-arrow" aria-hidden="true">↗</span></button><div class="gallery-caption"><h2>{work.title}</h2><span>{work.category}</span></div></article>)}</div></section>
+  <CallToAction title="Votre idée mérite sa mosaïque." text="Un motif, une ambiance, une pièce à transformer : racontons votre projet avec des matières et des couleurs." />
+  <dialog class="lightbox" aria-label="Aperçu de la création"><button class="lightbox-close" aria-label="Fermer l’aperçu">×</button><img id="lightbox-image" alt="" /><p id="lightbox-title"></p></dialog>
+  <script>
+    const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const items = document.querySelectorAll<HTMLElement>('[data-category]');
+    filters.forEach(button => button.addEventListener('click', () => {
+      filters.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+      let count = 0; items.forEach(item => { item.hidden = button.dataset.filter !== 'Tout voir' && item.dataset.category !== button.dataset.filter; if(!item.hidden) count++; });
+      document.querySelector('#gallery-count')!.textContent = `${count} créations affichées`;
+    }));
+    const dialog = document.querySelector<HTMLDialogElement>('.lightbox')!;
+    const photo = document.querySelector<HTMLImageElement>('#lightbox-image')!;
+    document.querySelectorAll<HTMLButtonElement>('.gallery-open').forEach(button => button.addEventListener('click', () => { photo.src = button.dataset.image!; photo.alt = button.dataset.alt!; document.querySelector('#lightbox-title')!.textContent = button.dataset.title!; dialog.showModal(); }));
+    document.querySelector('.lightbox-close')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if(event.target === dialog) dialog.close(); });
+  </script>
+</Layout>
