@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { Agenda } from '@/components/Agenda'
+import { ArrowLeft, ArrowNorthEast } from '@/components/Icons'
 import { Photo } from '@/components/Photo'
 import { formatDuration, formatEuros, getPublicWorkshops, getUpcomingSessions } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
@@ -31,7 +32,7 @@ export default async function WorkshopPage({ params }: Args) {
   return (
     <>
       <div className="wrap breadcrumb">
-        <a href="/ateliers/">← Tous les ateliers</a>
+        <a href="/ateliers/"><ArrowLeft /> Tous les ateliers</a>
         <span>{workshop.name}</span>
       </div>
       <section className={`workshop-detail wrap tone-${workshop.tone}`}>
@@ -47,7 +48,7 @@ export default async function WorkshopPage({ params }: Args) {
           <h1>{workshop.name}</h1>
           <p className="lead">{workshop.intro}</p>
           <a className="button" href={`/contact/?sujet=${encodeURIComponent(workshop.name)}`}>
-            Préparer ma demande <span aria-hidden="true">↗</span>
+            Préparer ma demande <span aria-hidden="true"><ArrowNorthEast /></span>
           </a>
           <p className="quiet-note">La réservation en ligne n’est pas ouverte. Cette page ne retient aucune place.</p>
         </div>
@@ -98,7 +99,7 @@ export default async function WorkshopPage({ params }: Args) {
             .filter((other) => other.slug !== workshop.slug)
             .map((other) => (
               <a className="text-link" href={`/ateliers/${other.slug}/`} key={other.slug}>
-                {other.name} ↗
+                {other.name} <span aria-hidden="true"><ArrowNorthEast /></span>
               </a>
             ))}
         </div>

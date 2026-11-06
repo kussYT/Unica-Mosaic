@@ -1,4 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
 ---
-<Layout title="Un morceau manque" description="Retrouvez l’univers UNICA depuis la page d’accueil."><section class="error-page wrap"><p class="eyebrow">ERREUR 404</p><h1>Il manque<br /><em>un petit morceau.</em></h1><p>Cette page n’existe pas ou a changé d’adresse.</p><a class="button" href="/">Retrouver l’accueil ↗</a></section></Layout>
+<Layout title="Un morceau manque" description="Retrouvez l’univers UNICA depuis la page d’accueil."><section class="error-page wrap"><p class="eyebrow">ERREUR 404</p><h1>Il manque<br /><em>un petit morceau.</em></h1><p>Cette page n’existe pas ou a changé d’adresse.</p><a class="button" href="/">Retrouver l’accueil <span aria-hidden="true"><Icon name="ne" /></span></a></section></Layout>

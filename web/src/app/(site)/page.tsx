@@ -1,4 +1,5 @@
 import { CallToAction } from '@/components/CallToAction'
+import { ArrowNorthEast, Asterisk } from '@/components/Icons'
 import { CalendarSection } from '@/components/HomeCalendar'
 import { HeroCollage } from '@/components/HeroCollage'
 import { HomePaths } from '@/components/HomePaths'
@@ -32,7 +33,7 @@ export default async function HomePage() {
           </h1>
           <div className="hero-actions">
             <a className="button" href="/realisations/">
-              Explorer les créations <span aria-hidden="true">↗</span>
+              Explorer les créations <span aria-hidden="true"><ArrowNorthEast /></span>
             </a>
           </div>
         </div>
@@ -41,13 +42,13 @@ export default async function HomePage() {
       <HomePaths />
       <div className="brand-ribbon" aria-label="Fait main, pièces uniques, créations sur mesure, ateliers créatifs">
         <span>FAIT MAIN</span>
-        <b aria-hidden="true">✳</b>
+        <b aria-hidden="true"><Asterisk /></b>
         <span>PIÈCES UNIQUES</span>
-        <b aria-hidden="true">✳</b>
+        <b aria-hidden="true"><Asterisk /></b>
         <span>SUR MESURE</span>
-        <b aria-hidden="true">✳</b>
+        <b aria-hidden="true"><Asterisk /></b>
         <span>ATELIERS CRÉATIFS</span>
-        <b aria-hidden="true">✳</b>
+        <b aria-hidden="true"><Asterisk /></b>
       </div>
       <section className="section wrap">
         <div className="section-heading">
@@ -72,7 +73,7 @@ export default async function HomePage() {
                 en mosaïque.
               </h3>
               <span className="circle-arrow" aria-hidden="true">
-                ↗
+                <ArrowNorthEast />
               </span>
             </div>
           </a>
@@ -86,7 +87,7 @@ export default async function HomePage() {
                 de créer ensemble.
               </h3>
               <span className="circle-arrow" aria-hidden="true">
-                ↗
+                <ArrowNorthEast />
               </span>
             </div>
           </a>
@@ -104,7 +105,7 @@ export default async function HomePage() {
               </h2>
             </div>
             <a className="text-link" href="/ateliers/">
-              Tous les ateliers <span aria-hidden="true">↗</span>
+              Tous les ateliers <span aria-hidden="true"><ArrowNorthEast /></span>
             </a>
           </div>
           <div className="workshop-grid">
@@ -138,7 +139,7 @@ export default async function HomePage() {
           </p>
           <p>Une pièce décorative, un projet sur mesure ou un atelier : chaque création commence par l’envie d’assembler autrement.</p>
           <a className="text-link" href="/realisations/">
-            Entrer dans l’univers UNICA <span aria-hidden="true">↗</span>
+            Entrer dans l’univers UNICA <span aria-hidden="true"><ArrowNorthEast /></span>
           </a>
         </div>
       </section>

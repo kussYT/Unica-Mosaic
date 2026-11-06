@@ -1,3 +1,5 @@
+import { ArrowNorthEast } from './Icons'
+
 export function MissingPiece() {
   return (
     <section className="error-page wrap">
@@ -9,7 +11,7 @@ export function MissingPiece() {
       </h1>
       <p>Cette page n’existe pas ou a changé d’adresse.</p>
       <a className="button" href="/">
-        Retrouver l’accueil ↗
+        Retrouver l’accueil <span aria-hidden="true"><ArrowNorthEast /></span>
       </a>
     </section>
   )

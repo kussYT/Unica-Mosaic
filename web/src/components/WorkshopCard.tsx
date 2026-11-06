@@ -1,3 +1,4 @@
+import { ArrowNorthEast } from './Icons'
 import { Photo } from './Photo'
 
 type CardWorkshop = {
@@ -25,7 +26,7 @@ export function WorkshopCard({ workshop, index = 0 }: { workshop: CardWorkshop; 
         <span className="eyebrow">{workshop.label}</span>
         <div className="card-title">
           <h3>{workshop.name}</h3>
-          <span className="circle-arrow" aria-hidden="true">↗</span>
+          <span className="circle-arrow" aria-hidden="true"><ArrowNorthEast /></span>
         </div>
       </div>
     </a>

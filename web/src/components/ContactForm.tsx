@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+import { ArrowDown, ArrowNorthEast } from './Icons'
+
 const subjects = [
   'Création sur mesure',
   'Ré-colle-toi meuf',
@@ -58,7 +60,7 @@ export function ContactForm({ email }: { email: string }) {
           <textarea name="message" rows={5} required minLength={10} maxLength={4000} placeholder="L’idée, les couleurs, l’occasion, la période souhaitée…" />
         </label>
         <button className="button" type="submit">
-          {email ? 'Préparer mon e-mail' : 'Préparer ma demande'} <span aria-hidden="true">↗</span>
+          {email ? 'Préparer mon e-mail' : 'Préparer ma demande'} <span aria-hidden="true"><ArrowNorthEast /></span>
         </button>
         <p className="form-privacy">Vos informations restent dans cette page et ne sont pas transmises automatiquement.</p>
       </form>
@@ -96,7 +98,7 @@ export function ContactForm({ email }: { email: string }) {
               setStatus('Votre demande a été téléchargée. Elle n’a pas été envoyée.')
             }}
           >
-            Télécharger (.txt) ↓
+            Télécharger (.txt) <span aria-hidden="true"><ArrowDown /></span>
           </button>
         </div>
         <p id="draft-status" role="status" aria-live="polite">

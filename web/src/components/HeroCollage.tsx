@@ -1,3 +1,4 @@
+import { Asterisk } from './Icons'
 import { Photo } from './Photo'
 
 export function HeroCollage() {
@@ -30,7 +31,7 @@ export function HeroCollage() {
         CHAQUE PIÈCE
         <br />
         <em>est unique.</em>
-        <span aria-hidden="true">✳</span>
+        <span aria-hidden="true"><Asterisk /></span>
       </div>
     </div>
   )

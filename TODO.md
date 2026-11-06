@@ -110,6 +110,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : la photo du hero n’apparaît plus deux fois. La petite copie, bougie comprise, a été retirée. Le grand visuel léopard et le blason restent. Vérifié en local, puis repris sur la préproduction.
 - 6 novembre 2026 : la bougie est replacée devant le blason. Le grand visuel léopard ne la reprend plus. Vérifié en local sur ordinateur et téléphone, puis repris en préproduction.
 - 6 novembre 2026 : la bougie devant le blason est retirée. La photo de droite passe devant le blason, sur ordinateur et téléphone, puis en préproduction.
+- 6 novembre 2026 : les flèches et les astérisques décoratifs sont des tracés SVG, pour éviter les emojis colorés d’iOS. Contrôlé en local à 1440, 768 et 390 px. Safari iOS n’a pas été ouvert ici.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.
