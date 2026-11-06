@@ -15,6 +15,20 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Filtre, visionneuse, préremplissage, copie et téléchargement du brouillon testés.
 - [x] Contrôle final des liens et fichiers du build.
 
+## 1b. Socle Next.js + Payload — lot 1
+- [x] Commit local sur `main` : `Conserver la version Astro de référence avant le portage`. Tag local `reference-astro`. Branche `portage-next-payload`. Aucun push.
+- [x] Node.js 24.22.2 installé à côté du Node système 24.19.0, sans le remplacer.
+- [x] PostgreSQL local dédié, base `unica_mosaic_local` sur 127.0.0.1:5433. Aucune base existante ni le VPS modifié.
+- [x] Next.js 16.4.5 et Payload 3.93.0 dans `web/`. Les sources Astro restent à la racine.
+- [x] Comptes administrateur et éditeur, droits séparés, médias avec texte alternatif obligatoire.
+- [x] Secrets uniquement dans `web/.env`, ignoré par Git.
+- [x] Pages portées : accueil, ateliers, fiches, réalisations, contact en brouillon, 404. noindex conservé.
+- [x] Build Next, build Astro et vérifications locales réussis. Contrôle navigateur en 1440, 768 et 390 px.
+- [x] Assets de `public/` synchronisés vers `web/public` à chaque dev, build et start. La copie n'est pas versionnée. Installation propre `npm ci` vérifiée.
+- [x] `web/.env.example` ne contient aucun secret. Le script administrateur refuse `NODE_ENV=production`.
+- [x] Démarrage Node 24.22.2, PostgreSQL local et application documenté dans `docs/DEVELOPPEMENT.md`.
+- [ ] Calendrier, réservations et Stripe : non commencés, volontairement hors de ce lot.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
@@ -64,10 +78,13 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : flèche des pastilles jaunes recentrée. Le glyphe ↗ de Montserrat est masqué ; un tracé SVG géométrique le remplace dans tous les ronds (univers, cartes ateliers, galerie).
 - 6 novembre 2026 : la variante géométrique du collage et des cartes a été retirée. Retour à la composition précédente : trois cartes de même famille, rond « Chaque pièce est unique » rétabli. Trois petits éclats ajoutés au contact des photos du hero. Mosaic Kids mène toujours à l’atelier Pixel Kids.
 - 6 novembre 2026 : copie de sauvegarde de la version Astro, hors du dossier de travail, 102 fichiers, sans node_modules, dist ni .astro. Aucun commit ni push effectué.
+- 6 novembre 2026 : version Astro commitée localement (`f59469a`), taguée `reference-astro`, puis branche `portage-next-payload`. Socle Next.js 16.4.5, Payload 3.93.0 et PostgreSQL `unica_mosaic_local`. Pages existantes portées dans `web/`. Builds et vérifications réussis. Aucun push.
+- 6 novembre 2026 : finalisation du lot 1. Synchronisation reproductible des assets, exemple d'environnement sans secret, création d'administrateur refusée en production. `npm ci`, builds et vérifications relancés.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.
 - Astro statique pour la présentation ; aucun compte client ni paiement ajouté.
+- Le portage validé vit sur `portage-next-payload` : une application Next.js + Payload 3 + PostgreSQL. La référence visuelle reste le tag `reference-astro`.
 - Rose #F00087, crème #FCF4F1, violet #59003D. Rose clair selon RVB ; jaune de la campagne Ré-colle-toi meuf et des maquettes.
 - La charte répète le code violet sur deux autres couleurs : utiliser les valeurs RVB et les exports.
 - Aucun âge, tarif, durée, date ou témoignage inventé à partir des maquettes.

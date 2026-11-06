@@ -1,7 +1,30 @@
 # Développement UNICA
 Première version du 6 novembre 2026. Le suivi de référence est TODO.md à la racine.
 
-## Démarrage
+## Application Next.js
+Le portage vit dans `web/`, sur la branche `portage-next-payload`. Les sources Astro restent à la racine. Node.js 24.22.2 est utilisé pour cette application, sans remplacer le Node du système. Le binaire local est `%LOCALAPPDATA%\\node-versions\\node-v24.22.2-win-x64`. Le fichier `.node-version` indique `24.22.2`.
+
+PostgreSQL local dédié, port 5433, base `unica_mosaic_local`. Les binaires et les données sont dans `%LOCALAPPDATA%\\unica-postgres`. Ce n'est pas un service Windows et ce n'est pas le dossier `C:\\Program Files\\PostgreSQL`.
+```sh
+powershell -File web/scripts/postgres-local.ps1 status
+powershell -File web/scripts/postgres-local.ps1 start
+powershell -File web/scripts/postgres-local.ps1 stop
+```
+Copier `web/.env.example` vers `web/.env`, puis renseigner l'URL, le secret Payload et, une seule fois en local, l'identifiant administrateur. Le démarrage ne crée aucun compte. `npm run seed:admin` refuse de s'exécuter quand `NODE_ENV=production`.
+
+Depuis `web/`, avec Node 24.22.2 en tête du PATH :
+```sh
+npm ci
+npm run dev
+```
+Adresse : http://127.0.0.1:3000/. Administration : http://127.0.0.1:3000/admin/. `npm run dev`, `npm run build` et `npm run start` synchronisent `public/` vers `web/public`. Cette copie est ignorée par Git. Les originaux restent dans `public/`.
+```sh
+npm run build
+npm run verify
+npm run start
+```
+
+## Démarrage Astro
 Ouvrir ce dépôt dans Cursor. Node.js 24 et npm sont requis.
 ```sh
 npm install
