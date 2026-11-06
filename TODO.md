@@ -39,6 +39,13 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Build Next et vérifications réussis. Contrôle visuel en 1440, 768 et 390 px. Administration en français contrôlée.
 - [ ] Réservations, paiement et Stripe : non commencés.
 
+## 1d. Calendrier dynamique — lot 3
+- [x] Une session ne peut pas être publiée si la capacité est absente, nulle, négative ou non entière. Un brouillon peut rester sans capacité.
+- [x] Les quatre ateliers existants sont préparés en brouillons Payload, sans tarif, sans date et sans écrasement. Publier une fiche ne retire pas les autres.
+- [x] Calendrier sur l’accueil : mois, jours identifiables, sélection, horaires, tarif, photo, description et capacité. Journée sans atelier et état vide contrôlés.
+- [x] Contrôle visuel en 1440, 768 et 390 px, avec des sessions temporaires ensuite supprimées. Aucune place restante ni bouton de réservation.
+- [x] Build Next et vérifications réussis après retrait des données de contrôle. Aucune session ni média de test en base.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
@@ -91,6 +98,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : version Astro commitée localement (`f59469a`), taguée `reference-astro`, puis branche `portage-next-payload`. Socle Next.js 16.4.5, Payload 3.93.0 et PostgreSQL `unica_mosaic_local`. Pages existantes portées dans `web/`. Builds et vérifications réussis. Aucun push.
 - 6 novembre 2026 : finalisation du lot 1. Synchronisation reproductible des assets, exemple d'environnement sans secret, création d'administrateur refusée en production. `npm ci`, builds et vérifications relancés.
 - 6 novembre 2026 : lot 2 commité localement sur `portage-next-payload`. Collections Ateliers et Sessions, migrations PostgreSQL, agenda public vide tant qu’aucune session n’est publiée. Aucun push.
+- 6 novembre 2026 : lot 3. Calendrier de l’accueil branché sur les sessions publiées. Capacité entière exigée pour publier. Quatre fiches préparées en brouillon. Les sessions de contrôle et leur photo ont été supprimées. Aucune place restante affichée. Aucun push.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.
@@ -100,5 +108,6 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - La charte répète le code violet sur deux autres couleurs : utiliser les valeurs RVB et les exports.
 - Aucun âge, tarif, durée, date ou témoignage inventé à partir des maquettes.
 - Un atelier publié dans Payload remplace la fiche statique du même slug. Sans atelier publié, le catalogue statique reste affiché. Une session n’apparaît que si elle est publiée, à venir et non annulée.
+- Le calendrier prépare l’affichage des places restantes, mais n’en montre aucune tant qu’elles ne sont pas calculées depuis de vraies réservations.
 - Images réelles fournies ; aucune image générée présentée comme réalisation.
 - Le contact prépare un brouillon local et ne transmet rien par défaut.

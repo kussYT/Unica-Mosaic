@@ -1,6 +1,8 @@
 import { getPayload } from 'payload'
 
 import config from '../src/payload.config.ts'
+import { getPublicWorkshops } from '../src/lib/catalogue.ts'
+import { buildMonth, parisDayKey } from '../src/lib/calendar.ts'
 
 const failures: string[] = []
 const assert = (condition: boolean, message: string) => {
@@ -94,6 +96,38 @@ try {
   })
   assert(moved.startsAt?.startsWith('2099-03-12T10:'), 'La modification de session n’a pas été enregistrée')
 
+  const missingCapacity = await fails(() =>
+    payload.create({
+      collection: 'sessions',
+      overrideAccess: true,
+      data: {
+        workshop: draft.id,
+        startsAt: '2099-03-20T09:00:00.000Z',
+        endsAt: '2099-03-20T12:00:00.000Z',
+        state: 'scheduled',
+        _status: 'published',
+      },
+    }),
+  )
+  assert(missingCapacity, 'Une session sans capacité a été publiée')
+  for (const capacity of [0, -3, 1.5]) {
+    const rejected = await fails(() =>
+      payload.create({
+        collection: 'sessions',
+        overrideAccess: true,
+        draft: true,
+        data: {
+          workshop: draft.id,
+          startsAt: '2099-03-21T09:00:00.000Z',
+          endsAt: '2099-03-21T12:00:00.000Z',
+          state: 'scheduled',
+          capacity,
+        },
+      }),
+    )
+    assert(rejected, `La capacité ${capacity} a été acceptée`)
+  }
+
   const second = await payload.create({
     collection: 'sessions',
     overrideAccess: true,
@@ -102,6 +136,7 @@ try {
       startsAt: '2099-04-02T14:00:00.000Z',
       endsAt: '2099-04-02T16:00:00.000Z',
       state: 'full',
+      capacity: 6,
       _status: 'published',
     },
   })
@@ -116,6 +151,15 @@ try {
     }),
   )
   assert(backwards, 'Une session qui se termine avant de commencer a été acceptée')
+
+  const catalogue = await getPublicWorkshops()
+  for (const known of ['recolle-toi-meuf', 'pixel-kids', 'ma-croix-mes-couleurs', 'numero-de-maison']) {
+    assert(catalogue.some((item) => item.slug === known), `La publication d’une fiche a masqué ${known}`)
+  }
+  assert(catalogue.some((item) => item.slug === slug), 'La fiche publiée n’est pas au catalogue')
+  const march = buildMonth(2026, 3)
+  assert(march.lead === 6 && march.days === 31, 'La grille de mars 2026 est incorrecte')
+  assert(parisDayKey('2026-03-28T23:30:00.000Z') === '2026-03-29', 'Le jour Paris d’une session est incorrect')
 
   const visible = await payload.find({
     collection: 'sessions',
@@ -167,10 +211,22 @@ try {
   if (editorId != null) {
     await payload.delete({ collection: 'users', id: editorId, overrideAccess: true }).catch(() => undefined)
   }
+  const rejected = await payload.find({
+    collection: 'workshops',
+    overrideAccess: true,
+    draft: true,
+    limit: 20,
+    where: { slug: { contains: String(stamp) } },
+  })
+  for (const doc of rejected.docs) {
+    await payload.delete({ collection: 'workshops', id: doc.id, overrideAccess: true }).catch(() => undefined)
+  }
   const leftover = await payload.find({
     collection: 'workshops',
     overrideAccess: true,
-    where: { slug: { equals: slug } },
+    draft: true,
+    limit: 20,
+    where: { slug: { contains: String(stamp) } },
   })
   assert(leftover.totalDocs === 0, 'L’atelier de contrôle est resté en base')
   await payload.destroy()

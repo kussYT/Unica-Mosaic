@@ -28,6 +28,10 @@ assert(home.text.includes('CHAQUE PIÈCE'), 'Le tampon du hero manque')
 assert(home.text.includes('Mosaic Kids'), 'La carte Mosaic Kids manque')
 assert(home.text.includes('/images/blason-960.webp'), 'La photo du blason manque')
 assert(!home.text.includes('€'), 'Un prix est apparu sur l’accueil')
+assert(home.text.includes('Le calendrier'), 'Le calendrier manque sur l’accueil')
+assert(home.text.includes('Aucune session n’est programmée pour le moment.'), 'L’accueil invente des dates')
+assert(!home.text.includes('places restantes'), 'L’accueil affiche de fausses places restantes')
+assert(!home.text.includes('Réserver'), 'L’accueil propose une réservation')
 
 for (const pathname of ['/ateliers/', '/ateliers/pixel-kids/', '/realisations/', '/contact/']) {
   const page = await responseOf(pathname)

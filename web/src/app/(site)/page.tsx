@@ -1,4 +1,5 @@
 import { CallToAction } from '@/components/CallToAction'
+import { CalendarSection } from '@/components/HomeCalendar'
 import { HeroCollage } from '@/components/HeroCollage'
 import { HomePaths } from '@/components/HomePaths'
 import { Photo } from '@/components/Photo'
@@ -113,6 +114,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      <CalendarSection />
       <section className="studio-section section wrap" id="studio">
         <div className="studio-image">
           <Photo name="lion" alt="Une mosaïque de lion prend forme sous les mains de l’artisane." />

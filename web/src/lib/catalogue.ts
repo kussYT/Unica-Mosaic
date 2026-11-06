@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 
 import config from '@payload-config'
 import { workshops as staticWorkshops } from '@/data/site'
+import type { CalendarSession } from '@/lib/calendar'
 
 export type PublicWorkshop = {
   slug: string
@@ -100,6 +101,27 @@ export async function getPublicWorkshops(): Promise<PublicWorkshop[]> {
   return [...catalogue.values()]
 }
 
+export async function getCalendarSessions(): Promise<CalendarSession[]> {
+  const [sessions, workshops] = await Promise.all([getUpcomingSessions(), getPublicWorkshops()])
+  const bySlug = new Map(workshops.map((workshop) => [workshop.slug, workshop]))
+  return sessions.map((session) => {
+    const workshop = bySlug.get(session.workshopSlug)
+    return {
+      ...session,
+      label: workshop?.label || 'ATELIER',
+      summary: workshop?.intro || '',
+      image: workshop?.image || null,
+      imageUrl: workshop?.imageUrl || null,
+      alt: workshop?.alt || session.workshopTitle,
+      tone: workshop?.tone || 'pink',
+      priceCents: workshop?.priceCents ?? null,
+      depositCents: workshop?.depositCents ?? null,
+      durationMinutes: workshop?.durationMinutes ?? null,
+      remainingSeats: null,
+    }
+  })
+}
+
 export async function getUpcomingSessions(slug?: string): Promise<PublicSession[]> {
   try {
     const payload = await getPayload({ config })
@@ -141,16 +163,7 @@ export async function getUpcomingSessions(slug?: string): Promise<PublicSession[
   }
 }
 
-export const formatEuros = (cents: number) =>
-  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(cents / 100)
-
-export const formatDuration = (minutes: number) => {
-  const hours = Math.floor(minutes / 60)
-  const rest = minutes % 60
-  if (hours && rest) return `${hours} h ${rest} min`
-  if (hours) return hours === 1 ? '1 heure' : `${hours} heures`
-  return `${rest} min`
-}
+export { formatDuration, formatEuros } from '@/lib/calendar'
 
 const paris = { timeZone: 'Europe/Paris' }
 

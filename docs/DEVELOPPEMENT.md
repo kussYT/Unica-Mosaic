@@ -18,7 +18,7 @@ npm ci
 npm run migrate
 npm run dev
 ```
-`npm run migrate` applique les migrations PostgreSQL. La base locale créée avant ces migrations a déjà le socle utilisateurs et médias : la première migration est enregistrée, seule la migration des ateliers et des sessions modifie les tables. Une base vide exécute les deux. Le schéma n'est plus poussé automatiquement au démarrage.
+`npm run migrate` applique les migrations PostgreSQL. La base locale créée avant ces migrations a déjà le socle utilisateurs et médias : la première migration est enregistrée, seule la migration des ateliers et des sessions modifie les tables. Une base vide exécute les deux. Le schéma n'est plus poussé automatiquement au démarrage. `npm run seed:workshops` prépare les quatre fiches existantes en brouillon, sans tarif, sans date et sans écraser une fiche déjà présente. Publier une seule fiche ne retire pas les autres du site.
 Adresse : http://127.0.0.1:3000/. Administration : http://127.0.0.1:3000/admin/. `npm run dev`, `npm run build` et `npm run start` synchronisent `public/` vers `web/public`. Cette copie est ignorée par Git. Les originaux restent dans `public/`.
 ```sh
 npm run build

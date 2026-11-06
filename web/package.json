@@ -15,6 +15,7 @@
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
     "seed:admin": "cross-env NODE_OPTIONS=--no-deprecation node --env-file=.env --import tsx ./scripts/ensure-admin.ts",
+    "seed:workshops": "cross-env NODE_OPTIONS=--no-deprecation node --env-file=.env --import tsx ./scripts/seed-workshops.ts",
     "verify": "node --env-file=.env ./scripts/verify.mjs && node --env-file=.env --import tsx ./scripts/verify-catalog.ts"
   },
   "dependencies": {

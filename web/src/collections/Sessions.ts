@@ -3,13 +3,29 @@ import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { publishedOrStaff } from '../access/published'
 import { isAdmin, isStaff } from '../access/roles'
 
-const guardSession: CollectionBeforeChangeHook = ({ data }) => {
+const isConfirmedCapacity = (value: unknown): value is number =>
+  typeof value === 'number' && Number.isInteger(value) && value >= 1
+
+const guardSession: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   if (!data) return data
-  if (data.startsAt && data.endsAt && new Date(data.endsAt).getTime() <= new Date(data.startsAt).getTime()) {
+  const startsAt = data.startsAt !== undefined ? data.startsAt : originalDoc?.startsAt
+  const endsAt = data.endsAt !== undefined ? data.endsAt : originalDoc?.endsAt
+  const workshop = data.workshop !== undefined ? data.workshop : originalDoc?.workshop
+  const capacity = data.capacity !== undefined ? data.capacity : originalDoc?.capacity
+  const status = data._status !== undefined ? data._status : originalDoc?._status
+  if (startsAt && endsAt && new Date(String(endsAt)).getTime() <= new Date(String(startsAt)).getTime()) {
     throw new Error('La fin de la session doit être postérieure au début.')
   }
-  if (data._status === 'published' && (!data.startsAt || !data.endsAt || !data.workshop)) {
-    throw new Error('Une session publiée doit avoir un atelier, un début et une fin.')
+  if (capacity != null && !isConfirmedCapacity(capacity)) {
+    throw new Error('Le nombre de participants doit être un entier supérieur à zéro.')
+  }
+  if (status === 'published') {
+    if (!startsAt || !endsAt || !workshop) {
+      throw new Error('Une session publiée doit avoir un atelier, un début et une fin.')
+    }
+    if (!isConfirmedCapacity(capacity)) {
+      throw new Error('Une session publiée doit indiquer un nombre entier de participants.')
+    }
   }
   return data
 }
@@ -64,7 +80,12 @@ export const Sessions: CollectionConfig = {
       label: 'Nombre maximum de participants',
       type: 'number',
       min: 1,
-      admin: { description: 'Laisser vide tant que la capacité n’est pas confirmée. Ce chiffre n’ouvre pas de réservation.' },
+      admin: { description: 'Nombre entier, au moins 1. Obligatoire pour publier. Laisser vide dans un brouillon tant que la capacité n’est pas confirmée. Ce chiffre n’ouvre pas de réservation.' },
+      validate: (value: number | null | undefined) => {
+        if (value == null) return true
+        if (!Number.isInteger(value) || value < 1) return 'Indiquez un nombre entier de participants, au moins 1.'
+        return true
+      },
     },
     { name: 'place', label: 'Lieu', type: 'text' },
     {
