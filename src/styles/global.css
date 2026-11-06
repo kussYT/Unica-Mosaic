@@ -31,7 +31,9 @@
 .hero-photo-shield{width:60%;height:98%;left:7%;top:0;clip-path:url(#clip-shield)}
 .hero-photo-shield img{object-position:48% 32%}
 .hero-photo-leopard{width:42%;height:100%;right:0;top:0;z-index:1;clip-path:url(#clip-leopard)}
-.hero-photo-leopard img{object-position:92% 42%}
+.hero-photo-leopard img{object-position:100% 42%;transform:scale(1.6);transform-origin:100% 42%}
+.hero-photo-candle{width:28%;height:74%;left:16%;top:12%;z-index:3;clip-path:url(#clip-candle)}
+.hero-photo-candle img{object-position:0% 46%;transform:scale(1.85);transform-origin:10% 48%}
 .hero-stamp{right:8%;bottom:1%;z-index:6;width:126px;height:126px;text-align:center}
 .shard{position:absolute;display:block;pointer-events:none}
 .shard-blush{z-index:1;left:1%;top:6%;width:14%;height:18%;background:var(--blush);clip-path:polygon(22% 0,100% 14%,70% 100%,0 68%)}
@@ -98,6 +100,7 @@
   .hero-art{height:430px;margin-inline:0}
   .hero-photo-shield{width:66%;height:82%;left:0;top:2%}
   .hero-photo-leopard{width:48%;height:86%;right:0;top:8%}
+  .hero-photo-candle{width:34%;height:62%;left:8%;top:16%}
   .hero-stamp{width:104px;height:104px;right:1%;bottom:4%;font-size:6px}
   .hero-stamp em{font-size:20px}
   .hero-stamp>span{font-size:24px}

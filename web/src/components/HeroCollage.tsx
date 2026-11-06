@@ -11,6 +11,9 @@ export function HeroCollage() {
           <clipPath id="clip-leopard" clipPathUnits="objectBoundingBox">
             <path d="M0.2,0.05 C0.48,0 0.78,0.03 0.95,0.15 C1.03,0.28 1,0.58 0.94,0.8 C0.86,1 0.58,1.03 0.32,0.93 C0.08,0.82 0,0.6 0.06,0.36 C0.1,0.16 0.1,0.08 0.2,0.05 Z" />
           </clipPath>
+          <clipPath id="clip-candle" clipPathUnits="objectBoundingBox">
+            <path d="M0.34,0.03 C0.58,0 0.82,0.06 0.93,0.2 C1.02,0.36 0.97,0.64 0.88,0.84 C0.76,1.02 0.48,1.02 0.26,0.9 C0.06,0.76 0.02,0.52 0.08,0.3 C0.13,0.12 0.18,0.04 0.34,0.03 Z" />
+          </clipPath>
         </defs>
       </svg>
       <i className="shard shard-blush" aria-hidden="true"></i>
@@ -26,6 +29,9 @@ export function HeroCollage() {
       <i className="shard shard-chip shard-chip-pink" aria-hidden="true"></i>
       <i className="shard shard-chip shard-chip-blush" aria-hidden="true"></i>
       <i className="shard shard-chip shard-chip-yellow" aria-hidden="true"></i>
+      <div className="hero-photo hero-photo-candle">
+        <Photo name="dalida" alt="Une bougie décorative posée devant la mosaïque léopard, dans un décor rose." eager sizes="(max-width: 760px) 40vw, 18vw" />
+      </div>
       <div className="hero-stamp">
         CHAQUE PIÈCE
         <br />
