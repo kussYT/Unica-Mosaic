@@ -1,4 +1,5 @@
 import { Agenda } from '@/components/Agenda'
+import { ArrowDown, ArrowRight } from '@/components/Icons'
 import { CallToAction } from '@/components/CallToAction'
 import { Photo } from '@/components/Photo'
 import { WorkshopCard } from '@/components/WorkshopCard'
@@ -31,7 +32,7 @@ export default async function WorkshopsPage() {
             </h1>
             <p>Choisir ses couleurs, assembler ses idées et voir naître quelque chose de ses mains. Bienvenue aux ateliers UNICA.</p>
             <a className="button button-yellow" href="#les-ateliers">
-              Trouver mon atelier <span aria-hidden="true">↓</span>
+              Trouver mon atelier <span aria-hidden="true"><ArrowDown /></span>
             </a>
           </div>
           <Photo name="atelier-partage" alt="Des participantes sourient et créent ensemble à l’atelier UNICA." eager className="hero-portrait" />
@@ -100,7 +101,7 @@ export default async function WorkshopsPage() {
             <summary>Peut-on imaginer un atelier en groupe ?</summary>
             <p>Une envie de moment créatif à plusieurs ? Préparez votre demande en indiquant l’occasion, le nombre de participants et la période souhaitée.</p>
             <a className="text-link" href="/contact/?sujet=Atelier%20en%20groupe">
-              Préparer mon projet de groupe →
+              Préparer mon projet de groupe <span aria-hidden="true"><ArrowRight /></span>
             </a>
           </details>
         </div>

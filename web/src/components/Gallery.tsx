@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 
 import type { works } from '@/data/site'
 
+import { ArrowNorthEast } from './Icons'
 import { Photo } from './Photo'
 
 type Work = (typeof works)[number]
@@ -43,7 +44,7 @@ export function Gallery({ works }: { works: Work[] }) {
               >
                 <Photo name={work.image} alt={work.alt} eager={index < 2} />
                 <span className="circle-arrow" aria-hidden="true">
-                  ↗
+                  <ArrowNorthEast />
                 </span>
               </button>
               <div className="gallery-caption">

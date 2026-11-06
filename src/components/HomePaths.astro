@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import Photo from './Photo.astro';
 import { homePaths } from '../data/site';
 ---
@@ -25,7 +26,7 @@ import { homePaths } from '../data/site';
         <i class="path-shard" aria-hidden="true"></i>
         <span class="path-copy">
           <span class="path-title">{card.title}</span>
-          <span class="path-arrow" aria-hidden="true">→</span>
+          <span class="path-arrow" aria-hidden="true"><Icon name="right" /></span>
         </span>
       </a>
     ))}

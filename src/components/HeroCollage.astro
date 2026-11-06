@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import Photo from './Photo.astro';
 ---
 <div class="hero-art">
@@ -14,16 +15,16 @@ import Photo from './Photo.astro';
   </svg>
   <i class="shard shard-blush" aria-hidden="true"></i>
   <i class="shard shard-plum" aria-hidden="true"></i>
-  <div class="hero-photo hero-photo-leopard">
-    <Photo name="dalida" alt="Gros plan sur une création en mosaïque au motif léopard." eager sizes="(max-width: 760px) 58vw, 28vw" />
-  </div>
   <div class="hero-photo hero-photo-shield">
     <Photo name="blason" alt="Un blason minutieusement réalisé en mosaïque dorée, noire et rouge." eager sizes="(max-width: 760px) 72vw, 36vw" />
+  </div>
+  <div class="hero-photo hero-photo-leopard">
+    <Photo name="dalida" alt="Gros plan sur une création en mosaïque au motif léopard." eager sizes="(max-width: 760px) 58vw, 28vw" />
   </div>
   <i class="shard shard-pink" aria-hidden="true"></i>
   <i class="shard shard-yellow" aria-hidden="true"></i>
   <i class="shard shard-chip shard-chip-pink" aria-hidden="true"></i>
   <i class="shard shard-chip shard-chip-blush" aria-hidden="true"></i>
   <i class="shard shard-chip shard-chip-yellow" aria-hidden="true"></i>
-  <div class="hero-stamp">CHAQUE PIÈCE<br /><em>est unique.</em><span aria-hidden="true">✳</span></div>
+  <div class="hero-stamp">CHAQUE PIÈCE<br /><em>est unique.</em><span aria-hidden="true"><Icon name="star" /></span></div>
 </div>

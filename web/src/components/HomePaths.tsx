@@ -1,5 +1,6 @@
 import { homePaths } from '@/data/site'
 
+import { ArrowRight } from './Icons'
 import { Photo } from './Photo'
 
 export function HomePaths() {
@@ -27,7 +28,7 @@ export function HomePaths() {
             <i className="path-shard" aria-hidden="true"></i>
             <span className="path-copy">
               <span className="path-title">{card.title}</span>
-              <span className="path-arrow" aria-hidden="true">→</span>
+              <span className="path-arrow" aria-hidden="true"><ArrowRight /></span>
             </span>
           </a>
         ))}

@@ -1,3 +1,4 @@
+import { Asterisk } from './Icons'
 import { Photo } from './Photo'
 
 export function HeroCollage() {
@@ -15,11 +16,11 @@ export function HeroCollage() {
       </svg>
       <i className="shard shard-blush" aria-hidden="true"></i>
       <i className="shard shard-plum" aria-hidden="true"></i>
-      <div className="hero-photo hero-photo-leopard">
-        <Photo name="dalida" alt="Gros plan sur une création en mosaïque au motif léopard." eager sizes="(max-width: 760px) 58vw, 28vw" />
-      </div>
       <div className="hero-photo hero-photo-shield">
         <Photo name="blason" alt="Un blason minutieusement réalisé en mosaïque dorée, noire et rouge." eager sizes="(max-width: 760px) 72vw, 36vw" />
+      </div>
+      <div className="hero-photo hero-photo-leopard">
+        <Photo name="dalida" alt="Gros plan sur une création en mosaïque au motif léopard." eager sizes="(max-width: 760px) 58vw, 28vw" />
       </div>
       <i className="shard shard-pink" aria-hidden="true"></i>
       <i className="shard shard-yellow" aria-hidden="true"></i>
@@ -30,7 +31,7 @@ export function HeroCollage() {
         CHAQUE PIÈCE
         <br />
         <em>est unique.</em>
-        <span aria-hidden="true">✳</span>
+        <span aria-hidden="true"><Asterisk /></span>
       </div>
     </div>
   )

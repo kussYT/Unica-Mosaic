@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
+
+import { ArrowNorthEast } from './Icons'
 import { usePathname } from 'next/navigation'
 
 const nav = [
@@ -69,7 +71,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
             </a>
           ))}
           <a className="button button-small" href="/contact/" onClick={() => setOpen(false)}>
-            Parlons de votre projet <span aria-hidden="true">↗</span>
+            Parlons de votre projet <span aria-hidden="true"><ArrowNorthEast /></span>
           </a>
         </nav>
       </header>
@@ -85,7 +87,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
             <em>Et beaucoup de caractère.</em>
           </p>
           <a className="text-link" href="/contact/">
-            Écrivons la suite ensemble <span aria-hidden="true">↗</span>
+            Écrivons la suite ensemble <span aria-hidden="true"><ArrowNorthEast /></span>
           </a>
         </div>
         <div className="footer-bottom">

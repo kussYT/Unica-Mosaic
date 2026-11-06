@@ -3,6 +3,7 @@
 import { useMemo, useState, type KeyboardEvent } from 'react'
 
 import { Photo } from '@/components/Photo'
+import { ArrowLeft, ArrowRight } from '@/components/Icons'
 import {
   WEEKDAYS,
   buildMonth,
@@ -86,11 +87,11 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
           <div className="calendar-board">
             <div className="calendar-nav">
               <button type="button" className="calendar-move" onClick={() => move(-1)} disabled={current <= min} aria-label="Mois précédent">
-                <span aria-hidden="true">←</span>
+                <span aria-hidden="true"><ArrowLeft /></span>
               </button>
               <p>{monthLabel(cursor.year, cursor.month)}</p>
               <button type="button" className="calendar-move" onClick={() => move(1)} disabled={current >= max} aria-label="Mois suivant">
-                <span aria-hidden="true">→</span>
+                <span aria-hidden="true"><ArrowRight /></span>
               </button>
             </div>
             <div role="grid" aria-labelledby="calendar-heading">
