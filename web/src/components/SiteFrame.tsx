@@ -47,7 +47,7 @@ export function SiteFrame({ children }: { children: ReactNode }) {
       </a>
       <header className="site-header">
         <a className="brand" href="/" aria-label="UNICA — Accueil">
-          <img src="/images/logo-rose.svg" alt="UNICA, créations mosaïques" width="240" height="84" />
+          <img src="/images/logo-unica-h.svg" alt="UNICA, créations mosaïques" width="770" height="225" />
         </a>
         <button
           className="menu-toggle"
@@ -78,8 +78,8 @@ export function SiteFrame({ children }: { children: ReactNode }) {
       <main id="contenu">{children}</main>
       <footer className="site-footer">
         <div className="footer-top">
-          <a href="/" aria-label="UNICA — Accueil">
-            <img src="/images/logo-creme.svg" width="260" height="95" alt="UNICA" />
+          <a className="footer-brand" href="/" aria-label="UNICA — Accueil">
+            <img src="/images/logo-unica-h.svg" width="770" height="225" alt="UNICA" />
           </a>
           <p>
             Des mains, de la matière.

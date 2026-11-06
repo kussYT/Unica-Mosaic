@@ -97,6 +97,10 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [ ] Préparer un guide de mise à jour pour Marie.
 
 ## Journal
+- 6 novembre 2026 : sauvegarde pour changement d’ordinateur. Guide `docs/INSTALLATION_NOUVEAU_PC.md`. Build Astro, `npm run verify` Astro, synchronisation des 49 assets et build Next réussis. `web/.env` est absent : migrations, ateliers, compte admin et `verify` Next non rejoués. Commit sur `portage-next-payload` seulement. Aucun déploiement.
+- 6 novembre 2026 : logo de navigation recomposé à l’horizontale à partir des tracés officiels, pictogramme à gauche et UNICA à droite, sans redessin. Le footer reprend le même fichier sur pastille crème. Les tesselles du hero sont réduites à trois bandes jointives, en partie derrière les photos. L’indicateur « 1 Issue » venait de l’appel Payload sans `web/.env` ; la page publique n’appelle plus Payload tant que le secret et l’adresse de base sont absents, et conserve le catalogue statique. Contrôle en 1440 et 390 px, sans débordement. Build Astro et `npm run verify` réussis. Aucun commit ni déploiement.
+- 6 novembre 2026 : logo officiel intégré tel quel (SVG navbar, footer sur pastille crème, pictogramme en favicon et métadonnées). Les tesselles du hero sont regroupées en bandes SVG jointives autour des deux photos. Grandes surfaces passées du crème #FCF4F1 au crème rosé #F4E2DA ; ateliers et panneau de contact en rose poudré #F6D4DF. Rose #F00087 et violet #59003D inchangés. Flèches et astérisques déjà en SVG. Contrôle visuel en 1440, 768 et 390 px, sans débordement horizontal. Build Astro, `npm run verify` Astro et build Next réussis. Le `verify` Next n’a pas été relancé : `web/.env` est absent. Aucun commit, aucun push, aucune mise en préproduction.
+- 6 novembre 2026 : tesselles du hero reprises sur le logo « Unica news.ai ». Quatre tracés réels (tuile principale, contour concave, coin en coin, facette) dans `public/tesserae/`, colorés par la charte. Découpes photo anguleuses, rond « Chaque pièce est unique » inchangé, trois cartes inchangées. Contrôle visuel en 1440, 768 et 390 px. Build Astro et `npm run verify` réussis. Build Next réussi. Le `verify` Next des pages publiques passe ; l’API Payload, l’admin et le catalogue n’ont pas pu être rejoués ici : `web/.env` et PostgreSQL local sont absents. Aucun commit ni push.
 - 6 novembre 2026 : accueil resserré. Navbar sans filet sur l’accueil seulement, hero plus compact, trois entrées Réalisations / Ateliers / Mosaic Kids, ruban violet déplacé sous les cartes. « Mosaic Kids » mène à l’atelier Pixel Kids, le nom reste à confirmer.
 - 6 novembre 2026 : flèche des pastilles jaunes recentrée. Le glyphe ↗ de Montserrat est masqué ; un tracé SVG géométrique le remplace dans tous les ronds (univers, cartes ateliers, galerie).
 - 6 novembre 2026 : la variante géométrique du collage et des cartes a été retirée. Retour à la composition précédente : trois cartes de même famille, rond « Chaque pièce est unique » rétabli. Trois petits éclats ajoutés au contact des photos du hero. Mosaic Kids mène toujours à l’atelier Pixel Kids.
@@ -114,10 +118,10 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : les icônes SVG sont réduites. Flèches de bouton à 13 px, flèches de carte à 16 px, astérisque plus petit. Vérifié sur l’accueil local, puis repris en préproduction.
 
 ## Décisions de cette version
-- Travail local, sans push ni publication.
+- La branche `portage-next-payload` est publiée sur GitHub. Le site reste en noindex. Aucun déploiement VPS depuis cette sauvegarde.
 - Astro statique pour la présentation ; aucun compte client ni paiement ajouté.
 - Le portage validé vit sur `portage-next-payload` : une application Next.js + Payload 3 + PostgreSQL. La référence visuelle reste le tag `reference-astro`.
-- Rose #F00087, crème #FCF4F1, violet #59003D. Rose clair selon RVB ; jaune de la campagne Ré-colle-toi meuf et des maquettes.
+- Rose #F00087, violet #59003D. Le crème des grandes surfaces est #F4E2DA, parti de #FCF4F1. Les ateliers et le panneau de contact utilisent le rose poudré #F6D4DF. Rose clair selon RVB ; jaune de la campagne Ré-colle-toi meuf et des maquettes.
 - La charte répète le code violet sur deux autres couleurs : utiliser les valeurs RVB et les exports.
 - Aucun âge, tarif, durée, date ou témoignage inventé à partir des maquettes.
 - Un atelier publié dans Payload remplace la fiche statique du même slug. Sans atelier publié, le catalogue statique reste affiché. Une session n’apparaît que si elle est publiée, à venir et non annulée.

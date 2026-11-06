@@ -64,8 +64,11 @@ const mediaUrl = (value: unknown): { url: string; alt: string } | null => {
   return { url: media.url, alt: media.alt || '' }
 }
 
+const payloadConfigured = () => Boolean(process.env.PAYLOAD_SECRET && process.env.DATABASE_URL)
+
 export async function getPublicWorkshops(): Promise<PublicWorkshop[]> {
   const catalogue = new Map(staticCatalogue().map((workshop) => [workshop.slug, workshop]))
+  if (!payloadConfigured()) return [...catalogue.values()]
   try {
     const payload = await getPayload({ config })
     const result = await payload.find({
@@ -123,6 +126,7 @@ export async function getCalendarSessions(): Promise<CalendarSession[]> {
 }
 
 export async function getUpcomingSessions(slug?: string): Promise<PublicSession[]> {
+  if (!payloadConfigured()) return []
   try {
     const payload = await getPayload({ config })
     const now = new Date().toISOString()
