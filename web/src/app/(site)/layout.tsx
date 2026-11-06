@@ -10,7 +10,7 @@ import '../../../../src/styles/global.css'
 import { SiteFrame } from '@/components/SiteFrame'
 
 export const viewport: Viewport = {
-  themeColor: '#FCF4F1',
+  themeColor: '#F4E2DA',
 }
 
 export const metadata: Metadata = {
@@ -19,8 +19,16 @@ export const metadata: Metadata = {
   description:
     'L’univers UNICA : des créations en mosaïque singulières, des projets sur mesure et des ateliers pour le plaisir de créer ensemble.',
   robots: { index: false, follow: false },
-  icons: { icon: [{ url: '/images/favicon.svg', type: 'image/svg+xml' }] },
-  openGraph: { type: 'website', locale: 'fr_FR', siteName: 'UNICA' },
+  icons: {
+    icon: [{ url: '/images/pictogramme-unica.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/images/pictogramme-unica.png' }],
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    siteName: 'UNICA',
+    images: [{ url: '/images/pictogramme-unica.png', alt: 'Pictogramme UNICA' }],
+  },
 }
 
 export default function SiteLayout({ children }: { children: ReactNode }) {

@@ -17,16 +17,17 @@ const nav = [{ href: '/realisations/', label: 'Les créations' }, { href: '/atel
   <head>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} — UNICA Mosaïque</title><meta name="description" content={description} />
-    <meta name="theme-color" content="#FCF4F1" />
+    <meta name="theme-color" content="#F4E2DA" />
     <!-- Private working version: remove only after the launch checklist is complete. -->
     <meta name="robots" content="noindex, nofollow" />
     <meta property="og:title" content={`${title} — UNICA`} /><meta property="og:description" content={description} /><meta property="og:type" content="website" /><meta property="og:locale" content="fr_FR" />
-    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/pictogramme-unica.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/pictogramme-unica.png" />
   </head>
   <body class={isHome ? 'is-home' : undefined}>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="UNICA — Accueil"><img src="/images/logo-rose.svg" alt="UNICA, créations mosaïques" width="240" height="84" /></a>
+      <a class="brand" href="/" aria-label="UNICA — Accueil"><img src="/images/logo-unica-h.svg" alt="UNICA, créations mosaïques" width="770" height="225" /></a>
       <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"><span></span><span></span></button>
       <nav id="navigation" aria-label="Navigation principale">
         {nav.map(link => <a href={link.href} aria-current={current.startsWith(link.href) ? 'page' : undefined}>{link.label}</a>)}
@@ -35,7 +36,7 @@ const nav = [{ href: '/realisations/', label: 'Les créations' }, { href: '/atel
     </header>
     <main id="contenu"><slot /></main>
     <footer class="site-footer">
-      <div class="footer-top"><a href="/" aria-label="UNICA — Accueil"><img src="/images/logo-creme.svg" width="260" height="95" alt="UNICA" /></a><p>Des mains, de la matière.<br /><em>Et beaucoup de caractère.</em></p><a class="text-link" href="/contact/">Écrivons la suite ensemble <span aria-hidden="true"><Icon name="ne" /></span></a></div>
+      <div class="footer-top"><a class="footer-brand" href="/" aria-label="UNICA — Accueil"><img src="/images/logo-unica-h.svg" width="770" height="225" alt="UNICA" /></a><p>Des mains, de la matière.<br /><em>Et beaucoup de caractère.</em></p><a class="text-link" href="/contact/">Écrivons la suite ensemble <span aria-hidden="true"><Icon name="ne" /></span></a></div>
       <div class="footer-bottom"><span>© {new Date().getFullYear()} UNICA · Créations mosaïques</span><nav aria-label="Navigation de pied de page"><a href="/realisations/">Créations</a><a href="/ateliers/">Ateliers</a><a href="/contact/">Contact</a></nav><span>Fait de petits morceaux. Et de grandes idées.</span></div>
     </footer>
     <script>
