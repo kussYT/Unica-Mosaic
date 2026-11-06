@@ -107,7 +107,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : lot 3. Calendrier de l’accueil branché sur les sessions publiées. Capacité entière exigée pour publier. Quatre fiches préparées en brouillon. Les sessions de contrôle et leur photo ont été supprimées. Aucune place restante affichée. Aucun push.
 - 6 novembre 2026 : audit de préproduction interrompu avant toute installation. Le VPS n’a pas été modifié. Le sous-domaine proposé n’a pas d’enregistrement DNS.
 - 6 novembre 2026 : préproduction installée sur `unica-preview.versatech-dev.fr`. Service, base et compte séparés de Maro Créa et de VersaTech OS. Aucun push.
-- 6 novembre 2026 : la photo du hero n’apparaît plus deux fois. La petite copie, bougie comprise, a été retirée. Le grand visuel léopard et le blason restent. Vérifié sur l’accueil local.
+- 6 novembre 2026 : la photo du hero n’apparaît plus deux fois. La petite copie, bougie comprise, a été retirée. Le grand visuel léopard et le blason restent. Vérifié en local, puis repris sur la préproduction.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.
