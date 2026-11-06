@@ -2,8 +2,15 @@ import { getPayload } from 'payload'
 
 import config from '../src/payload.config.ts'
 import { workshops } from '../src/data/site.ts'
+import { databaseTargetError } from '../src/lib/database-target.ts'
 
-if (process.env.NODE_ENV === 'production') {
+const databaseFailure = databaseTargetError(
+  process.env.DATABASE_URL || '',
+  process.env.UNICA_RUNTIME,
+  process.env.NODE_ENV,
+)
+if (databaseFailure) throw new Error(databaseFailure)
+if (process.env.NODE_ENV === 'production' && process.env.UNICA_RUNTIME !== 'preview') {
   throw new Error('Refusing to prepare workshop drafts when NODE_ENV is production')
 }
 

@@ -1,37 +1,83 @@
 import { homePaths } from '@/data/site'
-
 import { ArrowRight } from './Icons'
-import { Photo } from './Photo'
+
+const blush = '#FD9EEB'
+const pink = '#F00087'
+const yellow = '#FFE14D'
+const plum = '#59003D'
+const kidsField = '#FD9EEB'
+
+const cards = {
+  "realisations": {
+    "field": "M26 6 L150 6 L166 22 L182 42 L192 64 L180 88 L162 110 L146 130 L134 146 L26 146 C12 146 8 136 8 122 L8 30 C8 14 14 6 26 6Z",
+    "photo": "M155 6 L306 6 C320 6 324 16 324 30 L324 122 C324 136 318 146 304 146 L139 146 L151 130 L167 110 L185 88 L197 64 L187 42 L171 22Z",
+    "tile": "M132 118 L158 112 L166 130 L156 154 L134 158 L122 136Z",
+    "fill": plum,
+    "tileFill": blush,
+    "image": "boutique",
+    "box": {
+      "x": 70,
+      "y": -90,
+      "width": 300,
+      "height": 400
+    }
+  },
+  "ateliers": {
+    "field": "M26 8 L142 8 L156 26 L170 48 L180 72 L170 96 L154 116 L140 134 L128 146 L26 146 C12 146 8 136 8 122 L8 32 C8 16 14 8 26 8Z",
+    "photo": "M147 8 L306 8 C320 8 324 18 324 32 L324 122 C324 136 318 146 304 146 L133 146 L145 134 L159 116 L175 96 L185 72 L175 48 L161 26Z",
+    "tile": "M124 120 L150 112 L160 130 L152 154 L132 158 L114 138Z",
+    "fill": pink,
+    "tileFill": yellow,
+    "image": "atelier-mains",
+    "box": {
+      "x": 80,
+      "y": -40,
+      "width": 280,
+      "height": 420
+    }
+  },
+  "kids": {
+    "field": "M26 6 L146 6 L164 24 L180 44 L190 66 L176 90 L158 112 L142 132 L130 146 L26 146 C12 146 8 136 8 122 L8 30 C8 14 14 6 26 6Z",
+    "photo": "M151 6 L306 6 C320 6 324 16 324 30 L324 122 C324 136 318 146 304 146 L135 146 L147 132 L163 112 L181 90 L195 66 L185 44 L169 24Z",
+    "tile": "M128 118 L156 110 L166 128 L156 152 L136 156 L118 134Z",
+    "fill": kidsField,
+    "tileFill": yellow,
+    "image": "pixel-kids",
+    "box": {
+      "x": 90,
+      "y": -110,
+      "width": 270,
+      "height": 405
+    }
+  }
+} as const
 
 export function HomePaths() {
   return (
     <section className="home-paths wrap" aria-label="Entrer dans l’univers UNICA">
-      <svg className="clip-defs" width="0" height="0" aria-hidden="true">
-        <defs>
-          <clipPath id="clip-path-real" clipPathUnits="objectBoundingBox">
-            <path d="M0.26,0.08 C0.46,0 0.72,0.04 0.9,0.18 C1.02,0.34 0.96,0.62 0.9,0.82 C0.8,1.02 0.52,1 0.3,0.88 C0.08,0.74 0.02,0.48 0.1,0.26 C0.16,0.12 0.16,0.1 0.26,0.08 Z" />
-          </clipPath>
-          <clipPath id="clip-path-atelier" clipPathUnits="objectBoundingBox">
-            <path d="M0.18,0.12 C0.4,0 0.68,0.06 0.88,0.2 C1.02,0.36 0.96,0.66 0.84,0.88 C0.7,1.04 0.42,0.98 0.22,0.86 C0.02,0.72 0,0.46 0.08,0.26 C0.12,0.14 0.1,0.12 0.18,0.12 Z" />
-          </clipPath>
-          <clipPath id="clip-path-kids" clipPathUnits="objectBoundingBox">
-            <path d="M0.3,0.04 C0.52,0.08 0.76,0 0.94,0.16 C1.04,0.34 0.98,0.62 0.88,0.84 C0.76,1.02 0.48,0.96 0.28,0.88 C0.06,0.76 0.02,0.5 0.1,0.28 C0.16,0.1 0.18,0.02 0.3,0.04 Z" />
-          </clipPath>
-        </defs>
-      </svg>
       <div className="path-grid">
-        {homePaths.map((card) => (
-          <a className={`path-card path-${card.tone}`} href={card.href} key={card.href}>
-            <span className="path-photo">
-              <Photo name={card.image} alt={card.alt} eager sizes="(max-width: 760px) 70vw, 24vw" />
-            </span>
-            <i className="path-shard" aria-hidden="true"></i>
-            <span className="path-copy">
-              <span className="path-title">{card.title}</span>
-              <span className="path-arrow" aria-hidden="true"><ArrowRight /></span>
-            </span>
-          </a>
-        ))}
+        {homePaths.map((card) => {
+          const shape = cards[card.tone as keyof typeof cards]
+          return (
+            <a className={`path-card path-${card.tone}`} href={card.href} key={card.href}>
+              <svg viewBox="0 0 332 164" aria-hidden="true">
+                <path d={shape.field} fill={shape.fill} />
+                <defs>
+                  <clipPath id={`clip-${card.tone}`}>
+                    <path d={shape.photo} />
+                  </clipPath>
+                </defs>
+                <image href={`/images/${card.image}-960.webp`} x={shape.box.x} y={shape.box.y} width={shape.box.width} height={shape.box.height} preserveAspectRatio="xMidYMid slice" clipPath={`url(#clip-${card.tone})`} />
+                <path d={shape.tile} fill={shape.tileFill} />
+              </svg>
+              <span className="path-copy">
+                <span className="path-title">{card.title}</span>
+                <span className="path-arrow" aria-hidden="true"><ArrowRight /></span>
+              </span>
+              <span className="sr-only">{card.alt}</span>
+            </a>
+          )
+        })}
       </div>
     </section>
   )

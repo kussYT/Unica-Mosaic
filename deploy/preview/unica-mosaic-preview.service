@@ -1,0 +1,22 @@
+[Unit]
+Description=Unica Mosaic preproduction
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=unica
+Group=unica
+WorkingDirectory=/var/www/unica-mosaic-preview/web
+EnvironmentFile=/etc/unica-mosaic-preview.env
+Environment=NODE_ENV=production
+Environment=UNICA_RUNTIME=preview
+Environment=NODE_OPTIONS=--no-deprecation
+ExecStartPre=/opt/node-v24.22.2/bin/node ./node_modules/payload/bin.js migrate
+ExecStart=/opt/node-v24.22.2/bin/node ./node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3028
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

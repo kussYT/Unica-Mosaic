@@ -1,0 +1,18 @@
+# Bloc à ajouter. Ne pas remplacer le Caddyfile existant.
+# Le port 3028 doit rester libre sur 127.0.0.1.
+# Générer le hachage sur le VPS : caddy hash-password
+# Ne pas écrire le mot de passe en clair ici.
+
+unica-preview.versatech-dev.fr {
+	route {
+		header {
+			defer
+			X-Robots-Tag "noindex, nofollow, noarchive"
+			-Server
+		}
+		basic_auth {
+			marie CHANGEMENT_HASH_CADDY
+		}
+		reverse_proxy 127.0.0.1:3028
+	}
+}

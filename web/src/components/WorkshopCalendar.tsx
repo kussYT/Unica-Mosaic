@@ -105,7 +105,10 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
               {Array.from({ length: cells.length / 7 }, (_, row) => (
                 <div role="row" className="calendar-row" key={row}>
                   {cells.slice(row * 7, row * 7 + 7).map((day, column) => {
-                    if (!day) return <div className="calendar-pad" aria-hidden="true" key={`${row}-${column}`} />
+                    if (!day) {
+                      const motif = PAD_MOTIFS[(row * 5 + column * 3) % PAD_MOTIFS.length]
+                      return <div className={`calendar-pad pad-${motif}`} aria-hidden="true" key={`${row}-${column}`} />
+                    }
                     const key = dayKey(cursor.year, cursor.month, day)
                     const daySessions = byDay.get(key) || []
                     const isToday = key === today.key
@@ -222,6 +225,8 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
     </section>
   )
 }
+
+const PAD_MOTIFS = ['shard', 'petal', 'wedge', 'pebble', 'facet', 'sliver', 'notch', 'chip'] as const
 
 const dayKey = (year: number, month: number, day: number) =>
   `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`

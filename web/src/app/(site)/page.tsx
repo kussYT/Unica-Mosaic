@@ -1,7 +1,7 @@
 import { CallToAction } from '@/components/CallToAction'
 import { ArrowNorthEast, Asterisk } from '@/components/Icons'
 import { CalendarSection } from '@/components/HomeCalendar'
-import { HeroCollage } from '@/components/HeroCollage'
+import { HeroChips, HeroCollage } from '@/components/HeroCollage'
 import { HomePaths } from '@/components/HomePaths'
 import { Photo } from '@/components/Photo'
 import { WorkshopCard } from '@/components/WorkshopCard'
@@ -32,6 +32,7 @@ export default async function HomePage() {
             <em>les morceaux.</em>
           </h1>
           <div className="hero-actions">
+            <HeroChips />
             <a className="button" href="/realisations/">
               Explorer les créations <span aria-hidden="true"><ArrowNorthEast /></span>
             </a>

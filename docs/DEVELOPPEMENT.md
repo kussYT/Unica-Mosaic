@@ -59,6 +59,18 @@ Montserrat et Cormorant Garamond sont hébergées localement via Fontsource (lic
 Le formulaire conserve les données seulement dans la page et produit un brouillon copiable/téléchargeable. Renseigner site.email prépare un e-mail dans la messagerie du visiteur, sans l'envoyer automatiquement. Service d'envoi serveur et réservation restent à réaliser.
 Version locale avec noindex et robots bloquant l'indexation. Domaine, SEO final, coordonnées, mentions légales et contenus à valider.
 
+La préproduction est `https://unica-preview.versatech-dev.fr`. Elle n’est pas le lancement : `noindex`, `robots.txt` et un accès Caddy protégé restent en place. Le service systemd `unica-mosaic-preview` écoute seulement sur `127.0.0.1:3028`. Son dossier est `/var/www/unica-mosaic-preview`, son environnement `/etc/unica-mosaic-preview.env`, et les identifiants d’accès sont dans `/etc/unica-mosaic-preview.access`, lisible seulement par root. Node 24.22.2 est isolé dans `/opt/node-v24.22.2` ; le Node déjà présent n’a pas été remplacé.
+
+La base locale de développement reste `unica_mosaic_local` sur `127.0.0.1:5433`. La préproduction utilise uniquement `unica_mosaic_preview` sur `127.0.0.1:5432`, avec le rôle `unica_preview`, et seulement si `UNICA_RUNTIME=preview`. Toute autre adresse est refusée. PostgreSQL n’écoute pas sur le réseau. La base `versatech_os` et le service Maro Créa ne sont pas utilisés.
+
+Les sauvegardes de cette seule base vont dans `/var/backups/unica-mosaic-preview/`. Après avoir copié une nouvelle version dans le dossier, sans fichier `.env` local :
+
+```sh
+sudo bash /var/www/unica-mosaic-preview/deploy/preview/redeploy.sh
+```
+
+Le script sauvegarde, réinstalle, reconstruit et redémarre uniquement `unica-mosaic-preview`. Pour revenir en arrière, restaurer la sauvegarde SQL et l’arborescence précédente, puis redémarrer ce service. Le compte administrateur de préproduction n’est pas `admin@unica.local`.
+
 ## Vérifications
 Build de 9 pages. Contrôles des liens/ressources via npm run verify. Inspection navigateur des pages principales en 320, 768 et 1440 px ; parcours mobile en 390 px. Menu, filtre Sur mesure, visionneuse, préremplissage Pixel Kids, préparation/copie/téléchargement validés. Aucun envoi externe.
 Tests tous navigateurs, audit accessibilité complet et performance restent ouverts dans TODO.md.

@@ -1,18 +1,44 @@
 import { Asterisk } from './Icons'
-import { Photo } from './Photo'
+
+const blush = '#FD9EEB'
+const pink = '#F00087'
+const yellow = '#FFE14D'
+const plum = '#59003D'
+const cream = '#F4E2DA'
+
+export function HeroChips() {
+  return (
+    <svg className="hero-chips" viewBox="28 368 50 60" aria-hidden="true">
+      <path d="M50.0 381.5 L60.0 384.5 L65.0 387.3 L65.0 389.8 L57.5 394.5 L42.5 401.5 L34.8 403.8 L34.3 401.3 L36.8 395.0 L42.3 385.0Z" fill={blush} />
+      <path d="M67.0 401.8 L67.0 409.3 L65.8 415.0 L63.3 419.0 L56.0 421.5 L44.0 422.5 L39.8 419.3 L43.3 411.8 L50.5 405.5 L61.5 400.5Z" fill={yellow} />
+    </svg>
+  )
+}
 
 export function HeroCollage() {
   return (
     <div className="hero-art">
-      <img className="mosaic-band mosaic-edge-shield" src="/images/mosaic/edge-shield.svg" alt="" />
-      <img className="mosaic-band mosaic-edge-low" src="/images/mosaic/edge-low.svg" alt="" />
-      <div className="hero-photo hero-photo-shield">
-        <Photo name="blason" alt="Un blason minutieusement réalisé en mosaïque dorée, noire et rouge." eager sizes="(max-width: 760px) 72vw, 36vw" />
-      </div>
-      <img className="mosaic-band mosaic-edge-leopard" src="/images/mosaic/edge-leopard.svg" alt="" />
-      <div className="hero-photo hero-photo-leopard">
-        <Photo name="dalida" alt="Gros plan sur une création en mosaïque au motif léopard." eager sizes="(max-width: 760px) 58vw, 28vw" />
-      </div>
+      <svg className="hero-mosaic" viewBox="360 68 664 428" role="img" aria-label="Composition : le blason, les mains, la bougie et le motif léopard, assemblés comme une mosaïque.">
+        <path d="M455 90 L468 94 L462 108 L446 122 L434 136 L434 156 L432 176 L430 194 L418 202 L404 196 L394 178 L388 158 L390 140 L398 122 L412 106 L428 94Z" fill={blush} />
+        <path d="M672.3 75.5 L684.8 76.5 L687.8 84.3 L681.3 98.8 L676.8 107.0 L674.3 109.0 L654.5 102.3 L617.5 86.8 L615.8 78.0 L649.3 76.0Z" fill={plum} />
+        <path d="M981.6 83.0 L993.4 85.0 L1002.4 87.7 L1008.8 91.1 L1012.5 95.1 L1013.5 99.9 L1009.4 106.3 L1000.3 114.3 L986.1 123.9 L966.9 135.1 L954.1 139.1 L947.7 135.7 L947.8 125.0 L954.3 107.0 L962.1 94.0 L971.2 86.0Z" fill={blush} />
+        <path d="M436 346 L438 370 L436 396 L434 418 L432 434 L416 442 L400 434 L394 414 L396 392 L404 370 L418 352 L428 344Z" fill={pink} />
+        <path d="M719.8 433.8 L751.3 443.3 L768.3 449.3 L770.8 451.8 L771.0 454.0 L769.0 456.0 L746.3 457.0 L702.8 457.0 L686.8 450.0 L698.3 436.0Z" fill={yellow} />
+        <path d="M846.0 422.0 L848.0 422.0 L849.0 423.0 L849.0 425.0 L845.3 433.8 L837.8 449.3 L820.3 456.8 L792.8 456.3 L785.5 451.8 L798.5 443.3 L815.0 434.8 L835.0 426.3Z" fill={blush} />
+        <defs>
+          <clipPath id="clip-shield"><path d="M632.8 102.5 L649.3 109.5 L663.8 118.9 L676.4 130.6 L687.1 144.8 L695.9 161.3 L699.8 183.9 L698.8 212.8 L692.9 247.9 L682.1 289.1 L672.2 321.5 L663.1 345.0 L654.8 359.6 L647.3 365.4 L643.2 369.5 L642.6 372.0 L645.4 372.9 L651.6 372.1 L658.6 374.6 L666.4 380.4 L674.9 389.4 L684.1 401.6 L688.9 413.2 L689.3 424.1 L685.3 434.3 L676.8 443.8 L665.0 450.8 L650.0 455.3 L631.8 457.3 L610.3 456.8 L587.4 453.1 L563.3 446.2 L437.0 436.1 L434.0 422.9 L434.0 408.8 L436.0 393.8 L433.0 377.9 L433.0 361.1 L435.0 348.1 L432.0 338.7 L433.3 333.0 L433.0 331.0 L433.0 327.9 L434.0 323.8 L434.0 318.6 L431.0 312.4 L430.0 307.1 L433.9 302.9 L433.9 299.6 L429.0 297.4 L429.9 295.3 L428.0 293.3 L432.1 291.4 L428.9 289.6 L427.0 287.6 L426.5 285.2 L427.4 282.5 L429.6 279.5 L431.9 278.1 L428.4 278.4 L429.4 280.3 L429.4 283.8 L429.4 283.8 L430.4 280.4 L430.4 273.6 L430.4 263.4 L434.4 254.3 L434.3 246.3 L430.1 239.4 L429.9 233.6 L431.4 228.7 L429.1 224.6 L428.9 221.3 L430.4 218.8 L428.1 211.9 L427.9 200.6 L429.6 185.0 L433.4 165.0 L428.9 148.8 L429.9 136.3 L429.9 127.5 L429.9 122.5 L430.9 117.3 L430.9 111.9 L430.9 106.4 L431.9 100.6 L585.1 98.1 L611.4 98.7Z" /></clipPath>
+          <clipPath id="clip-hands"><path d="M825.8 73.1 L870.3 73.9 L904.6 74.9 L928.9 76.3 L943.0 78.0 L947.0 80.0 L948.4 86.3 L947.1 96.8 L943.3 111.5 L936.8 130.5 L925.3 149.9 L908.9 169.8 L887.6 190.1 L861.4 210.9 L838.5 224.4 L819.0 230.6 L802.9 229.6 L790.1 221.4 L777.3 213.8 L764.3 206.8 L751.1 200.4 L737.9 194.6 L725.8 186.2 L714.8 175.1 L704.9 161.3 L696.1 144.8 L690.8 129.6 L688.8 115.9 L690.1 103.5 L694.9 92.5 L702.0 84.0 L711.5 78.0 L723.4 74.5 L737.6 73.5 L759.4 72.9 L788.8 72.8Z" /></clipPath>
+          <clipPath id="clip-leopard"><path d="M1018.6 116.8 L1020.4 117.3 L1021.7 134.6 L1022.6 168.7 L1023.0 219.6 L1023.0 287.4 L1020.9 338.9 L1016.8 374.1 L1010.6 393.1 L1002.4 395.9 L996.4 395.7 L992.8 392.6 L991.5 386.5 L992.5 377.5 L992.3 368.6 L926.1 304.6 L916.3 304.5 L907.3 306.0 L899.1 309.1 L891.9 313.9 L885.4 319.0 L879.6 324.5 L874.6 330.4 L870.4 336.6 L866.8 343.1 L863.9 349.9 L861.8 356.9 L860.3 364.1 L859.6 371.6 L859.9 379.2 L861.0 387.0 L863.0 395.0 L861.3 402.1 L855.8 408.2 L846.5 413.4 L833.5 417.6 L822.8 416.5 L814.3 410.0 L808.0 398.1 L804.0 380.9 L803.0 361.2 L805.0 339.1 L810.0 314.5 L818.0 287.5 L829.8 262.6 L845.3 239.7 L864.5 218.9 L887.5 200.1 L910.6 182.6 L933.9 166.2 L957.3 151.0 L980.8 137.0 L998.8 126.6 L1011.4 119.9Z" /></clipPath>
+          <clipPath id="clip-candle"><path d="M741.1 206.6 L757.9 214.4 L772.7 221.7 L785.6 228.6 L796.5 235.0 L805.5 241.0 L810.5 252.9 L811.5 270.6 L808.5 294.3 L801.5 323.8 L797.3 349.7 L795.9 372.1 L797.4 390.9 L801.6 406.1 L803.3 418.5 L802.3 428.0 L798.6 434.6 L792.4 438.4 L783.1 439.8 L770.9 438.9 L755.6 435.8 L737.4 430.3 L721.1 423.3 L706.9 414.8 L694.6 404.8 L684.4 393.3 L677.6 379.9 L674.4 364.8 L674.6 347.9 L678.4 329.1 L683.2 308.4 L689.1 285.8 L696.0 261.3 L704.0 234.8 L714.2 216.8 L726.6 207.4Z" /></clipPath>
+          <clipPath id="clip-nut"><path d="M612.0 404.0 L648.0 392.0 L688.0 404.0 L704.0 436.0 L692.0 468.0 L650.0 482.0 L612.0 468.0 L596.0 436.0Z" /></clipPath>
+        </defs>
+        <image href="/images/blason-1600.webp" x="392" y="62" width="540" height="733" preserveAspectRatio="xMidYMid meet" clipPath="url(#clip-shield)" />
+        <image href="/images/dalida-1600.webp" x="551" y="73" width="560" height="747" preserveAspectRatio="xMidYMid meet" clipPath="url(#clip-leopard)" />
+        <image href="/images/atelier-mains-960.webp" x="600" y="-150" width="480" height="720" preserveAspectRatio="xMidYMid meet" clipPath="url(#clip-hands)" />
+        <image href="/images/dalida-1600.webp" x="655" y="96" width="400" height="533" preserveAspectRatio="xMidYMid meet" clipPath="url(#clip-candle)" />
+        <image href="/images/blason-1600.webp" x="442" y="156" width="260" height="353" preserveAspectRatio="xMidYMid meet" clipPath="url(#clip-nut)" />
+        <circle cx="927.9" cy="369.6" r="82.0" fill={cream} />
+      </svg>
       <div className="hero-stamp">
         CHAQUE PIÈCE
         <br />

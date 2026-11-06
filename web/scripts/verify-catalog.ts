@@ -3,11 +3,18 @@ import { getPayload } from 'payload'
 import config from '../src/payload.config.ts'
 import { getPublicWorkshops } from '../src/lib/catalogue.ts'
 import { buildMonth, parisDayKey } from '../src/lib/calendar.ts'
+import { databaseTargetError } from '../src/lib/database-target.ts'
 
 const failures: string[] = []
 const assert = (condition: boolean, message: string) => {
   if (!condition) failures.push(message)
 }
+
+assert(databaseTargetError('postgresql://unica_local:secret@127.0.0.1:5433/unica_mosaic_local', undefined, 'development') === null, 'La base locale est refusée')
+assert(databaseTargetError('postgresql://unica_preview:secret@127.0.0.1:5432/unica_mosaic_preview', 'preview', 'production') === null, 'La base de préproduction est refusée')
+assert(databaseTargetError('postgresql://unica_preview:secret@127.0.0.1:5432/unica_mosaic_preview', undefined, 'production') !== null, 'La préproduction est acceptée sans mode dédié')
+assert(databaseTargetError('postgresql://unica_preview:secret@51.210.244.3:5432/unica_mosaic_preview', 'preview', 'production') !== null, 'Une base distante est acceptée')
+assert(databaseTargetError('postgresql://unica_local:secret@127.0.0.1:5432/versatech_os', 'preview', 'production') !== null, 'Une autre base locale est acceptée')
 
 const payload = await getPayload({ config })
 const stamp = Date.now()
