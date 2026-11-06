@@ -46,6 +46,12 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Contrôle visuel en 1440, 768 et 390 px, avec des sessions temporaires ensuite supprimées. Aucune place restante ni bouton de réservation.
 - [x] Build Next et vérifications réussis après retrait des données de contrôle. Aucune session ni média de test en base.
 
+## 1e. Préproduction — 6 novembre 2026
+- [x] Commit `2128621` vérifié localement, puis garde de base adapté : locale sur le port 5433, préproduction seulement sur `127.0.0.1:5432/unica_mosaic_preview`.
+- [x] Préproduction en ligne sur `https://unica-preview.versatech-dev.fr`, HTTPS Let’s Encrypt, accès protégé, service `unica-mosaic-preview` sur `127.0.0.1:3028`.
+- [x] Base dédiée, quatre brouillons sans tarif ni date, aucune session ni média. Les autres sites du VPS répondent comme avant.
+- [ ] Réservations, paiement et Stripe : non commencés.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
@@ -99,6 +105,9 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : finalisation du lot 1. Synchronisation reproductible des assets, exemple d'environnement sans secret, création d'administrateur refusée en production. `npm ci`, builds et vérifications relancés.
 - 6 novembre 2026 : lot 2 commité localement sur `portage-next-payload`. Collections Ateliers et Sessions, migrations PostgreSQL, agenda public vide tant qu’aucune session n’est publiée. Aucun push.
 - 6 novembre 2026 : lot 3. Calendrier de l’accueil branché sur les sessions publiées. Capacité entière exigée pour publier. Quatre fiches préparées en brouillon. Les sessions de contrôle et leur photo ont été supprimées. Aucune place restante affichée. Aucun push.
+- 6 novembre 2026 : audit de préproduction interrompu avant toute installation. Le VPS n’a pas été modifié. Le sous-domaine proposé n’a pas d’enregistrement DNS.
+- 6 novembre 2026 : préproduction installée sur `unica-preview.versatech-dev.fr`. Service, base et compte séparés de Maro Créa et de VersaTech OS. Aucun push.
+- 6 novembre 2026 : la photo du hero n’apparaît plus deux fois. La petite copie, bougie comprise, a été retirée. Le grand visuel léopard et le blason restent. Vérifié sur l’accueil local.
 
 ## Décisions de cette version
 - Travail local, sans push ni publication.
