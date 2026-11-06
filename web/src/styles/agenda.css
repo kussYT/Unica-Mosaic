@@ -1,0 +1,12 @@
+.agenda .section-heading > p { width: 340px; }
+.agenda-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.agenda-list li { display: grid; gap: 6px; padding: 22px 24px; border-radius: 22px; background: #f8e7ec; color: var(--plum); }
+.agenda-list time { font-size: 13px; font-weight: 700; }
+.agenda-list a { font-family: var(--serif); font-size: 32px; line-height: 1; letter-spacing: -.03em; }
+.agenda-list span, .agenda-list strong { font-size: 12px; font-weight: 600; }
+.agenda-list strong { color: var(--pink-dark); }
+@media (max-width: 760px) {
+  .agenda .section-heading > p { width: auto; }
+  .agenda-list a { font-size: 28px; }
+  .agenda-list li { padding: 18px; }
+}

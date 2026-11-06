@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.next/
+/web/media/
+/web/public
+.env
+.env.*
+!.env.example
+.DS_Store
+.qa/
+*.log

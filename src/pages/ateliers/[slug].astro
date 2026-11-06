@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Photo from '../../components/Photo.astro';
+import { workshops } from '../../data/site';
+export function getStaticPaths() { return workshops.map(workshop => ({params: {slug:workshop.slug}, props: {workshop}})); }
+const { workshop: w } = Astro.props;
+---
+<Layout title={w.name} description={w.intro}>
+  <div class="wrap breadcrumb"><a href="/ateliers/">← Tous les ateliers</a><span>{w.name}</span></div>
+  <section class={`workshop-detail wrap tone-${w.tone}`}><div class="detail-photo"><Photo name={w.image} alt={w.alt} eager /></div><div class="detail-copy"><p class="eyebrow">{w.label}</p><h1>{w.name}</h1><p class="lead">{w.intro}</p><a class="button" href={`/contact/?sujet=${encodeURIComponent(w.name)}`}>Préparer ma demande <span aria-hidden="true">↗</span></a><p class="quiet-note">Calendrier et réservations bientôt disponibles.</p></div></section>
+  <section class="section wrap detail-info"><div><p class="eyebrow">L’ATELIER EN QUELQUES MOTS</p><h2>Un moment à vivre,<br /><em>une pièce à imaginer.</em></h2><p>{w.description}</p><p>{w.detail}</p></div><aside class="info-panel"><h3>Les infos pratiques</h3><dl><div><dt>Dates</dt><dd>Calendrier à venir</dd></div><div><dt>Durée & tarif</dt><dd>À confirmer pour chaque séance</dd></div><div><dt>Lieu & matériel</dt><dd>Précisés à l’ouverture des réservations</dd></div></dl><p>Les informations définitives seront indiquées ici avant toute réservation.</p></aside></section>
+  <section class="section wrap other-workshops"><h2>Encore un peu <em>curieux ?</em></h2><div>{workshops.filter(other => other.slug !== w.slug).map(other => <a class="text-link" href={`/ateliers/${other.slug}/`}>{other.name} ↗</a>)}</div></section>
+</Layout>

@@ -1,0 +1,37 @@
+import { Photo } from './Photo'
+
+export function HeroCollage() {
+  return (
+    <div className="hero-art">
+      <svg className="clip-defs" width="0" height="0" aria-hidden="true">
+        <defs>
+          <clipPath id="clip-shield" clipPathUnits="objectBoundingBox">
+            <path d="M0.15,0.04 C0.4,0 0.7,0.01 0.86,0.08 C0.98,0.14 1,0.26 0.96,0.48 C0.91,0.72 0.8,0.91 0.58,0.99 C0.38,1.03 0.16,0.95 0.05,0.74 C0,0.56 0.02,0.3 0.07,0.15 C0.1,0.07 0.11,0.05 0.15,0.04 Z" />
+          </clipPath>
+          <clipPath id="clip-leopard" clipPathUnits="objectBoundingBox">
+            <path d="M0.2,0.05 C0.48,0 0.78,0.03 0.95,0.15 C1.03,0.28 1,0.58 0.94,0.8 C0.86,1 0.58,1.03 0.32,0.93 C0.08,0.82 0,0.6 0.06,0.36 C0.1,0.16 0.1,0.08 0.2,0.05 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+      <i className="shard shard-blush" aria-hidden="true"></i>
+      <i className="shard shard-plum" aria-hidden="true"></i>
+      <div className="hero-photo hero-photo-leopard">
+        <Photo name="dalida" alt="Gros plan sur une création en mosaïque au motif léopard." eager sizes="(max-width: 760px) 58vw, 28vw" />
+      </div>
+      <div className="hero-photo hero-photo-shield">
+        <Photo name="blason" alt="Un blason minutieusement réalisé en mosaïque dorée, noire et rouge." eager sizes="(max-width: 760px) 72vw, 36vw" />
+      </div>
+      <i className="shard shard-pink" aria-hidden="true"></i>
+      <i className="shard shard-yellow" aria-hidden="true"></i>
+      <i className="shard shard-chip shard-chip-pink" aria-hidden="true"></i>
+      <i className="shard shard-chip shard-chip-blush" aria-hidden="true"></i>
+      <i className="shard shard-chip shard-chip-yellow" aria-hidden="true"></i>
+      <div className="hero-stamp">
+        CHAQUE PIÈCE
+        <br />
+        <em>est unique.</em>
+        <span aria-hidden="true">✳</span>
+      </div>
+    </div>
+  )
+}
