@@ -16,7 +16,7 @@ export type CalendarSession = {
   priceCents: number | null
   depositCents: number | null
   durationMinutes: number | null
-  /** Calculé plus tard depuis les réservations. Null tant que ce calcul n’existe pas. */
+  /** Places restantes calculées depuis les réservations confirmées et retenues actives. */
   remainingSeats: number | null
 }
 
@@ -87,11 +87,17 @@ export const formatDuration = (minutes: number) => {
 /** Disponibilité réelle du jour, d’après les sessions Payload déjà filtrées. */
 export type DayAvailability = 'none' | 'open' | 'full'
 
-export const dayAvailability = (sessions: Array<Pick<CalendarSession, 'state'>>): DayAvailability => {
+export const dayAvailability = (
+  sessions: Array<Pick<CalendarSession, 'state' | 'remainingSeats'>>,
+): DayAvailability => {
   const active = sessions.filter((session) => session.state !== 'cancelled')
   if (active.length === 0) return 'none'
-  if (active.some((session) => session.state === 'scheduled')) return 'open'
-  return 'full'
+  const hasOpen = active.some((session) => {
+    if (typeof session.remainingSeats === 'number') return session.remainingSeats > 0
+    if (session.state === 'full') return false
+    return session.state === 'scheduled'
+  })
+  return hasOpen ? 'open' : 'full'
 }
 
 export const dayStatusLabel = (availability: DayAvailability, count: number) => {

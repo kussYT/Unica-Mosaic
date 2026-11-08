@@ -26,7 +26,7 @@ assert(home.text.includes('<title>L’art de recoller les morceaux — UNICA Mos
 assert(home.text.includes('noindex'), 'Le noindex manque')
 assert(home.text.includes('CHAQUE PIÈCE'), 'Le tampon du hero manque')
 assert(home.text.includes('Mosaic Kids'), 'La carte Mosaic Kids manque')
-assert(home.text.includes('/images/blason-960.webp'), 'La photo du blason manque')
+assert(home.text.includes('/images/blason-1600.webp'), 'La photo du blason manque')
 assert(!home.text.includes('€'), 'Un prix est apparu sur l’accueil')
 assert(home.text.includes('Le calendrier'), 'Le calendrier manque sur l’accueil')
 assert(home.text.includes('Aucune session n’est programmée pour le moment.'), 'L’accueil invente des dates')

@@ -1,5 +1,5 @@
 # UNICA — Suivi du projet
-Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
+Mis à jour le 8 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
 
 ## 1. Première version
 - [x] Dépôt relié à GitHub ; base Astro, composants et contenu centralisé.
@@ -37,7 +37,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Migrations PostgreSQL appliquées sur `unica_mosaic_local`. Aucun tarif, aucune date et aucune capacité inventés.
 - [x] Le site public reprend les ateliers publiés et conserve le catalogue statique en secours. L’agenda reste vide sans session confirmée.
 - [x] Build Next et vérifications réussis. Contrôle visuel en 1440, 768 et 390 px. Administration en français contrôlée.
-- [ ] Réservations, paiement et Stripe : non commencés.
+- [ ] Paiement et Stripe : non commencés.
 
 ## 1d. Calendrier dynamique — lot 3
 - [x] Une session ne peut pas être publiée si la capacité est absente, nulle, négative ou non entière. Un brouillon peut rester sans capacité.
@@ -50,7 +50,17 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Commit `2128621` vérifié localement, puis garde de base adapté : locale sur le port 5433, préproduction seulement sur `127.0.0.1:5432/unica_mosaic_preview`.
 - [x] Préproduction en ligne sur `https://unica-preview.versatech-dev.fr`, HTTPS Let’s Encrypt, accès protégé, service `unica-mosaic-preview` sur `127.0.0.1:3028`.
 - [x] Base dédiée, quatre brouillons sans tarif ni date, aucune session ni média. Les autres sites du VPS répondent comme avant.
-- [ ] Réservations, paiement et Stripe : non commencés.
+- [ ] Paiement et Stripe : non commencés.
+
+## 1f. Réservations et disponibilités — lot 4A
+- [x] Branche `feature/reservations`. Collection Payload Réservations (session, identité, participants, statuts, origine, montants, dates, report prévu).
+- [x] Statuts : en attente, retenue temporaire, confirmée, expirée, annulée. Aucun paiement réel ; le montant payé reste à 0 tant qu’il n’est pas saisi.
+- [x] Places restantes calculées depuis les confirmées et les retenues actives. Déclencheurs PostgreSQL anti-survente (`FOR UPDATE`) et resynchronisation de l’état de session.
+- [x] Admin : inscription manuelle, annulation, places restantes en lecture seule, note et session de report. Éditeur OK ; suppression réservée à l’admin ; visiteur refusé.
+- [x] Calendrier branché sur les places réelles. Pas de bouton de réservation public. Design inchangé.
+- [x] Migrations appliquées sur `unica_mosaic_local` sans réinitialisation. Tests isolés nettoyés (`verify-reservations`). Build Next et `npm run verify` réussis.
+- [x] Validation bout-en-bout (capacité 8, SQL, course, statuts, droits) et commit local sur `feature/reservations`. Aucun push ni déploiement.
+- [ ] Stripe et parcours de réservation public : lot 4B.
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
@@ -119,6 +129,7 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : accueil rapproché de la maquette avec le pack Tesselles V2. Quatre groupes autour du blason et du léopard, un accent par carte, deux groupes seulement sur mobile. Découpes photo anguleuses. Logo, titre, bouton et tampon jaune inchangés. Aucune tesselle V1. Contrôle en 1440, 768 et 390 px, sans débordement horizontal. Build Next et build Astro réussis. `verify` Astro réussi. Le `verify` Next s’arrête sur l’API Payload : PostgreSQL local 127.0.0.1:5433 est arrêté. Aucun commit, aucun push, aucun déploiement.
 - 6 novembre 2026 : hero et trois cartes reconstruits comme une composition SVG. Photos découpées par clipPath, joints crème entre les formes, tesselles dans les joints. Version mobile séparée pour le hero. Titre, bouton, logo et tampon jaune inchangés. Contrôle en 1440, 768 et 390 px, sans débordement. Build Next et build Astro réussis, `verify` Astro réussi. Aucun commit, aucun push, aucun déploiement.
 - 6 novembre 2026 : la composition épouse la maquette. Fenêtres arrondies sur le blason, les mains, la bougie, le léopard et la sculpture d’écrous, tesselles dans les joints. Cartes en chevrons prune, rose et rose pâle. Titre, bouton, logo et tampon jaune inchangés. Contrôle en 1440, 768, 390 et 360 px, sans débordement, titres dans la pastille. Build Next, build Astro et `verify` Astro réussis. Aucun commit, aucun push, aucun déploiement.
+- 8 novembre 2026 : lot 4A sur `feature/reservations`. Moteur de réservation Payload + PostgreSQL, places restantes réelles, admin manuel, calendrier connecté, sans Stripe ni réservation publique. Build et `verify` OK. Aucun commit, push ni déploiement.
 - 8 novembre 2026 : états du calendrier repris sur `main` et en préproduction. Service actif, page d’accueil en 200.
 - 8 novembre 2026 : états du calendrier. Aujourd’hui contour jaune, sélection rose poudré et filet prune, atelier disponible en fuchsia avec point jaune, jour complet distinct. Uniquement d’après les sessions Payload. Contrôle 1440, 768 et 390 px. Build Next, test des états, build Astro et `verify` réussis.
 - 8 novembre 2026 : polish du calendrier. Fond du bloc un peu plus clair, filet rose très léger et ombre douce. Cases blanches un peu mieux séparées. Jour sélectionné avec contour jaune plus net. Contrôle en 1440 et 390 px. Aucun commit, aucun push, aucun déploiement.
@@ -137,6 +148,6 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - La charte répète le code violet sur deux autres couleurs : utiliser les valeurs RVB et les exports.
 - Aucun âge, tarif, durée, date ou témoignage inventé à partir des maquettes.
 - Un atelier publié dans Payload remplace la fiche statique du même slug. Sans atelier publié, le catalogue statique reste affiché. Une session n’apparaît que si elle est publiée, à venir et non annulée.
-- Le calendrier prépare l’affichage des places restantes, mais n’en montre aucune tant qu’elles ne sont pas calculées depuis de vraies réservations.
+- Les places restantes du calendrier se calculent depuis les réservations confirmées et les retenues actives. Aucun bouton de réservation public tant que Stripe n’est pas en place.
 - Images réelles fournies ; aucune image générée présentée comme réalisation.
 - Le contact prépare un brouillon local et ne transmet rien par défaut.

@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 
 import config from '@payload-config'
 import { workshops as staticWorkshops } from '@/data/site'
+import { effectiveCalendarState, getRemainingSeatsBySessionIds } from '@/lib/availability'
 import type { CalendarSession } from '@/lib/calendar'
 
 export type PublicWorkshop = {
@@ -107,10 +108,24 @@ export async function getPublicWorkshops(): Promise<PublicWorkshop[]> {
 export async function getCalendarSessions(): Promise<CalendarSession[]> {
   const [sessions, workshops] = await Promise.all([getUpcomingSessions(), getPublicWorkshops()])
   const bySlug = new Map(workshops.map((workshop) => [workshop.slug, workshop]))
+  let remainingById = new Map<string, number | null>()
+  if (payloadConfigured() && sessions.length > 0) {
+    try {
+      const payload = await getPayload({ config })
+      remainingById = await getRemainingSeatsBySessionIds(
+        payload,
+        sessions.map((session) => session.id),
+      )
+    } catch (error) {
+      console.error('Disponibilités Payload indisponibles.', error)
+    }
+  }
   return sessions.map((session) => {
     const workshop = bySlug.get(session.workshopSlug)
+    const remainingSeats = remainingById.has(session.id) ? remainingById.get(session.id)! : null
     return {
       ...session,
+      state: effectiveCalendarState(session.state, remainingSeats),
       label: workshop?.label || 'ATELIER',
       summary: workshop?.intro || '',
       image: workshop?.image || null,
@@ -120,7 +135,7 @@ export async function getCalendarSessions(): Promise<CalendarSession[]> {
       priceCents: workshop?.priceCents ?? null,
       depositCents: workshop?.depositCents ?? null,
       durationMinutes: workshop?.durationMinutes ?? null,
-      remainingSeats: null,
+      remainingSeats,
     }
   })
 }
