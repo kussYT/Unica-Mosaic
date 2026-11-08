@@ -7,7 +7,9 @@ import { ArrowLeft, ArrowRight } from '@/components/Icons'
 import {
   WEEKDAYS,
   buildMonth,
+  dayAvailability,
   dayLabel,
+  dayStatusLabel,
   formatDuration,
   formatEuros,
   monthLabel,
@@ -111,29 +113,35 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
                     }
                     const key = dayKey(cursor.year, cursor.month, day)
                     const daySessions = byDay.get(key) || []
+                    const availability = dayAvailability(daySessions)
                     const isToday = key === today.key
+                    const isSelected = selected === key
+                    const classes = [
+                      'calendar-day',
+                      availability === 'open' ? 'has-session' : '',
+                      availability === 'full' ? 'is-full' : '',
+                      isToday ? 'is-today' : '',
+                      isSelected ? 'is-selected' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')
                     return (
                       <button
                         id={`jour-${key}`}
                         key={key}
                         type="button"
                         role="gridcell"
-                        className={daySessions.length ? 'calendar-day has-session' : 'calendar-day'}
-                        aria-selected={selected === key}
+                        className={classes}
+                        aria-selected={isSelected}
                         aria-current={isToday ? 'date' : undefined}
-                        aria-label={`${dayLabel(cursor.year, cursor.month, day)}, ${daySessions.length === 0 ? 'aucun atelier' : `${daySessions.length} atelier${daySessions.length > 1 ? 's' : ''}`}`}
-                        tabIndex={selected === key || (!selected && day === 1) ? 0 : -1}
+                        aria-label={`${dayLabel(cursor.year, cursor.month, day)}, ${dayStatusLabel(availability, daySessions.length)}`}
+                        tabIndex={isSelected || (!selected && day === 1) ? 0 : -1}
                         onClick={() => setSelected(key)}
                         onKeyDown={(event) => onDayKey(event, day)}
                       >
                         <span>{day}</span>
-                        {daySessions.length > 0 ? (
-                          <span className="calendar-chips" aria-hidden="true">
-                            {daySessions.slice(0, 3).map((session) => (
-                              <i className={`tone-${session.tone}`} key={session.id} />
-                            ))}
-                          </span>
-                        ) : null}
+                        {availability === 'open' ? <span className="calendar-dot" aria-hidden="true" /> : null}
+                        {availability === 'full' ? <span className="calendar-full-mark" aria-hidden="true" /> : null}
                       </button>
                     )
                   })}

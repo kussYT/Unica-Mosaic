@@ -83,3 +83,19 @@ export const formatDuration = (minutes: number) => {
   if (hours) return hours === 1 ? '1 heure' : `${hours} heures`
   return `${rest} min`
 }
+
+/** Disponibilité réelle du jour, d’après les sessions Payload déjà filtrées. */
+export type DayAvailability = 'none' | 'open' | 'full'
+
+export const dayAvailability = (sessions: Array<Pick<CalendarSession, 'state'>>): DayAvailability => {
+  const active = sessions.filter((session) => session.state !== 'cancelled')
+  if (active.length === 0) return 'none'
+  if (active.some((session) => session.state === 'scheduled')) return 'open'
+  return 'full'
+}
+
+export const dayStatusLabel = (availability: DayAvailability, count: number) => {
+  if (availability === 'none') return 'aucun atelier'
+  if (availability === 'full') return count === 1 ? 'atelier complet' : `${count} ateliers complets`
+  return count === 1 ? '1 atelier disponible' : `${count} ateliers disponibles`
+}
