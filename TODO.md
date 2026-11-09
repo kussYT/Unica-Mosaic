@@ -1,5 +1,5 @@
 # UNICA — Suivi du projet
-Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
+Mis à jour le 9 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
 
 ## 1. Première version
 - [x] Dépôt relié à GitHub ; base Astro, composants et contenu centralisé.
@@ -103,6 +103,8 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [ ] Préparer un guide de mise à jour pour Marie.
 
 ## Journal
+- 9 novembre 2026 : les tesselles décoratives de l’accueil sont remplacées par deux petites pinces issues des assets officiels. Les photos du hero, des univers, des cartes ateliers et du studio alternent désormais avec des rythmes décalés pour éviter un changement simultané. Chaque fiche atelier affiche une vidéo locale adaptée avec poster et contrôles, sans modification de Payload ni des réservations. Contrôle visuel ordinateur et mobile 390 px ; build Next réussi. Aucun commit, push ni déploiement.
+- 9 novembre 2026 : cartes d’entrée alignées. Titre « Créations sur mesure » sur deux lignes, un peu plus petit ; flèches un peu plus grandes. Quatre tesselles de la charte autour de la photo d’accueil. Contrôle en 1440, 1100 et 390 px, sans débordement. Aucun commit ni déploiement.
 - 6 novembre 2026 : sauvegarde pour changement d’ordinateur. Guide `docs/INSTALLATION_NOUVEAU_PC.md`. Build Astro, `npm run verify` Astro, synchronisation des 49 assets et build Next réussis. `web/.env` est absent : migrations, ateliers, compte admin et `verify` Next non rejoués. Commit sur `portage-next-payload` seulement. Aucun déploiement.
 - 6 novembre 2026 : logo de navigation recomposé à l’horizontale à partir des tracés officiels, pictogramme à gauche et UNICA à droite, sans redessin. Le footer reprend le même fichier sur pastille crème. Les tesselles du hero sont réduites à trois bandes jointives, en partie derrière les photos. L’indicateur « 1 Issue » venait de l’appel Payload sans `web/.env` ; la page publique n’appelle plus Payload tant que le secret et l’adresse de base sont absents, et conserve le catalogue statique. Contrôle en 1440 et 390 px, sans débordement. Build Astro et `npm run verify` réussis. Aucun commit ni déploiement.
 - 6 novembre 2026 : logo officiel intégré tel quel (SVG navbar, footer sur pastille crème, pictogramme en favicon et métadonnées). Les tesselles du hero sont regroupées en bandes SVG jointives autour des deux photos. Grandes surfaces passées du crème #FCF4F1 au crème rosé #F4E2DA ; ateliers et panneau de contact en rose poudré #F6D4DF. Rose #F00087 et violet #59003D inchangés. Flèches et astérisques déjà en SVG. Contrôle visuel en 1440, 768 et 390 px, sans débordement horizontal. Build Astro, `npm run verify` Astro et build Next réussis. Le `verify` Next n’a pas été relancé : `web/.env` est absent. Aucun commit, aucun push, aucune mise en préproduction.
