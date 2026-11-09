@@ -42,7 +42,17 @@ export function WorkshopCard({ workshop, index = 0, rotating = false }: { worksh
       <div className="card-copy">
         <span className="eyebrow">{workshop.label}</span>
         <div className="card-title">
-          <h3>{workshop.name}</h3>
+          <h3>
+            {workshop.name === 'Ma croix, mes couleurs' ? (
+              <>
+                Ma croix,
+                <br />
+                mes couleurs
+              </>
+            ) : (
+              workshop.name
+            )}
+          </h3>
           <span className="circle-arrow" aria-hidden="true"><ArrowNorthEast /></span>
         </div>
       </div>
