@@ -1,9 +1,9 @@
 import { CallToAction } from '@/components/CallToAction'
 import { ArrowNorthEast, Asterisk } from '@/components/Icons'
 import { CalendarSection } from '@/components/HomeCalendar'
-import { HeroChips, HeroCollage } from '@/components/HeroCollage'
 import { HomePaths } from '@/components/HomePaths'
 import { Photo } from '@/components/Photo'
+import { VideoIntro } from '@/components/VideoIntro'
 import { WorkshopCard } from '@/components/WorkshopCard'
 import { getPublicWorkshops } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
@@ -19,11 +19,9 @@ export default async function HomePage() {
   const workshops = await getPublicWorkshops()
   return (
     <>
-      <section className="home-hero wrap">
+      <VideoIntro />
+      <section className="home-hero home-hero-craft wrap">
         <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="little-diamond" aria-hidden="true"></span> CRÉATIONS MOSAÏQUES · VALENCIENNES
-          </p>
           <h1>
             L’art de
             <br />
@@ -32,13 +30,21 @@ export default async function HomePage() {
             <em>les morceaux.</em>
           </h1>
           <div className="hero-actions">
-            <HeroChips />
             <a className="button" href="/realisations/">
-              Explorer les créations <span aria-hidden="true"><ArrowNorthEast /></span>
+              Découvrir les créations sur mesure <span aria-hidden="true"><ArrowNorthEast /></span>
             </a>
           </div>
         </div>
-        <HeroCollage />
+        <div className="hero-craft-visual">
+          <div className="hero-craft-frame">
+            <Photo
+              name="atelier-mains"
+              alt="Des mains assemblent patiemment des tesselles de mosaïque à l’atelier UNICA."
+              eager
+              sizes="(max-width: 760px) calc(100vw - 40px), 58vw"
+            />
+          </div>
+        </div>
       </section>
       <HomePaths />
       <div className="brand-ribbon" aria-label="Fait main, pièces uniques, créations sur mesure, ateliers créatifs">
@@ -61,7 +67,6 @@ export default async function HomePage() {
               <em>De grandes possibilités.</em>
             </h2>
           </div>
-          <p>La mosaïque sort du cadre. Elle devient une pièce de caractère, un détail qui change tout, ou un moment à partager.</p>
         </div>
         <div className="universe-grid">
           <a className="universe-card" href="/realisations/">
@@ -120,11 +125,6 @@ export default async function HomePage() {
       <section className="studio-section section wrap" id="studio">
         <div className="studio-image">
           <Photo name="lion" alt="Une mosaïque de lion prend forme sous les mains de l’artisane." />
-          <span className="studio-label">
-            L’ESPRIT DE LA TRADITION.
-            <br />
-            L’ÉNERGIE D’AUJOURD’HUI.
-          </span>
         </div>
         <div className="studio-copy">
           <p className="eyebrow">LE SAVOIR-FAIRE, AVEC DU CARACTÈRE</p>

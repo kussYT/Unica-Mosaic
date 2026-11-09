@@ -37,7 +37,8 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.toggle('is-home',location.pathname==='/'||location.pathname==='')",
+            __html:
+              "document.documentElement.classList.toggle('is-home',location.pathname==='/'||location.pathname==='');try{document.documentElement.classList.toggle('intro-seen',sessionStorage.getItem('unicaIntroSeen')==='1')}catch(e){}",
           }}
         />
       </head>

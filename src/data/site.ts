@@ -7,7 +7,7 @@ export const site = {
 
 // « Mosaic Kids » reprend le nom de la maquette et mène à l’atelier Pixel Kids, en attendant la confirmation du nom.
 export const homePaths = [
-  { href: '/realisations/', title: 'Réalisations', image: 'boutique', alt: 'Mosaïque figurative exposée dans la boutique.', tone: 'realisations' },
+  { href: '/realisations/', title: 'Créations sur mesure', image: 'boutique', alt: 'Mosaïque figurative exposée dans la boutique.', tone: 'realisations' },
   { href: '/ateliers/', title: 'Ateliers', image: 'atelier-mains', alt: 'Des mains assemblent une mosaïque à l’atelier.', tone: 'ateliers' },
   { href: '/ateliers/pixel-kids/', title: 'Mosaic Kids', image: 'pixel-kids', alt: 'Des enfants composent une mosaïque colorée à l’atelier.', tone: 'kids' },
 ];
