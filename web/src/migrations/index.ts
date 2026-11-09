@@ -3,6 +3,7 @@ import * as migration_20261106_102417_ateliers_sessions from './20261106_102417_
 import * as migration_20261108_160000_reservations from './20261108_160000_reservations'
 import * as migration_20261108_161000_reservation_session_sync from './20261108_161000_reservation_session_sync'
 import * as migration_20261108_161100_reservation_hold_expiry from './20261108_161100_reservation_hold_expiry'
+import * as migration_20261108_220000_stripe_booking from './20261108_220000_stripe_booking'
 
 export const migrations = [
   {
@@ -29,5 +30,10 @@ export const migrations = [
     up: migration_20261108_161100_reservation_hold_expiry.up,
     down: migration_20261108_161100_reservation_hold_expiry.down,
     name: '20261108_161100_reservation_hold_expiry',
+  },
+  {
+    up: migration_20261108_220000_stripe_booking.up,
+    down: migration_20261108_220000_stripe_booking.down,
+    name: '20261108_220000_stripe_booking',
   },
 ]

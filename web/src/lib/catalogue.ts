@@ -30,6 +30,9 @@ export type PublicSession = {
   endsAt: string
   place: string | null
   capacity: number | null
+  remainingSeats: number | null
+  priceCents: number | null
+  depositCents: number | null
   state: 'scheduled' | 'full' | 'cancelled'
 }
 
@@ -158,7 +161,7 @@ export async function getUpcomingSessions(slug?: string): Promise<PublicSession[
         ],
       },
     })
-    return result.docs.flatMap((doc) => {
+    const mapped = result.docs.flatMap((doc) => {
       const workshop = doc.workshop
       if (!workshop || typeof workshop !== 'object') return []
       if (slug && workshop.slug !== slug) return []
@@ -172,9 +175,24 @@ export async function getUpcomingSessions(slug?: string): Promise<PublicSession[
           endsAt: doc.endsAt,
           place: doc.place || null,
           capacity: typeof doc.capacity === 'number' ? doc.capacity : null,
-          state: doc.state,
+          remainingSeats: null as number | null,
+          priceCents: typeof workshop.priceCents === 'number' ? workshop.priceCents : null,
+          depositCents: typeof workshop.depositCents === 'number' ? workshop.depositCents : null,
+          state: doc.state as PublicSession['state'],
         },
       ]
+    })
+    const remainingById = await getRemainingSeatsBySessionIds(
+      payload,
+      mapped.map((session) => session.id),
+    )
+    return mapped.map((session) => {
+      const remainingSeats = remainingById.has(session.id) ? remainingById.get(session.id)! : null
+      return {
+        ...session,
+        remainingSeats,
+        state: effectiveCalendarState(session.state, remainingSeats),
+      }
     })
   } catch (error) {
     console.error('Sessions Payload indisponibles.', error)

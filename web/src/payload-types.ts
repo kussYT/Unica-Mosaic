@@ -238,7 +238,7 @@ export interface Session {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Inscriptions manuelles et futures réservations en ligne. Les places restantes se calculent depuis les confirmées et les retenues actives.
+ * Inscriptions manuelles et réservations en ligne. Les places restantes se calculent depuis les confirmées et les retenues actives. Un montant payé n’est enregistré qu’après encaissement réel.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "reservations".
@@ -258,10 +258,18 @@ export interface Reservation {
    */
   participants: number;
   /**
-   * Seules les confirmées et les retenues non expirées occupent des places. Pas de paiement réel dans ce lot.
+   * Seules les confirmées et les retenues non expirées occupent des places.
    */
   status: 'pending' | 'held' | 'confirmed' | 'expired' | 'cancelled';
   origin: 'manual' | 'online';
+  /**
+   * Choix du client pour le parcours Stripe. Les inscriptions manuelles restent sur « Aucun ».
+   */
+  paymentMode?: ('none' | 'deposit' | 'full') | null;
+  /**
+   * Ne passer à « Payé en ligne » qu’après confirmation Stripe réelle. Jamais pour une inscription manuelle sans encaissement documenté.
+   */
+  paymentStatus: 'unpaid' | 'pending' | 'paid' | 'failed' | 'exception';
   /**
    * À encaisser. Ne signifie pas « payé ».
    */
@@ -276,7 +284,7 @@ export interface Reservation {
    */
   balanceCents?: number | null;
   /**
-   * Retenue temporaire (défaut 15 min pour le futur parcours en ligne).
+   * Retenue temporaire (défaut 30 min pour le futur parcours en ligne).
    */
   heldUntil?: string | null;
   confirmedAt?: string | null;
@@ -286,8 +294,11 @@ export interface Reservation {
    * Préparation d’un report vers une autre session. Ne déplace pas automatiquement les places.
    */
   rescheduleTo?: (number | null) | Session;
+  stripeCheckoutSessionId?: string | null;
+  stripePaymentIntentId?: string | null;
+  confirmationEmailSentAt?: string | null;
   /**
-   * Note pour Marie (report, paiement, contact…).
+   * Note pour Marie (report, paiement, contact, exception Stripe…).
    */
   adminNote?: string | null;
   updatedAt: string;
@@ -471,6 +482,8 @@ export interface ReservationsSelect<T extends boolean = true> {
   participants?: T;
   status?: T;
   origin?: T;
+  paymentMode?: T;
+  paymentStatus?: T;
   totalCents?: T;
   depositCents?: T;
   paidCents?: T;
@@ -480,6 +493,9 @@ export interface ReservationsSelect<T extends boolean = true> {
   cancelledAt?: T;
   expiredAt?: T;
   rescheduleTo?: T;
+  stripeCheckoutSessionId?: T;
+  stripePaymentIntentId?: T;
+  confirmationEmailSentAt?: T;
   adminNote?: T;
   updatedAt?: T;
   createdAt?: T;

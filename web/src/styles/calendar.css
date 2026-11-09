@@ -141,3 +141,5 @@
   .calendar-quiet { min-height: 240px; padding: 24px; }
   .calendar-copy { padding: 22px; }
 }
+.calendar-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 14px; }
+.calendar-actions .button-small { text-decoration: none; }

@@ -47,10 +47,27 @@ export default async function WorkshopPage({ params }: Args) {
           <p className="eyebrow">{workshop.label}</p>
           <h1>{workshop.name}</h1>
           <p className="lead">{workshop.intro}</p>
-          <a className="button" href={`/contact/?sujet=${encodeURIComponent(workshop.name)}`}>
-            Préparer ma demande <span aria-hidden="true"><ArrowNorthEast /></span>
-          </a>
-          <p className="quiet-note">La réservation en ligne n’est pas ouverte. Cette page ne retient aucune place.</p>
+          {sessions.some(
+            (session) =>
+              session.priceCents != null &&
+              session.depositCents != null &&
+              typeof session.remainingSeats === 'number' &&
+              session.remainingSeats > 0 &&
+              session.state === 'scheduled',
+          ) ? (
+            <a className="button" href={`#agenda`}>
+              Voir les dates et réserver <span aria-hidden="true"><ArrowNorthEast /></span>
+            </a>
+          ) : (
+            <a className="button" href={`/contact/?sujet=${encodeURIComponent(workshop.name)}`}>
+              Préparer ma demande <span aria-hidden="true"><ArrowNorthEast /></span>
+            </a>
+          )}
+          <p className="quiet-note">
+            {workshop.priceCents == null || workshop.depositCents == null
+              ? 'La réservation en ligne s’ouvre dès que le tarif et l’acompte sont confirmés.'
+              : 'Les places ne sont retenues qu’après démarrage du paiement Stripe.'}
+          </p>
         </div>
       </section>
       <section className="section wrap detail-info">
@@ -86,7 +103,7 @@ export default async function WorkshopPage({ params }: Args) {
               <dd>{workshop.practicalInfo || sessions.find((session) => session.place)?.place || 'Précisés pour chaque session confirmée'}</dd>
             </div>
           </dl>
-          <p>Les informations définitives sont celles confirmées dans l’administration. Aucun paiement n’est demandé ici.</p>
+          <p>Les informations définitives sont celles confirmées dans l’administration. Le paiement en ligne, s’il est ouvert, utilise Stripe Checkout en euros.</p>
         </aside>
       </section>
       <Agenda sessions={sessions} heading={false} />

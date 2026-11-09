@@ -1,5 +1,5 @@
 # UNICA — Suivi du projet
-Mis à jour le 8 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
+Mis à jour le 9 novembre 2026 (midi). Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
 
 ## 1. Première version
 - [x] Dépôt relié à GitHub ; base Astro, composants et contenu centralisé.
@@ -59,8 +59,57 @@ Mis à jour le 8 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Admin : inscription manuelle, annulation, places restantes en lecture seule, note et session de report. Éditeur OK ; suppression réservée à l’admin ; visiteur refusé.
 - [x] Calendrier branché sur les places réelles. Pas de bouton de réservation public. Design inchangé.
 - [x] Migrations appliquées sur `unica_mosaic_local` sans réinitialisation. Tests isolés nettoyés (`verify-reservations`). Build Next et `npm run verify` réussis.
-- [x] Validation bout-en-bout (capacité 8, SQL, course, statuts, droits) et commit local sur `feature/reservations`. Aucun push ni déploiement.
-- [ ] Stripe et parcours de réservation public : lot 4B.
+- [x] Validation bout-en-bout (capacité 8, SQL, course, statuts, droits) et commit local `b7a2872` sur `feature/reservations`. Aucun push ni déploiement.
+
+## 1g. Parcours public + Stripe Checkout — lot 4B
+- [x] Parcours `/reserver` : session, participants, identité, acompte ou intégralité, récapitulatif serveur, Checkout hébergé (carte, EUR, 30 min).
+- [x] Retenues alignées sur Checkout 30 min ; réconciliation Stripe avant libération ; webhook signé (`completed`, `expired`, async) idempotent.
+- [x] Admin : mode/statut de paiement, montants, références Stripe ; inscriptions manuelles non marquées payées sans encaissement.
+- [x] E-mails préparés sans faux succès tant que SMTP/Resend n’est pas branché.
+- [x] Build Next et `npm run verify` (dont `verify-stripe-booking`) réussis en local. Checkout réel Stripe test non rejoué ici : clé `sk_test_` absente de l’environnement.
+- [ ] Brancher le compte Stripe test de Marie (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `stripe listen`).
+- [ ] Commit / push / déploiement du lot 4B : en attente de validation.
+
+## 1h. Refonte éditoriale — lot A
+- [x] État Git conservé et point de sauvegarde local `backup/pre-unica-home-20261109-104155` créé avant intervention. Aucun push ni déploiement.
+- [x] Intro non bloquante issue d'une vraie vidéo fournie : 3,8 s, muette, affiche WebP, bouton « Passer l’intro », Échap, une fois par session et désactivation avec mouvement réduit.
+- [x] Nouveau hero sans collage de tesselles ni rond jaune : photo de geste, logo officiel, pinces et signature « L’esprit de la tradition » issus de la charte.
+- [x] Carte « Réalisations » renommée « Créations sur mesure » et textes trop petits agrandis.
+- [x] Page Créations sur mesure simplifiée, sans filtres, avec les six réalisations déjà qualifiées et sans contenu inventé.
+- [x] Build Next réussi ; contrôle navigateur desktop/mobile, passage de l’intro, menu mobile, galerie et absence d’erreur console vérifiés.
+- [ ] Identifier avec Marie la photo exacte correspondant à la « tapisserie UNICA » avant de la nommer ou de la mettre en avant.
+- [ ] Lot suivant : vidéo en tête et carrousel sur les fiches ateliers ; cartes cadeaux sans faux commerce.
+
+## 1i. Accueil V2 — corrections graphiques (9 nov. 2026)
+- [x] Branche `feature/reservations` conservée ; stash `backup/pre-unica-home-20261109-104155` intact ; aucun commit / push / déploiement ; Stripe et réservations inchangés.
+- [x] Intro : logo officiel rose/prune (`/images/logo-unica-h.svg`), séquence continue ~5,53 s depuis `IMG_8045.mov` (sans ralentissement), skip / Échap / session / `prefers-reduced-motion` conservés.
+- [x] Hero épuré : surtitre et paragraphe retirés ; titre + CTA + photo conservés ; composition charte (motif d’outils p.19, formes irrégulières, marteau / pinces officiels).
+- [x] Bandeau Tradition centré sur le SVG officiel ; texte « L’énergie d’aujourd’hui » retiré ; cartouche jaune studio retiré.
+- [x] Paragraphe calendrier « Seules les sessions… » retiré ; calendrier fonctionnel inchangé.
+- [x] Build Next réussi. Contrôle 1440 / 768 / 390 : pas de débordement horizontal.
+- [x] `verify-catalog`, `verify-reservations`, `verify-stripe-booking` OK.
+- [ ] `npm run verify` (verify.mjs) échoue encore sur l’assertion Lot 3 « La fiche atelier promet une réservation » / absence de « Réserver » — attendu tant que le lot 4B public est présent ; Stripe non modifié pour forcer le passage.
+- [x] Page Créations : fond aligné sur le rosé navbar (`--cream`), bordure d’en-tête retirée pour supprimer la démarcation.
+- [ ] Enrichir la galerie Créations avec davantage de photos (fonds locaux `Assets-Classes` disponibles ; sélection et textes à valider avec Marie).
+
+## 1j. Correction visuelle ciblée V3 (9 nov. 2026)
+- [x] Hero nettoyé : panneau rose, outils flottants, motifs d’outils et légende superposée retirés ; photo, titre et CTA conservés dans une composition sobre.
+- [x] Texte « La mosaïque sort du cadre… » supprimé des deux frontends.
+- [x] Page « Créations sur mesure » réduite à la galerie et sa visionneuse, sur le motif multicolore UNICA officiel optimisé pour le web.
+- [x] Bandeau Tradition conservé avec le SVG officiel, sans décor d’outils répété.
+- [x] Build Next réussi ; contrôles 1440 / 390 sans débordement, six vraies photos présentes et visionneuse fonctionnelle.
+
+## 1k. Galerie photo et hero V4 (9 nov. 2026)
+- [x] Page Réalisations passée sur fond uni : mur photo en trois colonnes égales, hauteurs originales conservées, sans titres, catégories ni flèches jaunes.
+- [x] Visionneuse conservée sans légende visible.
+- [x] Hero d’accueil compacté : image moins imposante, grille rééquilibrée, vide vertical réduit à gauche.
+- [x] Build Next réussi ; contrôles 1440 / 390 sans débordement, galerie 3/2/1 colonnes selon la largeur et visionneuse conservée.
+
+## 1l. Accueil V5 — continuité hero / entrées (9 nov. 2026)
+- [x] Grand bandeau Tradition rose retiré de l’accueil.
+- [x] Trois cartes d’entrée remontées directement sous le hero, avec léger chevauchement, ombre discrète et décalage central sur ordinateur.
+- [x] Taille du texte du CTA mobile augmentée.
+- [x] Build Next réussi ; contrôles 1440 / 390 sans débordement, trois cartes présentes et CTA mobile à 12 px.
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
@@ -107,6 +156,7 @@ Mis à jour le 8 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [ ] Préparer un guide de mise à jour pour Marie.
 
 ## Journal
+- 9 novembre 2026 : refonte locale du lot A sur `feature/reservations`. Intro vidéo réelle optimisée (3,8 s, 2,04 Mo, sans audio), hero artisanal sans collage ni rond jaune, pinces et signature officielles, typo agrandie, carte et page « Créations sur mesure » sans filtres. Build réussi ; catalogue, disponibilités et contrôle Stripe hors réseau réussis. `npm run verify` reste arrêté par l'ancienne assertion « réservation non ouverte » alors que la branche contient déjà le parcours public du lot 4B. Contrôles navigateur desktop/mobile sans erreur console. Aucun push, aucun déploiement, aucun appel Stripe.
 - 6 novembre 2026 : sauvegarde pour changement d’ordinateur. Guide `docs/INSTALLATION_NOUVEAU_PC.md`. Build Astro, `npm run verify` Astro, synchronisation des 49 assets et build Next réussis. `web/.env` est absent : migrations, ateliers, compte admin et `verify` Next non rejoués. Commit sur `portage-next-payload` seulement. Aucun déploiement.
 - 6 novembre 2026 : logo de navigation recomposé à l’horizontale à partir des tracés officiels, pictogramme à gauche et UNICA à droite, sans redessin. Le footer reprend le même fichier sur pastille crème. Les tesselles du hero sont réduites à trois bandes jointives, en partie derrière les photos. L’indicateur « 1 Issue » venait de l’appel Payload sans `web/.env` ; la page publique n’appelle plus Payload tant que le secret et l’adresse de base sont absents, et conserve le catalogue statique. Contrôle en 1440 et 390 px, sans débordement. Build Astro et `npm run verify` réussis. Aucun commit ni déploiement.
 - 6 novembre 2026 : logo officiel intégré tel quel (SVG navbar, footer sur pastille crème, pictogramme en favicon et métadonnées). Les tesselles du hero sont regroupées en bandes SVG jointives autour des deux photos. Grandes surfaces passées du crème #FCF4F1 au crème rosé #F4E2DA ; ateliers et panneau de contact en rose poudré #F6D4DF. Rose #F00087 et violet #59003D inchangés. Flèches et astérisques déjà en SVG. Contrôle visuel en 1440, 768 et 390 px, sans débordement horizontal. Build Astro, `npm run verify` Astro et build Next réussis. Le `verify` Next n’a pas été relancé : `web/.env` est absent. Aucun commit, aucun push, aucune mise en préproduction.
@@ -129,6 +179,8 @@ Mis à jour le 8 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - 6 novembre 2026 : accueil rapproché de la maquette avec le pack Tesselles V2. Quatre groupes autour du blason et du léopard, un accent par carte, deux groupes seulement sur mobile. Découpes photo anguleuses. Logo, titre, bouton et tampon jaune inchangés. Aucune tesselle V1. Contrôle en 1440, 768 et 390 px, sans débordement horizontal. Build Next et build Astro réussis. `verify` Astro réussi. Le `verify` Next s’arrête sur l’API Payload : PostgreSQL local 127.0.0.1:5433 est arrêté. Aucun commit, aucun push, aucun déploiement.
 - 6 novembre 2026 : hero et trois cartes reconstruits comme une composition SVG. Photos découpées par clipPath, joints crème entre les formes, tesselles dans les joints. Version mobile séparée pour le hero. Titre, bouton, logo et tampon jaune inchangés. Contrôle en 1440, 768 et 390 px, sans débordement. Build Next et build Astro réussis, `verify` Astro réussi. Aucun commit, aucun push, aucun déploiement.
 - 6 novembre 2026 : la composition épouse la maquette. Fenêtres arrondies sur le blason, les mains, la bougie, le léopard et la sculpture d’écrous, tesselles dans les joints. Cartes en chevrons prune, rose et rose pâle. Titre, bouton, logo et tampon jaune inchangés. Contrôle en 1440, 768, 390 et 360 px, sans débordement, titres dans la pastille. Build Next, build Astro et `verify` Astro réussis. Aucun commit, aucun push, aucun déploiement.
+- 8 novembre 2026 : lot 4B développé sur `feature/reservations` (Checkout, webhooks, parcours public). Build et verify OK sans clé Stripe test. Aucun commit 4B.
+- 8 novembre 2026 : lot 4A commité localement (`b7a2872`) sur `feature/reservations`. Aucun push ni déploiement.
 - 8 novembre 2026 : lot 4A sur `feature/reservations`. Moteur de réservation Payload + PostgreSQL, places restantes réelles, admin manuel, calendrier connecté, sans Stripe ni réservation publique. Build et `verify` OK. Aucun commit, push ni déploiement.
 - 8 novembre 2026 : états du calendrier repris sur `main` et en préproduction. Service actif, page d’accueil en 200.
 - 8 novembre 2026 : états du calendrier. Aujourd’hui contour jaune, sélection rose poudré et filet prune, atelier disponible en fuchsia avec point jaune, jour complet distinct. Uniquement d’après les sessions Payload. Contrôle 1440, 768 et 390 px. Build Next, test des états, build Astro et `verify` réussis.

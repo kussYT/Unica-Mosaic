@@ -88,6 +88,10 @@ const guardReservation: CollectionBeforeChangeHook = async ({ data, originalDoc,
   if (origin === 'manual' && operation === 'create' && !data.status) {
     data.status = 'confirmed'
   }
+  if (operation === 'create') {
+    if (data.paymentMode == null) data.paymentMode = origin === 'online' ? undefined : 'none'
+    if (data.paymentStatus == null) data.paymentStatus = origin === 'online' ? 'pending' : 'unpaid'
+  }
 
   const nextStatus = data.status !== undefined ? data.status : status
   const nextHeldUntil = data.heldUntil !== undefined ? data.heldUntil : heldUntil
@@ -122,9 +126,18 @@ export const Reservations: CollectionConfig = {
   admin: {
     useAsTitle: 'lastName',
     group: 'Réservations',
-    defaultColumns: ['lastName', 'firstName', 'session', 'participants', 'status', 'origin', 'balanceCents'],
+    defaultColumns: [
+      'lastName',
+      'firstName',
+      'session',
+      'participants',
+      'status',
+      'paymentStatus',
+      'paidCents',
+      'balanceCents',
+    ],
     description:
-      'Inscriptions manuelles et futures réservations en ligne. Les places restantes se calculent depuis les confirmées et les retenues actives.',
+      'Inscriptions manuelles et réservations en ligne. Les places restantes se calculent depuis les confirmées et les retenues actives. Un montant payé n’est enregistré qu’après encaissement réel.',
   },
   access: {
     create: isStaff,
@@ -190,7 +203,7 @@ export const Reservations: CollectionConfig = {
         { label: 'Annulée', value: 'cancelled' },
       ],
       admin: {
-        description: 'Seules les confirmées et les retenues non expirées occupent des places. Pas de paiement réel dans ce lot.',
+        description: 'Seules les confirmées et les retenues non expirées occupent des places.',
       },
     },
     {
@@ -203,6 +216,36 @@ export const Reservations: CollectionConfig = {
         { label: 'Inscription manuelle', value: 'manual' },
         { label: 'Réservation en ligne', value: 'online' },
       ],
+    },
+    {
+      name: 'paymentMode',
+      label: 'Mode de paiement choisi',
+      type: 'select',
+      defaultValue: 'none',
+      options: [
+        { label: 'Aucun (manuel)', value: 'none' },
+        { label: 'Acompte en ligne', value: 'deposit' },
+        { label: 'Intégralité en ligne', value: 'full' },
+      ],
+      admin: { description: 'Choix du client pour le parcours Stripe. Les inscriptions manuelles restent sur « Aucun ».' },
+    },
+    {
+      name: 'paymentStatus',
+      label: 'Statut de paiement',
+      type: 'select',
+      required: true,
+      defaultValue: 'unpaid',
+      index: true,
+      options: [
+        { label: 'Non payé', value: 'unpaid' },
+        { label: 'Paiement en cours', value: 'pending' },
+        { label: 'Payé en ligne', value: 'paid' },
+        { label: 'Échec / abandon', value: 'failed' },
+        { label: 'Exception à réconcilier', value: 'exception' },
+      ],
+      admin: {
+        description: 'Ne passer à « Payé en ligne » qu’après confirmation Stripe réelle. Jamais pour une inscription manuelle sans encaissement documenté.',
+      },
     },
     {
       type: 'row',
@@ -287,10 +330,34 @@ export const Reservations: CollectionConfig = {
       },
     },
     {
+      type: 'row',
+      fields: [
+        {
+          name: 'stripeCheckoutSessionId',
+          label: 'Stripe Checkout Session',
+          type: 'text',
+          index: true,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'stripePaymentIntentId',
+          label: 'Stripe PaymentIntent',
+          type: 'text',
+          admin: { readOnly: true },
+        },
+      ],
+    },
+    {
+      name: 'confirmationEmailSentAt',
+      label: 'E-mail de confirmation tenté le',
+      type: 'date',
+      admin: { date: { pickerAppearance: 'dayAndTime' }, readOnly: true },
+    },
+    {
       name: 'adminNote',
       label: 'Note interne',
       type: 'textarea',
-      admin: { description: 'Note pour Marie (report, paiement, contact…).' },
+      admin: { description: 'Note pour Marie (report, paiement, contact, exception Stripe…).' },
     },
   ],
 }

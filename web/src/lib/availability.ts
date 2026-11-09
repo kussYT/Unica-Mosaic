@@ -1,6 +1,9 @@
 import type { Payload, Where } from 'payload'
 
-export const HOLD_MINUTES = 15
+import { CHECKOUT_HOLD_MINUTES } from '@/lib/stripe'
+import { reconcileHeldReservation } from '@/lib/stripe-fulfillment'
+
+export const HOLD_MINUTES = CHECKOUT_HOLD_MINUTES
 
 export type SeatSnapshot = {
   capacity: number | null
@@ -45,23 +48,42 @@ export const occupyingWhere = (sessionId: number | string, excludeId?: number | 
 export const occupiedFromDocs = (docs: Array<{ participants?: number | null }>) =>
   docs.reduce((sum, doc) => sum + (typeof doc.participants === 'number' ? doc.participants : 0), 0)
 
-/** Expire les retenues dépassées en SQL, sans re-entrer dans les hooks Payload. */
+/**
+ * Expire les retenues dépassées après réconciliation Stripe.
+ * Une place n’est pas libérée tant qu’un Checkout est encore ouvert
+ * ou qu’un paiement peut encore aboutir.
+ */
 export async function expireHolds(payload: Payload, sessionId?: number | string) {
-  const pool = poolOf(payload)
-  if (!pool) return 0
-  const result = await pool.query(
-    `UPDATE reservations
-     SET status = 'expired',
-         expired_at = COALESCE(expired_at, NOW()),
-         updated_at = NOW()
-     WHERE status = 'held'
-       AND held_until IS NOT NULL
-       AND held_until <= NOW()
-       AND ($1::int IS NULL OR session_id = $1)`,
-    [sessionId == null ? null : Number(sessionId)],
-  )
-  // L’état de session est resynchronisé par le déclencheur SQL AFTER UPDATE.
-  return result.rowCount || 0
+  const now = new Date().toISOString()
+  const due = await payload.find({
+    collection: 'reservations',
+    depth: 0,
+    limit: 100,
+    overrideAccess: true,
+    where: {
+      and: [
+        { status: { equals: 'held' } },
+        { heldUntil: { less_than_equal: now } },
+        ...(sessionId != null ? [{ session: { equals: sessionId } }] : []),
+      ],
+    },
+  })
+
+  let changed = 0
+  for (const doc of due.docs) {
+    try {
+      const result = await reconcileHeldReservation(payload, {
+        id: doc.id,
+        status: doc.status,
+        heldUntil: doc.heldUntil,
+        stripeCheckoutSessionId: doc.stripeCheckoutSessionId,
+      })
+      if (result) changed += 1
+    } catch (error) {
+      console.error('Réconciliation de retenue impossible', doc.id, error)
+    }
+  }
+  return changed
 }
 
 export async function getOccupiedSeats(
