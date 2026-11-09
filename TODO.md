@@ -52,6 +52,12 @@ Mis à jour le 6 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Base dédiée, quatre brouillons sans tarif ni date, aucune session ni média. Les autres sites du VPS répondent comme avant.
 - [ ] Réservations, paiement et Stripe : non commencés.
 
+## 1f. Branche graphique sécurisée — 9 novembre 2026
+- [x] Accueil final, introduction vidéo réelle de 5,53 s, hero compact et trois cartes d’entrée vérifiés sur `feature/unica-visuel`.
+- [x] Page Réalisations réduite à une galerie de 11 vraies photos, en trois colonnes sur ordinateur et une colonne sur téléphone, sur le même fond que la navigation.
+- [x] Code de réservation retiré de cette branche graphique ; build Next et contrôles navigateur réussis.
+- [x] Aucun déploiement ni accès aux données PostgreSQL.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
