@@ -37,7 +37,8 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.toggle('is-home',location.pathname==='/'||location.pathname==='')",
+            __html:
+              "(function(){var home=location.pathname==='/'||location.pathname==='';document.documentElement.classList.toggle('is-home',home);if(!home)return;var nav=performance.getEntriesByType('navigation')[0];var type=nav&&nav.type;var play=type==='reload';if(!play&&type!=='back_forward'){try{play=!document.referrer||new URL(document.referrer).origin!==location.origin;}catch(e){play=true;}}if(!play)document.documentElement.classList.add('intro-seen');})();",
           }}
         />
       </head>

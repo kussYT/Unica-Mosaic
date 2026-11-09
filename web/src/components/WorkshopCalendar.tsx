@@ -83,7 +83,6 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
               <em>de l’atelier.</em>
             </h2>
           </div>
-          <p>Seules les sessions confirmées sont posées sur le calendrier. Aucune place n’est réservée depuis cette page.</p>
         </div>
         <div className="calendar-layout">
           <div className="calendar-board">
@@ -211,7 +210,18 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
                         {typeof session.remainingSeats === 'number' ? <li>{session.remainingSeats} places restantes</li> : null}
                         {session.state === 'full' ? <li>Session complète</li> : null}
                       </ul>
-                      <a href={`/ateliers/${session.workshopSlug}/`}>Voir l’atelier</a>
+                      <div className="calendar-actions">
+                        <a href={`/ateliers/${session.workshopSlug}/`}>Voir l’atelier</a>
+                        {session.priceCents != null &&
+                        session.depositCents != null &&
+                        typeof session.remainingSeats === 'number' &&
+                        session.remainingSeats > 0 &&
+                        session.state === 'scheduled' ? (
+                          <a className="button button-small" href={`/reserver?session=${session.id}`}>
+                            Réserver
+                          </a>
+                        ) : null}
+                      </div>
                     </div>
                   </article>
                 ))}

@@ -7,7 +7,7 @@ import { ArrowDown, ArrowNorthEast } from './Icons'
 
 const subjects = [
   'Création sur mesure',
-  'Ré-colle-toi meuf',
+  'Recolle-toi meuf',
   'Pixel Kids',
   'Ma croix, mes couleurs',
   'Numéro de maison',

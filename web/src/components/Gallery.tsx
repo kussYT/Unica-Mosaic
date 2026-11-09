@@ -4,53 +4,37 @@ import { useRef, useState } from 'react'
 
 import type { works } from '@/data/site'
 
-import { ArrowNorthEast } from './Icons'
-import { Photo } from './Photo'
-
 type Work = (typeof works)[number]
-const filters = ['Tout voir', 'Décoration', 'Sur mesure', 'En atelier'] as const
 
 export function Gallery({ works }: { works: Work[] }) {
-  const [filter, setFilter] = useState<(typeof filters)[number]>('Tout voir')
   const dialog = useRef<HTMLDialogElement>(null)
-  const [preview, setPreview] = useState({ src: '', alt: '', title: '' })
-  const visible = works.filter((work) => filter === 'Tout voir' || work.category === filter)
+  const [preview, setPreview] = useState({ src: '', alt: '' })
 
   return (
-    <section className="wrap gallery-section" aria-label="Galerie des réalisations">
-      <div className="filter-bar" role="group" aria-label="Filtrer les créations">
-        {filters.map((item) => (
-          <button key={item} type="button" aria-pressed={filter === item} onClick={() => setFilter(item)}>
-            {item}
-          </button>
-        ))}
-      </div>
-      <p id="gallery-count" className="sr-only" role="status" aria-live="polite">
-        {visible.length} créations affichées
-      </p>
+    <section className="wrap gallery-section" aria-label="Galerie des créations sur mesure">
       <div className="gallery-grid">
         {works.map((work, index) => {
-          const hidden = filter !== 'Tout voir' && work.category !== filter
           return (
-            <article className="gallery-item" hidden={hidden || undefined} key={work.image}>
+            <article className="gallery-item" key={work.image}>
               <button
                 className="gallery-open"
                 type="button"
                 aria-label={`Agrandir : ${work.title}`}
                 onClick={() => {
-                  setPreview({ src: `/images/${work.image}-1600.webp`, alt: work.alt, title: work.title })
+                  setPreview({ src: `/images/${work.image}-1600.webp`, alt: work.alt })
                   dialog.current?.showModal()
                 }}
               >
-                <Photo name={work.image} alt={work.alt} eager={index < 2} />
-                <span className="circle-arrow" aria-hidden="true">
-                  <ArrowNorthEast />
-                </span>
+                <img
+                  src={`/images/${work.image}-960.webp`}
+                  srcSet={`/images/${work.image}-480.webp 480w, /images/${work.image}-960.webp 960w, /images/${work.image}-1600.webp 1600w`}
+                  sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 33vw"
+                  alt={work.alt}
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  fetchPriority={index < 3 ? 'high' : 'auto'}
+                  decoding="async"
+                />
               </button>
-              <div className="gallery-caption">
-                <h2>{work.title}</h2>
-                <span>{work.category}</span>
-              </div>
             </article>
           )
         })}
@@ -67,7 +51,6 @@ export function Gallery({ works }: { works: Work[] }) {
           ×
         </button>
         <img id="lightbox-image" src={preview.src || undefined} alt={preview.alt} />
-        <p id="lightbox-title">{preview.title}</p>
       </dialog>
     </section>
   )

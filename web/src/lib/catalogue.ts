@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 
 import config from '@payload-config'
 import { workshops as staticWorkshops } from '@/data/site'
+import { effectiveCalendarState, getRemainingSeatsBySessionIds } from '@/lib/availability'
 import type { CalendarSession } from '@/lib/calendar'
 
 export type PublicWorkshop = {
@@ -29,6 +30,9 @@ export type PublicSession = {
   endsAt: string
   place: string | null
   capacity: number | null
+  remainingSeats: number | null
+  priceCents: number | null
+  depositCents: number | null
   state: 'scheduled' | 'full' | 'cancelled'
 }
 
@@ -107,10 +111,24 @@ export async function getPublicWorkshops(): Promise<PublicWorkshop[]> {
 export async function getCalendarSessions(): Promise<CalendarSession[]> {
   const [sessions, workshops] = await Promise.all([getUpcomingSessions(), getPublicWorkshops()])
   const bySlug = new Map(workshops.map((workshop) => [workshop.slug, workshop]))
+  let remainingById = new Map<string, number | null>()
+  if (payloadConfigured() && sessions.length > 0) {
+    try {
+      const payload = await getPayload({ config })
+      remainingById = await getRemainingSeatsBySessionIds(
+        payload,
+        sessions.map((session) => session.id),
+      )
+    } catch (error) {
+      console.error('Disponibilités Payload indisponibles.', error)
+    }
+  }
   return sessions.map((session) => {
     const workshop = bySlug.get(session.workshopSlug)
+    const remainingSeats = remainingById.has(session.id) ? remainingById.get(session.id)! : null
     return {
       ...session,
+      state: effectiveCalendarState(session.state, remainingSeats),
       label: workshop?.label || 'ATELIER',
       summary: workshop?.intro || '',
       image: workshop?.image || null,
@@ -120,7 +138,7 @@ export async function getCalendarSessions(): Promise<CalendarSession[]> {
       priceCents: workshop?.priceCents ?? null,
       depositCents: workshop?.depositCents ?? null,
       durationMinutes: workshop?.durationMinutes ?? null,
-      remainingSeats: null,
+      remainingSeats,
     }
   })
 }
@@ -143,7 +161,7 @@ export async function getUpcomingSessions(slug?: string): Promise<PublicSession[
         ],
       },
     })
-    return result.docs.flatMap((doc) => {
+    const mapped = result.docs.flatMap((doc) => {
       const workshop = doc.workshop
       if (!workshop || typeof workshop !== 'object') return []
       if (slug && workshop.slug !== slug) return []
@@ -157,9 +175,24 @@ export async function getUpcomingSessions(slug?: string): Promise<PublicSession[
           endsAt: doc.endsAt,
           place: doc.place || null,
           capacity: typeof doc.capacity === 'number' ? doc.capacity : null,
-          state: doc.state,
+          remainingSeats: null as number | null,
+          priceCents: typeof workshop.priceCents === 'number' ? workshop.priceCents : null,
+          depositCents: typeof workshop.depositCents === 'number' ? workshop.depositCents : null,
+          state: doc.state as PublicSession['state'],
         },
       ]
+    })
+    const remainingById = await getRemainingSeatsBySessionIds(
+      payload,
+      mapped.map((session) => session.id),
+    )
+    return mapped.map((session) => {
+      const remainingSeats = remainingById.has(session.id) ? remainingById.get(session.id)! : null
+      return {
+        ...session,
+        remainingSeats,
+        state: effectiveCalendarState(session.state, remainingSeats),
+      }
     })
   } catch (error) {
     console.error('Sessions Payload indisponibles.', error)

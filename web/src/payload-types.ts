@@ -71,17 +71,23 @@ export interface Config {
     media: Media;
     workshops: Workshop;
     sessions: Session;
+    reservations: Reservation;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    sessions: {
+      reservations: 'reservations';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     workshops: WorkshopsSelect<false> | WorkshopsSelect<true>;
     sessions: SessionsSelect<false> | SessionsSelect<true>;
+    reservations: ReservationsSelect<false> | ReservationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -207,10 +213,22 @@ export interface Workshop {
 export interface Session {
   id: number;
   workshop: number | Workshop;
+  /**
+   * Calculées depuis les réservations confirmées et les retenues actives. Pas un compteur modifiable.
+   */
+  remainingSeats?: number | null;
+  /**
+   * Inscriptions liées à cette session.
+   */
+  reservations?: {
+    docs?: (number | Reservation)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   startsAt: string;
   endsAt: string;
   /**
-   * Laisser vide tant que la capacité n’est pas confirmée. Ce chiffre n’ouvre pas de réservation.
+   * Nombre entier, au moins 1. Obligatoire pour publier. Laisser vide dans un brouillon tant que la capacité n’est pas confirmée. Ce chiffre n’ouvre pas de réservation.
    */
   capacity?: number | null;
   place?: string | null;
@@ -218,6 +236,73 @@ export interface Session {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Inscriptions manuelles et réservations en ligne. Les places restantes se calculent depuis les confirmées et les retenues actives. Un montant payé n’est enregistré qu’après encaissement réel.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reservations".
+ */
+export interface Reservation {
+  id: number;
+  /**
+   * Session concernée. Filtrer ensuite par atelier via la session.
+   */
+  session: number | Session;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string | null;
+  /**
+   * Entier ≥ 1. Compte dans les places occupées si la réservation est confirmée ou retenue.
+   */
+  participants: number;
+  /**
+   * Seules les confirmées et les retenues non expirées occupent des places.
+   */
+  status: 'pending' | 'held' | 'confirmed' | 'expired' | 'cancelled';
+  origin: 'manual' | 'online';
+  /**
+   * Choix du client pour le parcours Stripe. Les inscriptions manuelles restent sur « Aucun ».
+   */
+  paymentMode?: ('none' | 'deposit' | 'full') | null;
+  /**
+   * Ne passer à « Payé en ligne » qu’après confirmation Stripe réelle. Jamais pour une inscription manuelle sans encaissement documenté.
+   */
+  paymentStatus: 'unpaid' | 'pending' | 'paid' | 'failed' | 'exception';
+  /**
+   * À encaisser. Ne signifie pas « payé ».
+   */
+  totalCents?: number | null;
+  depositCents?: number | null;
+  /**
+   * Uniquement ce qui a réellement été encaissé. Laisser à 0 tant que ce n’est pas confirmé.
+   */
+  paidCents?: number | null;
+  /**
+   * Calculé : total − payé. Montant encore à encaisser.
+   */
+  balanceCents?: number | null;
+  /**
+   * Retenue temporaire (défaut 30 min pour le futur parcours en ligne).
+   */
+  heldUntil?: string | null;
+  confirmedAt?: string | null;
+  cancelledAt?: string | null;
+  expiredAt?: string | null;
+  /**
+   * Préparation d’un report vers une autre session. Ne déplace pas automatiquement les places.
+   */
+  rescheduleTo?: (number | null) | Session;
+  stripeCheckoutSessionId?: string | null;
+  stripePaymentIntentId?: string | null;
+  confirmationEmailSentAt?: string | null;
+  /**
+   * Note pour Marie (report, paiement, contact, exception Stripe…).
+   */
+  adminNote?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -258,6 +343,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sessions';
         value: number | Session;
+      } | null)
+    | ({
+        relationTo: 'reservations';
+        value: number | Reservation;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -369,6 +458,8 @@ export interface WorkshopsSelect<T extends boolean = true> {
  */
 export interface SessionsSelect<T extends boolean = true> {
   workshop?: T;
+  remainingSeats?: T;
+  reservations?: T;
   startsAt?: T;
   endsAt?: T;
   capacity?: T;
@@ -377,6 +468,37 @@ export interface SessionsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reservations_select".
+ */
+export interface ReservationsSelect<T extends boolean = true> {
+  session?: T;
+  firstName?: T;
+  lastName?: T;
+  email?: T;
+  phone?: T;
+  participants?: T;
+  status?: T;
+  origin?: T;
+  paymentMode?: T;
+  paymentStatus?: T;
+  totalCents?: T;
+  depositCents?: T;
+  paidCents?: T;
+  balanceCents?: T;
+  heldUntil?: T;
+  confirmedAt?: T;
+  cancelledAt?: T;
+  expiredAt?: T;
+  rescheduleTo?: T;
+  stripeCheckoutSessionId?: T;
+  stripePaymentIntentId?: T;
+  confirmationEmailSentAt?: T;
+  adminNote?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

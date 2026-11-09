@@ -10,6 +10,29 @@ import '@/styles/agenda.css'
 
 type Args = { params: Promise<{ slug: string }> }
 
+const workshopVideos: Record<string, { src: string; poster: string; label: string }> = {
+  'recolle-toi-meuf': {
+    src: '/workshop-videos/workshop-recolle.mp4',
+    poster: '/workshop-videos/workshop-recolle-poster.webp',
+    label: 'Un aperçu vidéo d’un atelier adulte UNICA.',
+  },
+  'pixel-kids': {
+    src: '/workshop-videos/workshop-pixel-kids.mp4',
+    poster: '/workshop-videos/workshop-pixel-kids-poster.webp',
+    label: 'Un aperçu vidéo de l’atelier Pixel Kids.',
+  },
+  'ma-croix-mes-couleurs': {
+    src: '/workshop-videos/workshop-gesture.mp4',
+    poster: '/workshop-videos/workshop-gesture-poster.webp',
+    label: 'Les gestes de création pendant un atelier UNICA.',
+  },
+  'numero-de-maison': {
+    src: '/workshop-videos/workshop-gesture.mp4',
+    poster: '/workshop-videos/workshop-gesture-poster.webp',
+    label: 'Les gestes de création pendant un atelier UNICA.',
+  },
+}
+
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
@@ -28,6 +51,7 @@ export default async function WorkshopPage({ params }: Args) {
   const price = workshop.priceCents == null ? 'À confirmer' : formatEuros(workshop.priceCents)
   const deposit = workshop.depositCents == null ? null : formatEuros(workshop.depositCents)
   const duration = workshop.durationMinutes == null ? null : formatDuration(workshop.durationMinutes)
+  const video = workshopVideos[slug]
 
   return (
     <>
@@ -37,7 +61,11 @@ export default async function WorkshopPage({ params }: Args) {
       </div>
       <section className={`workshop-detail wrap tone-${workshop.tone}`}>
         <div className="detail-photo">
-          {workshop.imageUrl ? (
+          {video ? (
+            <video controls playsInline preload="metadata" poster={video.poster} aria-label={video.label}>
+              <source src={video.src} type="video/mp4" />
+            </video>
+          ) : workshop.imageUrl ? (
             <img src={workshop.imageUrl} alt={workshop.alt} />
           ) : workshop.image ? (
             <Photo name={workshop.image} alt={workshop.alt} eager />
@@ -47,10 +75,27 @@ export default async function WorkshopPage({ params }: Args) {
           <p className="eyebrow">{workshop.label}</p>
           <h1>{workshop.name}</h1>
           <p className="lead">{workshop.intro}</p>
-          <a className="button" href={`/contact/?sujet=${encodeURIComponent(workshop.name)}`}>
-            Préparer ma demande <span aria-hidden="true"><ArrowNorthEast /></span>
-          </a>
-          <p className="quiet-note">La réservation en ligne n’est pas ouverte. Cette page ne retient aucune place.</p>
+          {sessions.some(
+            (session) =>
+              session.priceCents != null &&
+              session.depositCents != null &&
+              typeof session.remainingSeats === 'number' &&
+              session.remainingSeats > 0 &&
+              session.state === 'scheduled',
+          ) ? (
+            <a className="button" href={`#agenda`}>
+              Voir les dates et réserver <span aria-hidden="true"><ArrowNorthEast /></span>
+            </a>
+          ) : (
+            <a className="button" href={`/contact/?sujet=${encodeURIComponent(workshop.name)}`}>
+              Préparer ma demande <span aria-hidden="true"><ArrowNorthEast /></span>
+            </a>
+          )}
+          <p className="quiet-note">
+            {workshop.priceCents == null || workshop.depositCents == null
+              ? 'La réservation en ligne s’ouvre dès que le tarif et l’acompte sont confirmés.'
+              : 'Les places ne sont retenues qu’après démarrage du paiement Stripe.'}
+          </p>
         </div>
       </section>
       <section className="section wrap detail-info">
@@ -86,7 +131,7 @@ export default async function WorkshopPage({ params }: Args) {
               <dd>{workshop.practicalInfo || sessions.find((session) => session.place)?.place || 'Précisés pour chaque session confirmée'}</dd>
             </div>
           </dl>
-          <p>Les informations définitives sont celles confirmées dans l’administration. Aucun paiement n’est demandé ici.</p>
+          <p>Les informations définitives sont celles confirmées dans l’administration. Le paiement en ligne, s’il est ouvert, utilise Stripe Checkout en euros.</p>
         </aside>
       </section>
       <Agenda sessions={sessions} heading={false} />

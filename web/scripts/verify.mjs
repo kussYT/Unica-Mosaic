@@ -24,9 +24,10 @@ const home = await responseOf('/')
 assert(home.response.status === 200, `Accueil HTTP ${home.response.status}`)
 assert(home.text.includes('<title>L’art de recoller les morceaux — UNICA Mosaïque</title>'), 'Le titre de l’accueil ne reprend pas la signature')
 assert(home.text.includes('noindex'), 'Le noindex manque')
-assert(home.text.includes('CHAQUE PIÈCE'), 'Le tampon du hero manque')
+assert(home.text.includes('/media/intro-unica.mp4'), 'La vidéo d’introduction manque')
+assert(home.text.includes('Créations sur mesure'), 'La carte Créations sur mesure manque')
 assert(home.text.includes('Mosaic Kids'), 'La carte Mosaic Kids manque')
-assert(home.text.includes('/images/blason-960.webp'), 'La photo du blason manque')
+assert(home.text.includes('/images/atelier-mains-960.webp'), 'La photo du nouveau hero manque')
 assert(!home.text.includes('€'), 'Un prix est apparu sur l’accueil')
 assert(home.text.includes('Le calendrier'), 'Le calendrier manque sur l’accueil')
 assert(home.text.includes('Aucune session n’est programmée pour le moment.'), 'L’accueil invente des dates')
@@ -38,8 +39,15 @@ for (const pathname of ['/ateliers/', '/ateliers/pixel-kids/', '/realisations/',
   assert(page.response.status === 200, `${pathname} HTTP ${page.response.status}`)
 }
 
+const works = await responseOf('/realisations/')
+assert((works.text.match(/class="gallery-open"/g) || []).length === 11, 'La galerie ne contient pas les 11 photos attendues')
+
 const workshop = await responseOf('/ateliers/pixel-kids/')
-assert(workshop.text.includes('La réservation en ligne n’est pas ouverte.'), 'La fiche atelier promet une réservation')
+assert(
+  workshop.text.includes('La réservation en ligne s’ouvre dès que le tarif et l’acompte sont confirmés.') ||
+    workshop.text.includes('Les places ne sont retenues qu’après démarrage du paiement Stripe.'),
+  'La fiche atelier n’explique pas les conditions de réservation',
+)
 assert(!workshop.text.includes('Réserver'), 'La fiche atelier propose une réservation')
 assert(!workshop.text.includes('Payer'), 'La fiche atelier propose un paiement')
 
