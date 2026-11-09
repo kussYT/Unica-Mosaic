@@ -71,7 +71,17 @@ export function HomePaths() {
                 <path d={shape.tile} fill={shape.tileFill} />
               </svg>
               <span className="path-copy">
-                <span className="path-title">{card.title}</span>
+                <span className="path-title">
+                  {card.tone === 'realisations' ? (
+                    <>
+                      {card.title.slice(0, card.title.indexOf(' '))}
+                      <br />
+                      {card.title.slice(card.title.indexOf(' ') + 1)}
+                    </>
+                  ) : (
+                    card.title
+                  )}
+                </span>
                 <span className="path-arrow" aria-hidden="true"><ArrowRight /></span>
               </span>
               <span className="sr-only">{card.alt}</span>

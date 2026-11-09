@@ -83,7 +83,6 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
               <em>de l’atelier.</em>
             </h2>
           </div>
-          <p>Seules les sessions confirmées sont posées sur le calendrier. Aucune place n’est réservée depuis cette page.</p>
         </div>
         <div className="calendar-layout">
           <div className="calendar-board">

@@ -10,6 +10,29 @@ import '@/styles/agenda.css'
 
 type Args = { params: Promise<{ slug: string }> }
 
+const workshopVideos: Record<string, { src: string; poster: string; label: string }> = {
+  'recolle-toi-meuf': {
+    src: '/workshop-videos/workshop-recolle.mp4',
+    poster: '/workshop-videos/workshop-recolle-poster.webp',
+    label: 'Un aperçu vidéo d’un atelier adulte UNICA.',
+  },
+  'pixel-kids': {
+    src: '/workshop-videos/workshop-pixel-kids.mp4',
+    poster: '/workshop-videos/workshop-pixel-kids-poster.webp',
+    label: 'Un aperçu vidéo de l’atelier Pixel Kids.',
+  },
+  'ma-croix-mes-couleurs': {
+    src: '/workshop-videos/workshop-gesture.mp4',
+    poster: '/workshop-videos/workshop-gesture-poster.webp',
+    label: 'Les gestes de création pendant un atelier UNICA.',
+  },
+  'numero-de-maison': {
+    src: '/workshop-videos/workshop-gesture.mp4',
+    poster: '/workshop-videos/workshop-gesture-poster.webp',
+    label: 'Les gestes de création pendant un atelier UNICA.',
+  },
+}
+
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
@@ -28,6 +51,7 @@ export default async function WorkshopPage({ params }: Args) {
   const price = workshop.priceCents == null ? 'À confirmer' : formatEuros(workshop.priceCents)
   const deposit = workshop.depositCents == null ? null : formatEuros(workshop.depositCents)
   const duration = workshop.durationMinutes == null ? null : formatDuration(workshop.durationMinutes)
+  const video = workshopVideos[slug]
 
   return (
     <>
@@ -37,7 +61,11 @@ export default async function WorkshopPage({ params }: Args) {
       </div>
       <section className={`workshop-detail wrap tone-${workshop.tone}`}>
         <div className="detail-photo">
-          {workshop.imageUrl ? (
+          {video ? (
+            <video controls playsInline preload="metadata" poster={video.poster} aria-label={video.label}>
+              <source src={video.src} type="video/mp4" />
+            </video>
+          ) : workshop.imageUrl ? (
             <img src={workshop.imageUrl} alt={workshop.alt} />
           ) : workshop.image ? (
             <Photo name={workshop.image} alt={workshop.alt} eager />
