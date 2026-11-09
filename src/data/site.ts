@@ -7,7 +7,7 @@ export const site = {
 
 // « Mosaic Kids » reprend le nom de la maquette et mène à l’atelier Pixel Kids, en attendant la confirmation du nom.
 export const homePaths = [
-  { href: '/realisations/', title: 'Réalisations', image: 'boutique', alt: 'Mosaïque figurative exposée dans la boutique.', tone: 'realisations' },
+  { href: '/realisations/', title: 'Créations sur mesure', image: 'boutique', alt: 'Mosaïque figurative exposée dans la boutique.', tone: 'realisations' },
   { href: '/ateliers/', title: 'Ateliers', image: 'atelier-mains', alt: 'Des mains assemblent une mosaïque à l’atelier.', tone: 'ateliers' },
   { href: '/ateliers/pixel-kids/', title: 'Mosaic Kids', image: 'pixel-kids', alt: 'Des enfants composent une mosaïque colorée à l’atelier.', tone: 'kids' },
 ];
@@ -26,4 +26,9 @@ export const works = [
   { image: 'lion', title: 'Une pièce prend vie', category: 'En atelier', alt: 'Travail à la main sur une mosaïque représentant une tête de lion.' },
   { image: 'tortue', title: 'La mosaïque habite les lieux', category: 'Sur mesure', alt: 'Mosaïque de tortue installée sur le mur d’un espace aquatique.' },
   { image: 'croix', title: 'Des couleurs qui vous ressemblent', category: 'Décoration', alt: 'Croix réalisée en mosaïque et présentée à la main.' },
+  { image: 'atelier-mains', title: 'Le geste précis', category: 'En atelier', alt: 'Des mains assemblent patiemment des tesselles de mosaïque.' },
+  { image: 'atelier-partage', title: 'Créer ensemble', category: 'En atelier', alt: 'Deux participantes échangent autour de leur création pendant un atelier UNICA.' },
+  { image: 'atelier-table', title: 'La table de création', category: 'En atelier', alt: 'Une table couverte de tesselles et de créations en cours.' },
+  { image: 'pixel-kids', title: 'Couleurs en partage', category: 'En atelier', alt: 'Des enfants composent des mosaïques colorées autour de la table.' },
+  { image: 'recolle', title: 'Composer autrement', category: 'En atelier', alt: 'Une création en mosaïque prend forme pendant un atelier.' },
 ];
