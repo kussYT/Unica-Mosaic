@@ -1,13 +1,47 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 
-const INTRO_SEEN_KEY = 'unicaIntroSeen'
 /** Durée d’affichage alignée sur la séquence source continue (IMG_8045, ~5,53 s). */
 const INTRO_MS = 5530
 
+/** Décision du document courant. Un rechargement recrée le module ; une navigation interne le conserve. */
+let arrivalDecision: boolean | null = null
+
+function isHomePath(pathname: string) {
+  return pathname === '/' || pathname === ''
+}
+
+/** Vrai pour un chargement ou un rafraîchissement de l’accueil, faux pour une arrivée interne. */
+function arrivalShouldPlay() {
+  const entry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+  if (entry) {
+    try {
+      if (!isHomePath(new URL(entry.name).pathname)) return false
+    } catch {
+      if (!isHomePath(window.location.pathname)) return false
+    }
+    if (entry.type === 'reload') return true
+    if (entry.type === 'back_forward') return false
+  } else if (!isHomePath(window.location.pathname)) {
+    return false
+  }
+
+  if (!document.referrer) return true
+  try {
+    return new URL(document.referrer).origin !== window.location.origin
+  } catch {
+    return true
+  }
+}
+
+function shouldShowOnFirstPaint() {
+  if (typeof window === 'undefined') return true
+  return arrivalDecision === null
+}
+
 export function VideoIntro() {
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(shouldShowOnFirstPaint)
   const [leaving, setLeaving] = useState(false)
   const leavingRef = useRef(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -17,32 +51,25 @@ export function VideoIntro() {
     leavingRef.current = true
     setLeaving(true)
 
-    try {
-      sessionStorage.setItem(INTRO_SEEN_KEY, '1')
-    } catch {
-      // The intro still works if storage is unavailable.
-    }
-
     closeTimer.current = setTimeout(() => {
       document.documentElement.classList.add('intro-seen')
       setVisible(false)
     }, 620)
   }, [])
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    let alreadySeen = false
-
-    try {
-      alreadySeen = sessionStorage.getItem(INTRO_SEEN_KEY) === '1'
-    } catch {
-      // Keep the short intro available when storage is unavailable.
+  useLayoutEffect(() => {
+    if (arrivalDecision === null) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      arrivalDecision = arrivalShouldPlay() && !prefersReducedMotion
     }
 
-    if (prefersReducedMotion || alreadySeen) {
-      setVisible(false)
+    if (!arrivalDecision) {
+      document.documentElement.classList.add('intro-seen')
+      if (visible) setVisible(false)
       return
     }
+
+    if (!visible) return
 
     const timer = window.setTimeout(dismiss, INTRO_MS)
     const onKeyDown = (event: KeyboardEvent) => {
@@ -55,7 +82,7 @@ export function VideoIntro() {
       if (closeTimer.current) window.clearTimeout(closeTimer.current)
       document.removeEventListener('keydown', onKeyDown)
     }
-  }, [dismiss])
+  }, [dismiss, visible])
 
   if (!visible) return null
 
