@@ -5,7 +5,7 @@ Mis à jour le 9 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Dépôt relié à GitHub ; base Astro, composants et contenu centralisé.
 - [x] Accueil avec « L’art de recoller les morceaux », univers, créations et ateliers.
 - [x] Palette de la charte, logos SVG et Montserrat hébergée localement.
-- [x] Catalogue ateliers et quatre fiches : Ré-colle-toi meuf, Pixel Kids, Ma croix mes couleurs, Numéro de maison.
+- [x] Catalogue ateliers et quatre fiches : Recolle-toi meuf, Pixel Kids, Ma croix mes couleurs, Numéro de maison.
 - [x] Galerie : six créations, filtres et agrandissement.
 - [x] Contact : choix atelier prérempli, champs validés, brouillon copiable et téléchargeable.
 - [x] Page 404, menu mobile, focus visible, lien d'évitement et mouvement réduit.
@@ -103,6 +103,9 @@ Mis à jour le 9 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [ ] Préparer un guide de mise à jour pour Marie.
 
 ## Journal
+- 9 novembre 2026 : l’introduction vidéo se rejoue à chaque chargement ou actualisation de l’accueil. Elle ne revient pas pendant une navigation interne. Durée 5,53 s, bouton « Passer l’intro », Échap, fondu et mouvement réduit conservés. Contrôle local : F5 relance la vidéo, le retour depuis les ateliers ne la relance pas.
+- 9 novembre 2026 : préproduction `unica-preview.versatech-dev.fr` mise à jour avec le commit `ac5b570` de `Unica-Mosaic` (`feature/reservations`). Service actif, accès protégé, noindex conservé, Stripe non configuré. Aucune session ni réservation en base, comme avant. Cette copie visuelle locale n’a pas été publiée.
+- 9 novembre 2026 : flèches des trois cartes d’accueil réduites d’environ 27 %, titres augmentés d’environ 15 %. Sur les cartes ateliers, flèche du rond réduite, titre et surtitre un peu plus grands. Nom affiché corrigé en « Recolle-toi meuf », slugs inchangés. Contrôle 1440 et 390 px. Build Next réussi. Aucun commit ni déploiement.
 - 9 novembre 2026 : les tesselles décoratives de l’accueil sont remplacées par deux petites pinces issues des assets officiels. Les photos du hero, des univers, des cartes ateliers et du studio alternent désormais avec des rythmes décalés pour éviter un changement simultané. Chaque fiche atelier affiche une vidéo locale adaptée avec poster et contrôles, sans modification de Payload ni des réservations. Contrôle visuel ordinateur et mobile 390 px ; build Next réussi. Aucun commit, push ni déploiement.
 - 9 novembre 2026 : cartes d’entrée alignées. Titre « Créations sur mesure » sur deux lignes, un peu plus petit ; flèches un peu plus grandes. Quatre tesselles de la charte autour de la photo d’accueil. Contrôle en 1440, 1100 et 390 px, sans débordement. Aucun commit ni déploiement.
 - 6 novembre 2026 : sauvegarde pour changement d’ordinateur. Guide `docs/INSTALLATION_NOUVEAU_PC.md`. Build Astro, `npm run verify` Astro, synchronisation des 49 assets et build Next réussis. `web/.env` est absent : migrations, ateliers, compte admin et `verify` Next non rejoués. Commit sur `portage-next-payload` seulement. Aucun déploiement.
@@ -141,7 +144,7 @@ Mis à jour le 9 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - La branche `portage-next-payload` est publiée sur GitHub. Le site reste en noindex. Aucun déploiement VPS depuis cette sauvegarde.
 - Astro statique pour la présentation ; aucun compte client ni paiement ajouté.
 - Le portage validé vit sur `portage-next-payload` : une application Next.js + Payload 3 + PostgreSQL. La référence visuelle reste le tag `reference-astro`.
-- Rose #F00087, violet #59003D. Le crème des grandes surfaces est #F4E2DA, parti de #FCF4F1. Les ateliers et le panneau de contact utilisent le rose poudré #F6D4DF. Rose clair selon RVB ; jaune de la campagne Ré-colle-toi meuf et des maquettes.
+- Rose #F00087, violet #59003D. Le crème des grandes surfaces est #F4E2DA, parti de #FCF4F1. Les ateliers et le panneau de contact utilisent le rose poudré #F6D4DF. Rose clair selon RVB ; jaune de la campagne Recolle-toi meuf et des maquettes.
 - La charte répète le code violet sur deux autres couleurs : utiliser les valeurs RVB et les exports.
 - Aucun âge, tarif, durée, date ou témoignage inventé à partir des maquettes.
 - Un atelier publié dans Payload remplace la fiche statique du même slug. Sans atelier publié, le catalogue statique reste affiché. Une session n’apparaît que si elle est publiée, à venir et non annulée.
