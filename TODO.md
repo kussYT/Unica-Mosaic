@@ -127,6 +127,8 @@ Mis à jour le 18 novembre 2026. Lire et mettre à jour ce fichier à chaque int
 - [ ] `verify.mjs` reste bloqué par l’assertion visuelle obsolète « La carte Créations sur mesure manque », sans rapport avec ce lot.
 - [x] Trois issues mobiles créées sur GitHub : #8 lisibilité/ergonomie, #9 accueil/décor, #10 médias/pages secondaires.
 
+Passe mobile ciblée : alignement des flèches de mois et masquage des décors du hero, des CTA, des cartes ateliers et du calendrier.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
