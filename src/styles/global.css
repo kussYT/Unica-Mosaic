@@ -188,8 +188,11 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .home-hero-craft .hero-copy h1 em{white-space:normal}
   .home-hero-craft .button{width:100%;max-width:100%;min-width:0;justify-content:center;gap:12px;padding-inline:16px;font-size:12px;white-space:nowrap}
   .hero-craft-visual{height:min(112vw,560px);min-height:0;max-height:560px}
-  .hero-tool-nippers{width:58px;right:-10px;top:-22px}
-  .hero-tool-rollers{width:43px;left:-8px;bottom:24px}
+  .hero-tool,
+  .cta-section > .tile,
+  .card-index {
+    display: none;
+  }
   .hero-craft-frame{border-radius:22px 22px 70px 22px}
   .tradition-band-inner{padding-block:42px}
   .tradition-signature{width:min(100%,430px)}
