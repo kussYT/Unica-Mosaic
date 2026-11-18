@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Media } from './collections/Media'
+import { Reservations } from './collections/Reservations'
 import { Sessions } from './collections/Sessions'
 import { Users } from './collections/Users'
 import { Workshops } from './collections/Workshops'
@@ -30,7 +31,7 @@ export default buildConfig({
       titleSuffix: '— UNICA',
     },
   },
-  collections: [Users, Media, Workshops, Sessions],
+  collections: [Users, Media, Workshops, Sessions, Reservations],
   i18n: {
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',

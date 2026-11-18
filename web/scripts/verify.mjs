@@ -43,7 +43,11 @@ const works = await responseOf('/realisations/')
 assert((works.text.match(/class="gallery-open"/g) || []).length === 11, 'La galerie ne contient pas les 11 photos attendues')
 
 const workshop = await responseOf('/ateliers/pixel-kids/')
-assert(workshop.text.includes('La réservation en ligne n’est pas ouverte.'), 'La fiche atelier promet une réservation')
+assert(
+  workshop.text.includes('La réservation en ligne s’ouvre dès que le tarif et l’acompte sont confirmés.') ||
+    workshop.text.includes('Les places ne sont retenues qu’après démarrage du paiement Stripe.'),
+  'La fiche atelier n’explique pas les conditions de réservation',
+)
 assert(!workshop.text.includes('Réserver'), 'La fiche atelier propose une réservation')
 assert(!workshop.text.includes('Payer'), 'La fiche atelier propose un paiement')
 

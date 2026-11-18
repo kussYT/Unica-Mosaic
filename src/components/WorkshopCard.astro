@@ -5,5 +5,15 @@ const { workshop: w, index = 0 } = Astro.props;
 ---
 <a class={`workshop-card tone-${w.tone}`} href={`/ateliers/${w.slug}/`}>
   <div class="card-photo"><Photo name={w.image} alt={w.alt} sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 25vw" /><span class="card-index">0{index + 1}</span></div>
-  <div class="card-copy"><span class="eyebrow">{w.label}</span><div class="card-title"><h3>{w.name}</h3><span class="circle-arrow" aria-hidden="true"><Icon name="ne" /></span></div></div>
+  <div class="card-copy"><span class="eyebrow">{w.label}</span><div class="card-title"><h3>
+      {w.name === 'Ma croix, mes couleurs' ? (
+        <>
+          Ma croix,
+          <br />
+          mes couleurs
+        </>
+      ) : (
+        w.name
+      )}
+    </h3><span class="circle-arrow" aria-hidden="true"><Icon name="ne" /></span></div></div>
 </a>

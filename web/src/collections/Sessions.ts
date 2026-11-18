@@ -1,7 +1,13 @@
-import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterReadHook,
+  CollectionBeforeChangeHook,
+  CollectionConfig,
+} from 'payload'
 
 import { publishedOrStaff } from '../access/published'
 import { isAdmin, isStaff } from '../access/roles'
+import { getRemainingSeats, syncSessionAvailability } from '../lib/availability'
 
 const isConfirmedCapacity = (value: unknown): value is number =>
   typeof value === 'number' && Number.isInteger(value) && value >= 1
@@ -36,7 +42,7 @@ export const Sessions: CollectionConfig = {
   admin: {
     useAsTitle: 'startsAt',
     group: 'Catalogue',
-    defaultColumns: ['workshop', 'startsAt', 'state', '_status'],
+    defaultColumns: ['workshop', 'startsAt', 'capacity', 'state', '_status'],
   },
   versions: { drafts: true },
   access: {
@@ -45,7 +51,32 @@ export const Sessions: CollectionConfig = {
     read: publishedOrStaff,
     update: isStaff,
   },
-  hooks: { beforeChange: [guardSession] },
+  hooks: {
+    beforeChange: [guardSession],
+    afterChange: [
+      (async ({ doc, previousDoc, req, context }) => {
+        if (!doc?.id || context?.availabilitySync) return doc
+        const capacityChanged = previousDoc && doc.capacity !== previousDoc.capacity
+        const reopened = previousDoc?.state === 'cancelled' && doc.state !== 'cancelled'
+        if (capacityChanged || reopened) {
+          await syncSessionAvailability(req.payload, doc.id)
+        }
+        return doc
+      }) as CollectionAfterChangeHook,
+    ],
+    afterRead: [
+      (async ({ doc, req, context }) => {
+        if (!doc?.id || context?.skipRemainingSeats) return doc
+        if (!req.user) return doc
+        try {
+          doc.remainingSeats = await getRemainingSeats(req.payload, doc.id)
+        } catch {
+          doc.remainingSeats = null
+        }
+        return doc
+      }) as CollectionAfterReadHook,
+    ],
+  },
   fields: [
     {
       name: 'workshop',
@@ -53,6 +84,28 @@ export const Sessions: CollectionConfig = {
       type: 'relationship',
       relationTo: 'workshops',
       required: true,
+    },
+    {
+      name: 'remainingSeats',
+      label: 'Places restantes',
+      type: 'number',
+      virtual: true,
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        description: 'Calculées depuis les réservations confirmées et les retenues actives. Pas un compteur modifiable.',
+      },
+    },
+    {
+      name: 'reservations',
+      label: 'Réservations',
+      type: 'join',
+      collection: 'reservations',
+      on: 'session',
+      admin: {
+        defaultColumns: ['lastName', 'firstName', 'participants', 'status', 'origin', 'balanceCents'],
+        description: 'Inscriptions liées à cette session.',
+      },
     },
     {
       name: 'startsAt',

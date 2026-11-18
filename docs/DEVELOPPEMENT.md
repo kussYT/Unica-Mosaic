@@ -18,7 +18,7 @@ npm ci
 npm run migrate
 npm run dev
 ```
-`npm run migrate` applique les migrations PostgreSQL. La base locale créée avant ces migrations a déjà le socle utilisateurs et médias : la première migration est enregistrée, seule la migration des ateliers et des sessions modifie les tables. Une base vide exécute les deux. Le schéma n'est plus poussé automatiquement au démarrage. `npm run seed:workshops` prépare les quatre fiches existantes en brouillon, sans tarif, sans date et sans écraser une fiche déjà présente. Publier une seule fiche ne retire pas les autres du site.
+`npm run migrate` applique les migrations PostgreSQL. La base locale créée avant ces migrations a déjà le socle utilisateurs et médias : la première migration est enregistrée ; les suivantes ajoutent ateliers/sessions puis réservations. Une base vide exécute toute la chaîne. Le schéma n'est plus poussé automatiquement au démarrage. `npm run seed:workshops` prépare les quatre fiches existantes en brouillon, sans tarif, sans date et sans écraser une fiche déjà présente. Publier une seule fiche ne retire pas les autres du site. Les places restantes se calculent depuis les réservations confirmées et les retenues actives ; l’inscription manuelle se fait dans Payload (collection Réservations). Le parcours public `/reserver` crée une retenue puis Stripe Checkout (clés `sk_test_` uniquement). Webhook : `POST /api/stripe/webhook`. Variables documentées dans `web/.env.example`.
 Adresse : http://127.0.0.1:3000/. Administration : http://127.0.0.1:3000/admin/. `npm run dev`, `npm run build` et `npm run start` synchronisent `public/` vers `web/public`. Cette copie est ignorée par Git. Les originaux restent dans `public/`.
 ```sh
 npm run build

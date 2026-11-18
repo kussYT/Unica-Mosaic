@@ -9,7 +9,7 @@ import '@/styles/agenda.css'
 
 export const metadata = pageMeta(
   'Les ateliers créatifs',
-  'Découvrez les ateliers UNICA : Ré-colle-toi meuf, Pixel Kids, Ma croix mes couleurs et Numéro de maison.',
+  'Découvrez les ateliers UNICA : Recolle-toi meuf, Pixel Kids, Ma croix mes couleurs et Numéro de maison.',
 )
 
 export const dynamic = 'force-dynamic'
