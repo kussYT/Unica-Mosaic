@@ -125,7 +125,7 @@ Mis à jour le 18 novembre 2026. Lire et mettre à jour ce fichier à chaque int
 - [x] Aucun débordement horizontal constaté après correction ; contrôle visuel du contact, des fiches et du calendrier réussi.
 - [x] Build Next réussi ; vérifications catalogue, réservations et Stripe réussies.
 - [ ] `verify.mjs` reste bloqué par l’assertion visuelle obsolète « La carte Créations sur mesure manque », sans rapport avec ce lot.
-- [ ] Trois issues mobiles rédigées ; création GitHub bloquée par les droits de l’intégration (403) et une CLI GitHub non connectée.
+- [x] Trois issues mobiles créées sur GitHub : #8 lisibilité/ergonomie, #9 accueil/décor, #10 médias/pages secondaires.
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
