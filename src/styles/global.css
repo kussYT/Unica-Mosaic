@@ -226,11 +226,6 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .workshops-section .workshop-card:hover img {
     transform: none;
   }
-
-  .universe-grid .photo-carousel-picture:not(:first-child),
-  .workshops-section .photo-carousel-picture:not(:first-child) { display: none; }
-  .universe-grid .photo-carousel-picture:first-child,
-  .workshops-section .photo-carousel-picture:first-child { opacity: 1; transition: none; }
 }
 
 @media(prefers-reduced-motion:reduce){

@@ -10,7 +10,6 @@ type PhotoCarouselProps = {
   sizes?: string
   eager?: boolean
   className?: string
-  stillOnMobile?: boolean
 }
 
 export function PhotoCarousel({
@@ -21,13 +20,11 @@ export function PhotoCarousel({
   sizes = '100vw',
   eager = false,
   className = '',
-  stillOnMobile = false,
 }: PhotoCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
     if (names.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    if (stillOnMobile && window.matchMedia('(max-width: 760px)').matches) return
 
     let intervalId: number | undefined
     const advance = () => setActiveIndex((current) => (current + 1) % names.length)
@@ -40,7 +37,7 @@ export function PhotoCarousel({
       window.clearTimeout(timeoutId)
       if (intervalId) window.clearInterval(intervalId)
     }
-  }, [intervalMs, names.length, startDelayMs, stillOnMobile])
+  }, [intervalMs, names.length, startDelayMs])
 
   return (
     <span className={`photo-carousel ${className}`.trim()} role="img" aria-label={alt}>
