@@ -209,6 +209,28 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .gallery-item{margin-bottom:18px}
   .home-hero-craft+.home-paths{margin-top:-8px;padding-bottom:38px}
   .studio-image .photo-carousel{height:430px;border-radius:70px 24px 24px 24px}
+
+  .home-paths .path-card,
+  .home-paths .path-arrow,
+  .universe-grid .photo-carousel img,
+  .workshops-section .workshop-card,
+  .workshops-section .card-photo img {
+    transition: none;
+    transform: none;
+  }
+
+  .home-paths .path-card:hover,
+  .home-paths .path-card:hover .path-arrow,
+  .universe-grid .universe-card:hover .photo-carousel img,
+  .workshops-section .workshop-card:hover,
+  .workshops-section .workshop-card:hover img {
+    transform: none;
+  }
+
+  .universe-grid .photo-carousel-picture:not(:first-child),
+  .workshops-section .photo-carousel-picture:not(:first-child) { display: none; }
+  .universe-grid .photo-carousel-picture:first-child,
+  .workshops-section .photo-carousel-picture:first-child { opacity: 1; transition: none; }
 }
 
 @media(prefers-reduced-motion:reduce){

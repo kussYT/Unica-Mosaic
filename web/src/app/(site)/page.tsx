@@ -80,6 +80,7 @@ export default async function HomePage() {
               sizes="(max-width: 760px) calc(100vw - 40px), 46vw"
               intervalMs={6100}
               startDelayMs={2500}
+              stillOnMobile
             />
             <div>
               <span className="eyebrow">IMAGINER L’UNIQUE</span>
@@ -100,6 +101,7 @@ export default async function HomePage() {
               sizes="(max-width: 760px) calc(100vw - 40px), 46vw"
               intervalMs={7700}
               startDelayMs={4100}
+              stillOnMobile
             />
             <div>
               <span className="eyebrow">FAIRE DE SES MAINS</span>

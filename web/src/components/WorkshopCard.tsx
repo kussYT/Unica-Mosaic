@@ -31,6 +31,7 @@ export function WorkshopCard({ workshop, index = 0, rotating = false }: { worksh
             sizes="(max-width: 700px) 90vw, (max-width: 1000px) 45vw, 25vw"
             intervalMs={5800 + index * 850}
             startDelayMs={1200 + index * 1300}
+            stillOnMobile
           />
         ) : workshop.imageUrl ? (
           <img src={workshop.imageUrl} alt={workshop.alt} />
