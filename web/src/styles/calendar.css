@@ -147,6 +147,24 @@
 @media (max-width: 760px) {
   .home-calendar .wrap { width: calc(100% - 24px); }
   .calendar-board { padding: 14px 0 8px; }
+  .calendar-nav {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    gap: 8px;
+    margin-inline: 8px;
+  }
+  .calendar-nav p {
+    font-size: clamp(23px, 6.5vw, 30px);
+    text-align: center;
+  }
+  .calendar-move:first-child .icon-arrow,
+  .calendar-move:last-child .icon-arrow {
+    transform: none;
+  }
+  .calendar-pad::before,
+  .calendar-mark {
+    display: none;
+  }
   .calendar-weekdays,
   .calendar-row { gap: 2px; }
   .calendar-weekdays div { font-size: 11px; letter-spacing: .04em; }
