@@ -143,3 +143,15 @@
 }
 .calendar-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 14px; }
 .calendar-actions .button-small { text-decoration: none; }
+
+@media (max-width: 760px) {
+  .home-calendar .wrap { width: calc(100% - 24px); }
+  .calendar-board { padding: 14px 0 8px; }
+  .calendar-weekdays,
+  .calendar-row { gap: 2px; }
+  .calendar-weekdays div { font-size: 11px; letter-spacing: .04em; }
+  .calendar-day {
+    min-width: 44px;
+    min-height: 48px;
+  }
+}

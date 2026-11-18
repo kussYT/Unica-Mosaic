@@ -1,5 +1,5 @@
 # UNICA — Suivi du projet
-Mis à jour le 9 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
+Mis à jour le 18 novembre 2026. Lire et mettre à jour ce fichier à chaque intervention. Ne cocher qu'après vérification.
 
 ## 1. Première version
 - [x] Dépôt relié à GitHub ; base Astro, composants et contenu centralisé.
@@ -116,6 +116,16 @@ Mis à jour le 9 novembre 2026. Lire et mettre à jour ce fichier à chaque inte
 - [x] Page Réalisations réduite à une galerie de 11 vraies photos, en trois colonnes sur ordinateur et une colonne sur téléphone, sur le même fond que la navigation.
 - [x] Code de réservation retiré de cette branche graphique ; build Next et contrôles navigateur réussis.
 - [x] Aucun déploiement ni accès aux données PostgreSQL.
+
+## 1m. Audit mobile-first et correction P1 — 18 novembre 2026
+- [x] Audit navigateur réel à 360, 390, 430 et 768 px : accueil, ateliers, quatre fiches, réalisations, contact et `/reserver`.
+- [x] Textes courants mobiles remontés à 16 px ; libellés secondaires, formulaire, FAQ et informations d’atelier agrandis.
+- [x] Cibles tactiles du fil d’Ariane, des CTA et du pied de page portées à 44 px minimum.
+- [x] Calendrier élargi sur téléphone : sept colonnes conservées et jours d’au moins 44 × 48 px à 360/390/430 px.
+- [x] Aucun débordement horizontal constaté après correction ; contrôle visuel du contact, des fiches et du calendrier réussi.
+- [x] Build Next réussi ; vérifications catalogue, réservations et Stripe réussies.
+- [ ] `verify.mjs` reste bloqué par l’assertion visuelle obsolète « La carte Créations sur mesure manque », sans rapport avec ce lot.
+- [ ] Trois issues mobiles rédigées ; création GitHub bloquée par les droits de l’intégration (403) et une CLI GitHub non connectée.
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
