@@ -12,22 +12,22 @@ type Args = { params: Promise<{ slug: string }> }
 
 const workshopVideos: Record<string, { src: string; poster: string; label: string }> = {
   'recolle-toi-meuf': {
-    src: '/workshop-videos/workshop-recolle.mp4',
+    src: '/workshop-videos/workshop-recolle-web.mp4',
     poster: '/workshop-videos/workshop-recolle-poster.webp',
     label: 'Un aperçu vidéo d’un atelier adulte UNICA.',
   },
   'pixel-kids': {
-    src: '/workshop-videos/workshop-pixel-kids.mp4',
+    src: '/workshop-videos/workshop-pixel-kids-web.mp4',
     poster: '/workshop-videos/workshop-pixel-kids-poster.webp',
     label: 'Un aperçu vidéo de l’atelier Pixel Kids.',
   },
   'ma-croix-mes-couleurs': {
-    src: '/workshop-videos/workshop-gesture.mp4',
+    src: '/workshop-videos/workshop-gesture-web.mp4',
     poster: '/workshop-videos/workshop-gesture-poster.webp',
     label: 'Les gestes de création pendant un atelier UNICA.',
   },
   'numero-de-maison': {
-    src: '/workshop-videos/workshop-gesture.mp4',
+    src: '/workshop-videos/workshop-gesture-web.mp4',
     poster: '/workshop-videos/workshop-gesture-poster.webp',
     label: 'Les gestes de création pendant un atelier UNICA.',
   },
