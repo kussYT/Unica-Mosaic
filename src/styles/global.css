@@ -189,6 +189,7 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .home-hero-craft .button{width:100%;max-width:100%;min-width:0;justify-content:center;gap:12px;padding-inline:16px;font-size:12px;white-space:nowrap}
   .hero-craft-visual{height:min(112vw,560px);min-height:0;max-height:560px}
   .hero-tool,
+  .path-decoration,
   .cta-section > .tile,
   .card-index {
     display: none;

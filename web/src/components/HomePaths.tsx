@@ -68,7 +68,7 @@ export function HomePaths() {
                   </clipPath>
                 </defs>
                 <image href={`/images/${card.image}-960.webp`} x={shape.box.x} y={shape.box.y} width={shape.box.width} height={shape.box.height} preserveAspectRatio="xMidYMid slice" clipPath={`url(#clip-${card.tone})`} />
-                <path d={shape.tile} fill={shape.tileFill} />
+                <path className="path-decoration" d={shape.tile} fill={shape.tileFill} />
               </svg>
               <span className="path-copy">
                 <span className="path-title">

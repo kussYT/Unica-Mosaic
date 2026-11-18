@@ -129,6 +129,8 @@ Mis à jour le 18 novembre 2026. Lire et mettre à jour ce fichier à chaque int
 
 Passe mobile ciblée : alignement des flèches de mois et masquage des décors du hero, des CTA, des cartes ateliers et du calendrier.
 
+Suivi mobile : masquer l’ornement des trois cartes d’accueil, rétablir les tesselles des cases hors mois et remettre une marge intérieure au calendrier.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
