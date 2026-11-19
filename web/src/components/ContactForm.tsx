@@ -15,7 +15,7 @@ const subjects = [
   'Autre envie',
 ]
 
-export function ContactForm({ email }: { email: string }) {
+export function ContactForm({ email, privateSend }: { email: string; privateSend: boolean }) {
   const requested = useSearchParams().get('sujet')
   const [subject, setSubject] = useState(subjects[0])
   useEffect(() => {
@@ -25,12 +25,14 @@ export function ContactForm({ email }: { email: string }) {
   const [draft, setDraft] = useState('')
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState('')
+  const [sending, setSending] = useState(false)
+  const sendsDirectly = privateSend && subject === 'Atelier privé'
 
   return (
     <>
       <form
         id="contact-form"
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault()
           const data = new FormData(event.currentTarget)
           const details = subject === 'Atelier privé'
@@ -50,6 +52,25 @@ export function ContactForm({ email }: { email: string }) {
           setDraft(text)
           setReady(true)
           setStatus('')
+          if (sendsDirectly) {
+            setSending(true)
+            try {
+              const response = await fetch('/api/private-contact/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(data)),
+              })
+              const result = await response.json()
+              if (!response.ok || result.sent !== true) throw new Error()
+              setReady(false)
+              setStatus('Votre demande a été transmise au service d’envoi.')
+            } catch {
+              setStatus('L’envoi n’a pas abouti. Vous pouvez télécharger votre brouillon.')
+            } finally {
+              setSending(false)
+            }
+            return
+          }
           if (email) {
             window.location.href = `mailto:${email}?subject=${encodeURIComponent(`UNICA — ${String(data.get('sujet'))}`)}&body=${encodeURIComponent(text)}`
           }
@@ -81,11 +102,13 @@ export function ContactForm({ email }: { email: string }) {
           Racontez-nous{' '}
           <textarea name="message" rows={5} required minLength={10} maxLength={4000} placeholder="L’idée, les couleurs, l’occasion, la période souhaitée…" />
         </label>
-        <button className="button" type="submit">
-          {email ? 'Préparer mon e-mail' : 'Préparer ma demande'} <span aria-hidden="true"><ArrowNorthEast /></span>
+        {sendsDirectly && <div hidden><label>Site web <input name="website" tabIndex={-1} autoComplete="off" /></label></div>}
+        <button className="button" type="submit" disabled={sending}>
+          {sending ? 'Envoi en cours…' : sendsDirectly ? 'Envoyer ma demande' : email ? 'Préparer mon e-mail' : 'Préparer ma demande'} <span aria-hidden="true"><ArrowNorthEast /></span>
         </button>
-        <p className="form-privacy">Vos informations restent dans cette page et ne sont pas transmises automatiquement.</p>
+        <p className="form-privacy">{sendsDirectly ? 'Vos informations seront transmises à UNICA pour répondre à votre demande.' : 'Vos informations restent dans cette page et ne sont pas transmises automatiquement.'}</p>
       </form>
+      <p id="draft-status" role="status">{status}</p>
       <div id="draft-result" hidden={!ready}>
         <h3>Votre demande est prête.</h3>
         <p id="draft-explanation">Elle n’a pas été envoyée. Vous pouvez en conserver une copie.</p>
@@ -123,9 +146,6 @@ export function ContactForm({ email }: { email: string }) {
             Télécharger (.txt) <span aria-hidden="true"><ArrowDown /></span>
           </button>
         </div>
-        <p id="draft-status" role="status" aria-live="polite">
-          {status}
-        </p>
       </div>
     </>
   )

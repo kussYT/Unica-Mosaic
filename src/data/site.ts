@@ -3,6 +3,9 @@ export const site = {
   tagline: 'L’art de recoller les morceaux',
   // Confirm with Marie before enabling actual mail delivery.
   email: '',
+  studio: {
+    introduction: 'Marie crée des mosaïques sur mesure et partage ce geste pendant les ateliers UNICA. Elle travaille les tesselles, les textures et les couleurs pour donner forme à des pièces singulières.',
+  },
 };
 
 // « Mosaic Kids » reprend le nom de la maquette et mène à l’atelier Pixel Kids, en attendant la confirmation du nom.
@@ -18,6 +21,13 @@ export const workshops = [
   { slug: 'ma-croix-mes-couleurs', name: 'Ma croix, mes couleurs', label: 'UNE CRÉATION PERSONNELLE', image: 'croix', tone: 'plum', intro: 'Composer une croix qui vous ressemble, en laissant les matières et les couleurs raconter votre histoire.', description: 'Une forme familière, une infinité de compositions. Cet atelier invite à associer des tesselles, des textures et des nuances pour imaginer une croix singulière.', detail: 'Pour découvrir la mosaïque à travers un objet personnel et expressif.', alt: 'Une croix en mosaïque aux tons dorés et roses, tenue dans une main.' },
   { slug: 'numero-de-maison', name: 'Numéro de maison', label: 'UNE TOUCHE À VOTRE IMAGE', image: 'atelier-mains', tone: 'cream', intro: 'Donner du caractère à son entrée avec un numéro de maison composé morceau par morceau.', description: 'Imaginer un chiffre, choisir une palette et assembler les matières : une invitation à créer un détail unique pour son chez-soi.', detail: 'Les supports, dimensions et conditions d’utilisation extérieure seront confirmés avec Marie. La photo présente un geste d’atelier, pas le modèle final.', alt: 'Gros plan sur les mains qui assemblent de petites tesselles sur un support.' },
 ];
+
+export const workshopFacts: Record<string, { audience?: string; supplies?: string; takeaway: string; durationMinutes?: number }> = {
+  'recolle-toi-meuf': { audience: 'Pour celles qui ont envie de découvrir la mosaïque', takeaway: 'Votre création en mosaïque', durationMinutes: 90 },
+  'pixel-kids': { audience: 'À partir de 7 ans, ou de 4 à 6 ans avec un accompagnant', takeaway: 'Une création colorée façon pixel art', durationMinutes: 90 },
+  'ma-croix-mes-couleurs': { takeaway: 'Une croix en mosaïque composée à votre goût', durationMinutes: 120 },
+  'numero-de-maison': { takeaway: 'Votre numéro de maison en mosaïque', durationMinutes: 120 },
+}
 
 export const works = [
   { image: 'boutique', title: 'Un regard, mille fragments', category: 'Décoration', alt: 'Grande mosaïque figurative installée dans la boutique UNICA.' },

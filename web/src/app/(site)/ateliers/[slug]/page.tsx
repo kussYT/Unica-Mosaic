@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { Agenda } from '@/components/Agenda'
 import { ArrowLeft, ArrowNorthEast } from '@/components/Icons'
 import { Photo } from '@/components/Photo'
+import { workshopFacts } from '@/data/site'
 import { formatDuration, formatEuros, getPublicWorkshops, getUpcomingSessions } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
 import '@/styles/agenda.css'
@@ -50,7 +51,9 @@ export default async function WorkshopPage({ params }: Args) {
   const sessions = await getUpcomingSessions(slug)
   const price = workshop.priceCents == null ? 'À confirmer' : formatEuros(workshop.priceCents)
   const deposit = workshop.depositCents == null ? null : formatEuros(workshop.depositCents)
-  const duration = workshop.durationMinutes == null ? null : formatDuration(workshop.durationMinutes)
+  const facts = workshopFacts[slug]
+  const minutes = workshop.durationMinutes ?? facts?.durationMinutes
+  const duration = minutes == null ? null : formatDuration(minutes)
   const video = workshopVideos[slug]
 
   return (
@@ -132,8 +135,14 @@ export default async function WorkshopPage({ params }: Args) {
               </div>
             ) : null}
             <div>
-              <dt>Lieu & matériel</dt>
-              <dd>{workshop.practicalInfo || sessions.find((session) => session.place)?.place || 'Précisés pour chaque session confirmée'}</dd>
+              <dt>Lieu</dt>
+              <dd>{sessions.find((session) => session.place)?.place || 'Précisé pour chaque session'}</dd>
+            </div>
+            {facts?.audience && <div><dt>Pour qui ?</dt><dd>{facts.audience}</dd></div>}
+            {facts?.takeaway && <div><dt>Votre création</dt><dd>{facts.takeaway}</dd></div>}
+            <div>
+              <dt>Matériel et informations pratiques</dt>
+              <dd>{workshop.practicalInfo || facts?.supplies || 'À confirmer pour chaque session'}</dd>
             </div>
           </dl>
         </aside>
