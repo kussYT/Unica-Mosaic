@@ -33,7 +33,12 @@ const calendarDemo = process.env.VERIFY_CALENDAR_DEMO === '1'
 if (calendarDemo) {
   assert(home.text.includes('calendar-day has-session'), 'Les dates de démonstration ne sont pas signalées')
   assert(home.text.includes('places restantes'), 'La disponibilité manque sur la carte')
-  assert(home.text.includes('payment=deposit') && home.text.includes('payment=full'), 'Le choix du paiement manque sur la carte')
+  if (process.env.STRIPE_SECRET_KEY?.startsWith('sk_test_')) {
+    assert(home.text.includes('payment=deposit') && home.text.includes('payment=full'), 'Le choix du paiement manque sur la carte')
+  } else {
+    assert(!home.text.includes('payment=deposit') && !home.text.includes('payment=full'), 'Paiement proposé sans Stripe de test')
+    assert(home.text.includes('Réservation en ligne indisponible'), 'État du paiement indisponible manquant')
+  }
 } else {
   assert(!home.text.includes('€'), 'Un prix est apparu sur l’accueil')
   assert(home.text.includes('Aucune session n’est programmée pour le moment.'), 'L’accueil invente des dates')

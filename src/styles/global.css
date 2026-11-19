@@ -190,6 +190,32 @@ body:has(.video-intro){overflow:hidden}
 .works-heading{margin-bottom:28px}
 .works-heading h1{font-size:clamp(40px,8vw,68px)}
 .works-heading p{margin-top:10px}
+.workshop-audience{margin:0 0 18px;font-size:14px}
+.contact-section{column-gap:clamp(36px,7vw,100px);row-gap:28px;align-items:start}
+.contact-panel{grid-column:2;grid-row:1 / span 2;scroll-margin-top:24px}
+.contact-photo{grid-column:1}
+.contact-photo img{width:100%;height:290px;object-fit:cover;border-radius:24px 80px 24px 24px}
+.contact-photo .photo-caption{margin-top:12px}
+@media (max-width:760px){
+  .contact-panel,.contact-photo{grid-column:auto;grid-row:auto}
+  .contact-photo img{height:230px}
+  .workshop-catalogue-hero .split{gap:24px}
+  .workshop-catalogue-hero .split h1{font-size:clamp(44px,11vw,66px)}
+  .workshop-catalogue-hero .split p:not(.eyebrow){margin:14px 0 18px}
+  .workshop-catalogue-hero .hero-portrait{height:clamp(160px,52vw,250px)}
+  .workshop-catalogue-hero .workshop-agenda-link{font-size:14px}
+}
+@media (min-width:761px) and (max-width:900px){
+  .site-header{position:relative;min-height:80px}
+  .menu-toggle{display:flex;flex-direction:column;gap:7px;align-items:center;justify-content:center;border:1px solid var(--line);width:44px;height:44px;border-radius:50%;background:transparent}
+  .menu-toggle span{width:18px;height:2px;background:var(--plum)}
+  .menu-toggle[aria-expanded=true] span:first-child{transform:translateY(4.5px) rotate(45deg)}
+  .menu-toggle[aria-expanded=true] span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+  .site-header nav{display:none;position:absolute;top:100%;left:0;right:0;padding:22px;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 20px 30px #59003d10}
+  .site-header nav.is-open{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+  .site-header nav>a:not(.button){font-size:14px;padding:14px 0}
+  .site-header .button-small{max-width:none;font-size:14px;margin-top:8px}
+}
 .works-contact{display:flex;justify-content:center;margin-top:28px;text-align:center}
 .lightbox #lightbox-image{max-height:65dvh}
 .lightbox .lightbox-caption{font-size:14px}
