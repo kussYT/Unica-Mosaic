@@ -138,6 +138,8 @@ Calendrier : cinq sessions de démonstration dans la base locale, dont trois rat
 Les cartes du calendrier permettent de choisir le paiement avant d’ouvrir la réservation.
 L’accueil montre les quatre premiers ateliers, le catalogue complet reste accessible par « Tous les ateliers ».
 
+Catalogue et fiches : accès direct aux dates, tarif et durée sur les cartes, présentation de l’atelier avant son média sur téléphone. Le titre du calendrier reprend la marge des autres sections de l’accueil.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.

@@ -34,6 +34,9 @@ export default async function WorkshopsPage() {
             <a className="button button-yellow" href="#les-ateliers">
               Trouver mon atelier <span aria-hidden="true"><ArrowDown /></span>
             </a>
+            <a className="text-link workshop-agenda-link" href="#agenda">
+              Voir les prochaines dates
+            </a>
           </div>
           <Photo name="atelier-partage" alt="Des participantes sourient et créent ensemble à l’atelier UNICA." eager className="hero-portrait" />
         </div>
@@ -41,7 +44,7 @@ export default async function WorkshopsPage() {
       <section className="section wrap" id="les-ateliers">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">QUATRE ENVIES DE CRÉER</p>
+            <p className="eyebrow">LES ATELIERS UNICA</p>
             <h2>
               À chacun
               <br />
@@ -52,7 +55,7 @@ export default async function WorkshopsPage() {
         </div>
         <div className="workshop-grid">
           {workshops.map((workshop, index) => (
-            <WorkshopCard workshop={workshop} index={index} key={workshop.slug} />
+            <WorkshopCard workshop={workshop} index={index} key={workshop.slug} showDetails />
           ))}
         </div>
         <p className="quiet-note">Les tarifs et les modalités restent indiqués seulement lorsqu’ils ont été confirmés.</p>
