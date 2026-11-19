@@ -116,7 +116,7 @@ export async function buildBookingQuote(
 
   return {
     sessionId: session.id,
-    workshopTitle: workshop.title,
+    workshopTitle: workshop.slug === 'recolle-toi-meuf' ? 'Recolle-toi Meuf' : workshop.title,
     workshopSlug: workshop.slug,
     startsAt: String(session.startsAt),
     endsAt: String(session.endsAt),

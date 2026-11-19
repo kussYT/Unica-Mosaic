@@ -87,7 +87,7 @@ export async function getPublicWorkshops(): Promise<PublicWorkshop[]> {
       const current = catalogue.get(doc.slug)
       catalogue.set(doc.slug, {
         slug: doc.slug,
-        name: doc.title,
+        name: doc.slug === 'recolle-toi-meuf' ? 'Recolle-toi Meuf' : doc.title,
         label: doc.label || current?.label || 'ATELIER',
         intro: doc.summary,
         description: doc.description,
@@ -170,7 +170,7 @@ export async function getUpcomingSessions(slug?: string): Promise<PublicSession[
         {
           id: String(doc.id),
           workshopSlug: workshop.slug,
-          workshopTitle: workshop.title,
+          workshopTitle: workshop.slug === 'recolle-toi-meuf' ? 'Recolle-toi Meuf' : workshop.title,
           startsAt: doc.startsAt,
           endsAt: doc.endsAt,
           place: doc.place || null,

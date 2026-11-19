@@ -19,7 +19,7 @@ if (
 
 const examples = [
   { name: 'Dimanche Mosaïque', slug: 'dimanche-mosaique', price: 3500, deposit: 1500, duration: 90, weekday: 0, elapsed: 1 },
-  { name: 'Recolle-toi meuf — Afterwork', slug: 'recolle-afterwork', price: 4500, deposit: 2000, duration: 90, weekday: 4, elapsed: 1 },
+  { name: 'Recolle-toi Meuf — Afterwork', slug: 'recolle-afterwork', price: 4500, deposit: 2000, duration: 90, weekday: 4, elapsed: 1 },
   { name: 'Ma croix, mes couleurs', slug: 'ma-croix', price: 6000, deposit: 3000, duration: 120, weekday: 6, elapsed: 1 },
   { name: 'Numéro de maison', slug: 'numero-maison', price: 6000, deposit: 3000, duration: 120, weekday: 6, elapsed: 8 },
 ]
