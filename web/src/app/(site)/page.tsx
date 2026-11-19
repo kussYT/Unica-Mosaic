@@ -2,6 +2,7 @@ import { CallToAction } from '@/components/CallToAction'
 import { ArrowNorthEast, Asterisk } from '@/components/Icons'
 import { CalendarSection } from '@/components/HomeCalendar'
 import { HomePaths } from '@/components/HomePaths'
+import { site } from '@/data/site'
 import { PhotoCarousel } from '@/components/PhotoCarousel'
 import { VideoIntro } from '@/components/VideoIntro'
 import { WorkshopCard } from '@/components/WorkshopCard'
@@ -131,7 +132,7 @@ export default async function HomePage() {
             </a>
           </div>
           <div className="workshop-grid">
-            {workshops.map((workshop, index) => (
+            {workshops.slice(0, 4).map((workshop, index) => (
               <WorkshopCard workshop={workshop} index={index} key={workshop.slug} rotating />
             ))}
           </div>
@@ -149,7 +150,7 @@ export default async function HomePage() {
           />
         </div>
         <div className="studio-copy">
-          <p className="eyebrow">LE SAVOIR-FAIRE, AVEC DU CARACTÈRE</p>
+          <p className="eyebrow">MARIE, À L’ATELIER UNICA</p>
           <h2>
             La tradition
             <br />
@@ -158,7 +159,7 @@ export default async function HomePage() {
             <em>jours devant elle.</em>
           </h2>
           <p>
-            Chez UNICA, la mosaïque se réinvente à travers les formes, les couleurs et les matières. Le geste est artisanal, l’esprit résolument libre.
+            {site.studio.introduction}
           </p>
           <p>Une pièce décorative, un projet sur mesure ou un atelier : chaque création commence par l’envie d’assembler autrement.</p>
           <a className="text-link" href="/realisations/">

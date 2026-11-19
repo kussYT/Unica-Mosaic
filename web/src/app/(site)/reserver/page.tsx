@@ -18,10 +18,11 @@ export const metadata: Metadata = pageMeta(
   'Choisissez votre session, le nombre de participants et réglez l’acompte ou la totalité via Stripe.',
 )
 
-type Args = { searchParams: Promise<{ session?: string }> }
+type Args = { searchParams: Promise<{ session?: string; payment?: string }> }
 
 export default async function ReservePage({ searchParams }: Args) {
-  const { session: sessionId } = await searchParams
+  const { session: sessionId, payment } = await searchParams
+  const initialPaymentChoice = payment === 'full' ? 'full' : 'deposit'
   if (!sessionId) notFound()
 
   if (stripeLiveKeyRejected()) {
@@ -52,7 +53,7 @@ export default async function ReservePage({ searchParams }: Args) {
 
   try {
     const payload = await getPayload({ config })
-    const quote = await buildBookingQuote(payload, sessionId, 1, 'deposit')
+    const quote = await buildBookingQuote(payload, sessionId, 1, initialPaymentChoice)
     return (
       <section className="section wrap booking-page">
         <div className="breadcrumb">
@@ -74,6 +75,7 @@ export default async function ReservePage({ searchParams }: Args) {
             </p>
           </div>
           <BookingForm
+            initialPaymentChoice={initialPaymentChoice}
             session={{
               sessionId: String(quote.sessionId),
               workshopTitle: quote.workshopTitle,

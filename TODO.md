@@ -124,8 +124,27 @@ Mis à jour le 18 novembre 2026. Lire et mettre à jour ce fichier à chaque int
 - [x] Calendrier élargi sur téléphone : sept colonnes conservées et jours d’au moins 44 × 48 px à 360/390/430 px.
 - [x] Aucun débordement horizontal constaté après correction ; contrôle visuel du contact, des fiches et du calendrier réussi.
 - [x] Build Next réussi ; vérifications catalogue, réservations et Stripe réussies.
-- [ ] `verify.mjs` reste bloqué par l’assertion visuelle obsolète « La carte Créations sur mesure manque », sans rapport avec ce lot.
+- [x] Suite `npm run verify` repassée après correction de l’assertion sur le titre de carte avec saut de ligne.
+- [x] Mise en page mobile de la réservation ajustée et build réussi. Paiement Stripe de test et envoi réel de la confirmation restent à vérifier avec les services configurés.
 - [x] Trois issues mobiles créées sur GitHub : #8 lisibilité/ergonomie, #9 accueil/décor, #10 médias/pages secondaires.
+
+Passe mobile ciblée : alignement des flèches de mois et masquage des décors du hero, des CTA, des cartes ateliers et du calendrier.
+
+Suivi mobile : masquer l’ornement des trois cartes d’accueil, rétablir les tesselles des cases hors mois et remettre une marge intérieure au calendrier.
+
+Passe accueil : flèches des ateliers agrandies, espace réservé à la flèche des cartes Univers, marges mobiles harmonisées et pinces du hero rétablies.
+
+Calendrier : cinq sessions de démonstration dans la base locale, dont trois rattachées aux fiches d’origine. Le script `web/scripts/seed-calendar-demo.ts` vérifie dates, capacité, places restantes, tarifs et calcul de l’acompte ou du paiement intégral.
+Les cartes du calendrier permettent de choisir le paiement avant d’ouvrir la réservation.
+L’accueil montre les quatre premiers ateliers, le catalogue complet reste accessible par « Tous les ateliers ».
+
+Catalogue et fiches : accès direct aux dates, tarif et durée sur les cartes, présentation de l’atelier avant son média sur téléphone. Le titre du calendrier reprend la marge des autres sections de l’accueil.
+
+Réalisations et contact : titre et navigation dans la visionneuse, lien vers un projet sur mesure, champs dédiés aux ateliers privés dans le brouillon.
+
+Galerie Payload : collection Réalisations, photos et textes alternatifs repris des médias, ordre et publication. Import des œuvres historiques vérifiable en local. Validation du compte de Marie et reprise sur la préproduction à planifier.
+
+Parcours éditorial : infos structurées sur les fiches et présentation de Marie. Le formulaire privé peut utiliser Resend une fois l’expéditeur, le destinataire et la clé configurés. Portrait, avis et réseaux restent à valider avec Marie.
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.

@@ -96,7 +96,33 @@
 .breadcrumb a{gap:.4em}
 .circle-arrow{place-items:center}
 .circle-arrow .icon-arrow{width:21%;height:21%}
-.workshop-card .card-title .circle-arrow .icon-arrow{width:15%;height:15%}
+
+.universe-card > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: end;
+  column-gap: 12px;
+}
+
+.universe-card .eyebrow { grid-column: 1 / -1; }
+.universe-card .circle-arrow { position: static; align-self: end; }
+.universe-card .circle-arrow .icon-arrow { width: 18px; height: 18px; }
+
+.workshop-card .card-title { gap: 8px; }
+.workshop-card .card-title h3 { min-width: 0; overflow-wrap: anywhere; }
+.workshop-card .card-title .circle-arrow { width: 38px; height: 38px; }
+.workshop-card .card-title .circle-arrow .icon-arrow { width: 17px; height: 17px; }
+
+@media (max-width: 760px) {
+  .home-hero-craft.wrap,
+  .home-paths.wrap,
+  .wrap:has(> .universe-grid),
+  .workshops-section > .wrap,
+  .studio-section.wrap {
+    width: calc(100% - 2 * clamp(20px, 6vw, 28px));
+  }
+  .universe-card h3 { font-size: clamp(30px, 9vw, 42px); }
+}
 
 /* Lot A — lively homepage, using the supplied UNICA film and official brand artwork. */
 body:has(.video-intro){overflow:hidden}
@@ -148,10 +174,29 @@ body:has(.video-intro){overflow:hidden}
 .studio-image .photo-carousel{height:590px;border-radius:100px 24px 24px 24px}
 .studio-image .photo-carousel img{height:100%;border-radius:0}
 .workshop-detail>*{min-width:0}
+.workshop-agenda-link{margin-inline-start:16px}
+.workshop-card-details{margin-top:8px;font-size:14px;font-weight:600}
+.detail-copy .workshop-facts{margin:0 0 20px;font-size:16px;font-weight:700}
+@media (max-width: 760px) {
+  .workshop-agenda-link{margin-inline-start:0;margin-block-start:8px;display:table}
+  .workshop-detail .detail-copy{grid-row:1}
+  .workshop-detail .detail-photo:empty{display:none}
+}
+
 .detail-photo video{display:block;width:100%;max-width:100%;height:100%;min-width:0;object-fit:cover;background:var(--plum)}
 /* Même fond rosé que la navbar (--cream) : aucune démarcation visuelle. */
 .works-gallery-page{padding:clamp(32px,4vw,64px) 0;background:var(--cream)}
 .works-gallery-page .gallery-section{padding:0;background:transparent;box-shadow:none;border-radius:0}
+.works-heading{margin-bottom:28px}
+.works-heading h1{font-size:clamp(40px,8vw,68px)}
+.works-heading p{margin-top:10px}
+.works-contact{display:flex;justify-content:center;margin-top:28px;text-align:center}
+.lightbox #lightbox-image{max-height:65dvh}
+.lightbox .lightbox-caption{font-size:14px}
+.lightbox-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:12px}
+.lightbox-nav .button{font-size:14px}
+.private-workshop-fields{border:1px solid var(--line);border-radius:12px;margin:0;min-inline-size:0;display:grid;gap:12px;padding:12px}
+.private-workshop-fields legend{font-size:14px;font-weight:700}
 body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;background:var(--cream)}
 .gallery-grid{display:block;columns:3;column-gap:24px}
 .gallery-item{break-inside:avoid;margin:0 0 24px}
@@ -188,8 +233,14 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .home-hero-craft .hero-copy h1 em{white-space:normal}
   .home-hero-craft .button{width:100%;max-width:100%;min-width:0;justify-content:center;gap:12px;padding-inline:16px;font-size:12px;white-space:nowrap}
   .hero-craft-visual{height:min(112vw,560px);min-height:0;max-height:560px}
-  .hero-tool-nippers{width:58px;right:-10px;top:-22px}
-  .hero-tool-rollers{width:43px;left:-8px;bottom:24px}
+  .hero-tool-nippers{width:54px;right:2px;top:-14px}
+  .hero-tool-rollers{width:40px;left:2px;bottom:20px}
+
+  .path-decoration,
+  .cta-section > .tile,
+  .card-index {
+    display: none;
+  }
   .hero-craft-frame{border-radius:22px 22px 70px 22px}
   .tradition-band-inner{padding-block:42px}
   .tradition-signature{width:min(100%,430px)}
@@ -205,6 +256,23 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .gallery-item{margin-bottom:18px}
   .home-hero-craft+.home-paths{margin-top:-8px;padding-bottom:38px}
   .studio-image .photo-carousel{height:430px;border-radius:70px 24px 24px 24px}
+
+  .home-paths .path-card,
+  .home-paths .path-arrow,
+  .universe-grid .photo-carousel img,
+  .workshops-section .workshop-card,
+  .workshops-section .card-photo img {
+    transition: none;
+    transform: none;
+  }
+
+  .home-paths .path-card:hover,
+  .home-paths .path-card:hover .path-arrow,
+  .universe-grid .universe-card:hover .photo-carousel img,
+  .workshops-section .workshop-card:hover,
+  .workshops-section .workshop-card:hover img {
+    transform: none;
+  }
 }
 
 @media(prefers-reduced-motion:reduce){
