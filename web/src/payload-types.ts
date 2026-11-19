@@ -73,6 +73,7 @@ export interface Config {
     sessions: Session;
     reservations: Reservation;
     realisations: Realisation;
+    products: Product;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +91,7 @@ export interface Config {
     sessions: SessionsSelect<false> | SessionsSelect<true>;
     reservations: ReservationsSelect<false> | ReservationsSelect<true>;
     realisations: RealisationsSelect<false> | RealisationsSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -322,6 +324,24 @@ export interface Realisation {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  contents: string;
+  recommendedAge?: string | null;
+  photos: (number | Media)[];
+  priceCents: number;
+  stock: number;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -367,6 +387,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'realisations';
         value: number | Realisation;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -529,6 +553,23 @@ export interface RealisationsSelect<T extends boolean = true> {
   description?: T;
   displayOrder?: T;
   photos?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  contents?: T;
+  recommendedAge?: T;
+  photos?: T;
+  priceCents?: T;
+  stock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

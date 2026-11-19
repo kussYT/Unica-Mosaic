@@ -170,6 +170,8 @@ Suite audit visuel : intro ignorée sur les ancres, actions adaptées à la disp
 - [ ] Tester places épuisées, double réservation, paiement échoué et remboursements.
 
 ## 4. Boutique, kits et contenus complémentaires
+
+Catalogue Mosaic Kids : collection Kits dans Payload, brouillons, pages boutique et fiches, prix et stock. Mise en vente et contenus réels à valider avec Marie.
 - [ ] Valider le périmètre marchand prévu au devis.
 - [ ] Obtenir catalogue, prix, photos, variantes, stocks et contenu des kits.
 - [ ] Créer catégories et fiches produit ; panier/commande si vente en ligne retenue.

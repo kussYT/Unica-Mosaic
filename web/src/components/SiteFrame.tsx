@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 const nav = [
   { href: '/realisations/', label: 'Les créations' },
   { href: '/ateliers/', label: 'Les ateliers' },
+  { href: '/boutique/', label: 'Boutique' },
   { href: '/#studio', label: 'L’univers UNICA' },
 ]
 
