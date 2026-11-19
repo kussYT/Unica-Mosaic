@@ -38,10 +38,10 @@ const guardSession: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
 
 export const Sessions: CollectionConfig = {
   slug: 'sessions',
-  labels: { singular: 'Session', plural: 'Sessions' },
+  labels: { singular: 'Date d’atelier', plural: 'Dates d’ateliers' },
   admin: {
     useAsTitle: 'startsAt',
-    group: 'Catalogue',
+    group: 'Ateliers et inscriptions',
     defaultColumns: ['workshop', 'startsAt', 'capacity', 'state', '_status'],
   },
   versions: { drafts: true },

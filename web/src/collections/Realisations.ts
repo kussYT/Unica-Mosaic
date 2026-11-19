@@ -6,7 +6,7 @@ import { isAdmin, isStaff } from '../access/roles'
 export const Realisations: CollectionConfig = {
   slug: 'realisations',
   labels: { singular: 'Réalisation', plural: 'Réalisations' },
-  admin: { useAsTitle: 'title', group: 'Catalogue', defaultColumns: ['title', 'displayOrder', '_status'] },
+  admin: { useAsTitle: 'title', group: 'Galerie', defaultColumns: ['title', 'displayOrder', '_status'] },
   defaultSort: 'displayOrder',
   versions: { drafts: true },
   access: { read: publishedOrStaff, create: isStaff, update: isStaff, delete: isAdmin },

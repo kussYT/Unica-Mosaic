@@ -5,9 +5,11 @@
 .shop-page p { margin-top: 12px; }
 .shop-empty, .shop-card { border-radius: 22px; background: var(--blush); }
 .shop-empty { padding: clamp(20px, 4vw, 46px); }
-.shop-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px; }
+.shop-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 280px)); gap: 20px; align-items: start; }
 .shop-card { overflow: hidden; display: block; }
-.shop-card > div { padding: 18px; }
+.shop-card > div { padding: 14px 16px 16px; }
+.shop-card h2 { font-size: 25px; }
+.shop-card .shop-card-description { font-size: 14px; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .shop-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .shop-product { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; margin-top: 26px; }
 .shop-product h2 { margin-top: 24px; }

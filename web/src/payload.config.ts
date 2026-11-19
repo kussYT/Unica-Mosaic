@@ -26,6 +26,9 @@ if (databaseFailure) throw new Error(databaseFailure)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    components: {
+      beforeDashboard: ['./components/admin/MarieDashboard#MarieDashboard'],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },

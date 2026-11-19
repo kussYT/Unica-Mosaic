@@ -125,7 +125,7 @@ export const Reservations: CollectionConfig = {
   labels: { singular: 'Réservation', plural: 'Réservations' },
   admin: {
     useAsTitle: 'lastName',
-    group: 'Réservations',
+    group: 'Ateliers et inscriptions',
     defaultColumns: [
       'lastName',
       'firstName',

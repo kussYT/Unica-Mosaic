@@ -5,7 +5,7 @@ import { isAdmin, isStaff } from '../access/roles'
 export const Products: CollectionConfig = {
   slug: 'products',
   labels: { singular: 'Kit', plural: 'Kits Mosaic Kids' },
-  admin: { useAsTitle: 'title', group: 'Catalogue', defaultColumns: ['title', 'priceCents', 'stock', '_status'] },
+  admin: { useAsTitle: 'title', group: 'Boutique', defaultColumns: ['title', 'priceCents', 'stock', '_status'] },
   versions: { drafts: true },
   access: { read: publishedOrStaff, create: isStaff, update: isStaff, delete: isAdmin },
   fields: [
