@@ -217,9 +217,16 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
                         typeof session.remainingSeats === 'number' &&
                         session.remainingSeats > 0 &&
                         session.state === 'scheduled' ? (
-                          <a className="button button-small" href={`/reserver?session=${session.id}`}>
-                            Réserver
-                          </a>
+                          <>
+                            {session.depositCents > 0 && session.depositCents < session.priceCents ? (
+                              <a className="button button-small" href={`/reserver?session=${session.id}&payment=deposit`}>
+                                Choisir l’acompte
+                              </a>
+                            ) : null}
+                            <a className="button button-small" href={`/reserver?session=${session.id}&payment=full`}>
+                              Choisir le paiement intégral
+                            </a>
+                          </>
                         ) : null}
                       </div>
                     </div>

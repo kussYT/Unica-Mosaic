@@ -17,9 +17,12 @@ export type BookingFormSession = {
   unitDepositCents: number
 }
 
-export function BookingForm({ session }: { session: BookingFormSession }) {
+export function BookingForm({
+  session,
+  initialPaymentChoice = 'deposit',
+}: { session: BookingFormSession; initialPaymentChoice?: PaymentChoice }) {
   const [participants, setParticipants] = useState(1)
-  const [paymentChoice, setPaymentChoice] = useState<PaymentChoice>('deposit')
+  const [paymentChoice, setPaymentChoice] = useState<PaymentChoice>(initialPaymentChoice)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
