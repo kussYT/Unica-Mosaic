@@ -1,3 +1,5 @@
+import { formatDuration, formatEuros } from '@/lib/calendar'
+
 import { ArrowNorthEast } from './Icons'
 import { Photo } from './Photo'
 import { PhotoCarousel } from './PhotoCarousel'
@@ -10,6 +12,8 @@ type CardWorkshop = {
   tone: string
   image: string | null
   imageUrl?: string | null
+  priceCents?: number | null
+  durationMinutes?: number | null
 }
 
 const rotatingImages: Record<string, string[]> = {
@@ -19,8 +23,13 @@ const rotatingImages: Record<string, string[]> = {
   'numero-de-maison': ['atelier-mains', 'atelier-table', 'boutique'],
 }
 
-export function WorkshopCard({ workshop, index = 0, rotating = false }: { workshop: CardWorkshop; index?: number; rotating?: boolean }) {
+export function WorkshopCard({
+  workshop, index = 0, rotating = false, showDetails = false,
+}: { workshop: CardWorkshop; index?: number; rotating?: boolean; showDetails?: boolean }) {
   const carousel = rotating ? rotatingImages[workshop.slug] : null
+  const details = showDetails
+    ? [workshop.priceCents != null ? formatEuros(workshop.priceCents) : '', workshop.durationMinutes ? formatDuration(workshop.durationMinutes) : ''].filter(Boolean)
+    : []
   return (
     <a className={`workshop-card tone-${workshop.tone}`} href={`/ateliers/${workshop.slug}/`}>
       <div className="card-photo">
@@ -55,6 +64,7 @@ export function WorkshopCard({ workshop, index = 0, rotating = false }: { worksh
           </h3>
           <span className="circle-arrow" aria-hidden="true"><ArrowNorthEast /></span>
         </div>
+        {details.length > 0 && <p className="workshop-card-details">{details.join(' · ')}</p>}
       </div>
     </a>
   )

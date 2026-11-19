@@ -10,7 +10,16 @@ export const metadata = pageMeta(
 export default function WorksPage() {
   return (
     <div className="works-gallery-page">
+      <header className="wrap works-heading">
+        <h1>Créations sur mesure</h1>
+        <p>Sélectionnez une photo pour l’agrandir.</p>
+      </header>
       <Gallery works={works} />
+      <div className="wrap works-contact">
+        <a className="button" href="/contact/?sujet=Cr%C3%A9ation%20sur%20mesure">
+          Parler de mon projet sur mesure
+        </a>
+      </div>
     </div>
   )
 }

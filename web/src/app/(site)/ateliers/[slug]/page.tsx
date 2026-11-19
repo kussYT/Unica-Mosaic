@@ -75,6 +75,11 @@ export default async function WorkshopPage({ params }: Args) {
           <p className="eyebrow">{workshop.label}</p>
           <h1>{workshop.name}</h1>
           <p className="lead">{workshop.intro}</p>
+          {(workshop.priceCents != null || duration) && (
+            <p className="workshop-facts">
+              {[workshop.priceCents != null ? price : null, duration].filter(Boolean).join(' · ')}
+            </p>
+          )}
           {sessions.some(
             (session) =>
               session.priceCents != null &&
@@ -131,7 +136,6 @@ export default async function WorkshopPage({ params }: Args) {
               <dd>{workshop.practicalInfo || sessions.find((session) => session.place)?.place || 'Précisés pour chaque session confirmée'}</dd>
             </div>
           </dl>
-          <p>Les informations définitives sont celles confirmées dans l’administration. Le paiement en ligne, s’il est ouvert, utilise Stripe Checkout en euros.</p>
         </aside>
       </section>
       <Agenda sessions={sessions} heading={false} />

@@ -25,14 +25,21 @@ assert(home.response.status === 200, `Accueil HTTP ${home.response.status}`)
 assert(home.text.includes('<title>L’art de recoller les morceaux — UNICA Mosaïque</title>'), 'Le titre de l’accueil ne reprend pas la signature')
 assert(home.text.includes('noindex'), 'Le noindex manque')
 assert(home.text.includes('/media/intro-unica.mp4'), 'La vidéo d’introduction manque')
-assert(home.text.includes('Créations sur mesure'), 'La carte Créations sur mesure manque')
+assert(/Créations(?:\s|<!--.*?-->|<br\s*\/?>)+sur mesure/.test(home.text), 'La carte Créations sur mesure manque')
 assert(home.text.includes('Mosaic Kids'), 'La carte Mosaic Kids manque')
 assert(home.text.includes('/images/atelier-mains-960.webp'), 'La photo du nouveau hero manque')
-assert(!home.text.includes('€'), 'Un prix est apparu sur l’accueil')
 assert(home.text.includes('Le calendrier'), 'Le calendrier manque sur l’accueil')
-assert(home.text.includes('Aucune session n’est programmée pour le moment.'), 'L’accueil invente des dates')
-assert(!home.text.includes('places restantes'), 'L’accueil affiche de fausses places restantes')
-assert(!home.text.includes('Réserver'), 'L’accueil propose une réservation')
+const calendarDemo = process.env.VERIFY_CALENDAR_DEMO === '1'
+if (calendarDemo) {
+  assert(home.text.includes('calendar-day has-session'), 'Les dates de démonstration ne sont pas signalées')
+  assert(home.text.includes('places restantes'), 'La disponibilité manque sur la carte')
+  assert(home.text.includes('payment=deposit') && home.text.includes('payment=full'), 'Le choix du paiement manque sur la carte')
+} else {
+  assert(!home.text.includes('€'), 'Un prix est apparu sur l’accueil')
+  assert(home.text.includes('Aucune session n’est programmée pour le moment.'), 'L’accueil invente des dates')
+  assert(!home.text.includes('places restantes'), 'L’accueil affiche de fausses places restantes')
+  assert(!home.text.includes('Réserver'), 'L’accueil propose une réservation')
+}
 
 for (const pathname of ['/ateliers/', '/ateliers/pixel-kids/', '/realisations/', '/contact/']) {
   const page = await responseOf(pathname)
@@ -52,7 +59,9 @@ assert(!workshop.text.includes('Réserver'), 'La fiche atelier propose une rése
 assert(!workshop.text.includes('Payer'), 'La fiche atelier propose un paiement')
 
 const workshopsPage = await responseOf('/ateliers/')
-assert(workshopsPage.text.includes('Aucune session n’est programmée pour le moment.'), 'L’agenda invente des dates')
+if (!calendarDemo) {
+  assert(workshopsPage.text.includes('Aucune session n’est programmée pour le moment.'), 'L’agenda invente des dates')
+}
 
 const workshopWrite = await responseOf('/api/workshops', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' })
 assert([401, 403].includes(workshopWrite.response.status), `Création anonyme d’atelier HTTP ${workshopWrite.response.status}`)
