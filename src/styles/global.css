@@ -96,7 +96,33 @@
 .breadcrumb a{gap:.4em}
 .circle-arrow{place-items:center}
 .circle-arrow .icon-arrow{width:21%;height:21%}
-.workshop-card .card-title .circle-arrow .icon-arrow{width:15%;height:15%}
+
+.universe-card > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: end;
+  column-gap: 12px;
+}
+
+.universe-card .eyebrow { grid-column: 1 / -1; }
+.universe-card .circle-arrow { position: static; align-self: end; }
+.universe-card .circle-arrow .icon-arrow { width: 18px; height: 18px; }
+
+.workshop-card .card-title { gap: 8px; }
+.workshop-card .card-title h3 { min-width: 0; overflow-wrap: anywhere; }
+.workshop-card .card-title .circle-arrow { width: 38px; height: 38px; }
+.workshop-card .card-title .circle-arrow .icon-arrow { width: 17px; height: 17px; }
+
+@media (max-width: 760px) {
+  .home-hero-craft.wrap,
+  .home-paths.wrap,
+  .wrap:has(> .universe-grid),
+  .workshops-section > .wrap,
+  .studio-section.wrap {
+    width: calc(100% - 2 * clamp(20px, 6vw, 28px));
+  }
+  .universe-card h3 { font-size: clamp(30px, 9vw, 42px); }
+}
 
 /* Lot A — lively homepage, using the supplied UNICA film and official brand artwork. */
 body:has(.video-intro){overflow:hidden}
@@ -188,7 +214,9 @@ body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;backg
   .home-hero-craft .hero-copy h1 em{white-space:normal}
   .home-hero-craft .button{width:100%;max-width:100%;min-width:0;justify-content:center;gap:12px;padding-inline:16px;font-size:12px;white-space:nowrap}
   .hero-craft-visual{height:min(112vw,560px);min-height:0;max-height:560px}
-  .hero-tool,
+  .hero-tool-nippers{width:54px;right:2px;top:-14px}
+  .hero-tool-rollers{width:40px;left:2px;bottom:20px}
+
   .path-decoration,
   .cta-section > .tile,
   .card-index {

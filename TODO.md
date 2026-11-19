@@ -131,6 +131,8 @@ Passe mobile ciblée : alignement des flèches de mois et masquage des décors d
 
 Suivi mobile : masquer l’ornement des trois cartes d’accueil, rétablir les tesselles des cases hors mois et remettre une marge intérieure au calendrier.
 
+Passe accueil : flèches des ateliers agrandies, espace réservé à la flèche des cartes Univers, marges mobiles harmonisées et pinces du hero rétablies.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.
