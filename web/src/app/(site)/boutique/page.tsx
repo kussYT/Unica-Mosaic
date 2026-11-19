@@ -25,6 +25,7 @@ export default async function ShopPage() {
                 <div>
                   <h2>{product.title}</h2>
                   <p>{formatEuros(product.priceCents)}{product.stock === 0 ? ' · Épuisé' : ''}</p>
+                  <p className="shop-card-description">{product.description}</p>
                 </div>
               </Link>
             </li>

@@ -172,6 +172,8 @@ Suite audit visuel : intro ignorée sur les ancres, actions adaptées à la disp
 ## 4. Boutique, kits et contenus complémentaires
 
 Catalogue Mosaic Kids : collection Kits dans Payload, brouillons, pages boutique et fiches, prix et stock. Mise en vente et contenus réels à valider avec Marie.
+Démo locale : un seul kit Pixel Kids. Les autres exemples restent en brouillon.
+Administration Marie : tableau de bord par tâche, groupes Ateliers et inscriptions, Galerie et Boutique, et tarifs visibles dans la liste des ateliers.
 - [ ] Valider le périmètre marchand prévu au devis.
 - [ ] Obtenir catalogue, prix, photos, variantes, stocks et contenu des kits.
 - [ ] Créer catégories et fiches produit ; panier/commande si vente en ligne retenue.

@@ -37,7 +37,7 @@ const guardPublication: CollectionBeforeChangeHook = ({ data, originalDoc }) => 
 export const Workshops: CollectionConfig = {
   slug: 'workshops',
   labels: { singular: 'Atelier', plural: 'Ateliers' },
-  admin: { useAsTitle: 'title', group: 'Catalogue', defaultColumns: ['title', '_status', 'updatedAt'] },
+  admin: { useAsTitle: 'title', group: 'Ateliers et inscriptions', defaultColumns: ['title', 'priceCents', 'depositCents', '_status'] },
   versions: { drafts: true },
   access: {
     create: isStaff,
