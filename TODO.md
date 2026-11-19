@@ -142,6 +142,8 @@ Catalogue et fiches : accès direct aux dates, tarif et durée sur les cartes, p
 
 Réalisations et contact : titre et navigation dans la visionneuse, lien vers un projet sur mesure, champs dédiés aux ateliers privés dans le brouillon.
 
+Galerie Payload : collection Réalisations, photos et textes alternatifs repris des médias, ordre et publication. Import des œuvres historiques vérifiable en local. Validation du compte de Marie et reprise sur la préproduction à planifier.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.

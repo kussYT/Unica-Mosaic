@@ -26,6 +26,12 @@ npm run verify
 npm run start
 ```
 
+## Galerie Réalisations
+
+La page affiche les œuvres publiées dans Payload par ordre croissant. Sans œuvre publiée ni photo exploitable, elle affiche la galerie historique. Les éditeurs peuvent ajouter, réordonner et publier les œuvres ; la suppression est réservée à l’administration. Le texte alternatif est renseigné dans Médias.
+
+Après migration, préparer les 11 œuvres historiques dans la base locale depuis `web/` avec `node --env-file=.env --import tsx ./scripts/seed-realisations.ts`. Le script conserve les fichiers sources et refuse les bases hors environnement local. Avant la première publication en préproduction, prévoir la reprise des photos historiques pour conserver l’ensemble du portfolio lors du passage de la galerie de secours à Payload.
+
 ## Démarrage Astro
 Ouvrir ce dépôt dans Cursor. Node.js 24 et npm sont requis.
 ```sh

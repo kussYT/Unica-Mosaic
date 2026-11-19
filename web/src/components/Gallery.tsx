@@ -2,11 +2,9 @@
 
 import { useRef, useState } from 'react'
 
-import type { works } from '@/data/site'
+import type { GalleryImage } from '@/lib/realisations'
 
-type Work = (typeof works)[number]
-
-export function Gallery({ works }: { works: Work[] }) {
+export function Gallery({ works }: { works: GalleryImage[] }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [index, setIndex] = useState(0)
   const preview = works[index]
@@ -17,7 +15,7 @@ export function Gallery({ works }: { works: Work[] }) {
       <div className="gallery-grid">
         {works.map((work, index) => {
           return (
-            <article className="gallery-item" key={work.image}>
+            <article className="gallery-item" key={work.key}>
               <button
                 className="gallery-open"
                 type="button"
@@ -28,8 +26,8 @@ export function Gallery({ works }: { works: Work[] }) {
                 }}
               >
                 <img
-                  src={`/images/${work.image}-960.webp`}
-                  srcSet={`/images/${work.image}-480.webp 480w, /images/${work.image}-960.webp 960w, /images/${work.image}-1600.webp 1600w`}
+                  src={work.src}
+                  srcSet={work.srcSet}
                   sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 33vw"
                   alt={work.alt}
                   loading={index < 3 ? 'eager' : 'lazy'}
@@ -59,8 +57,9 @@ export function Gallery({ works }: { works: Work[] }) {
         </button>
         {preview && (
           <>
-            <img id="lightbox-image" src={`/images/${preview.image}-1600.webp`} alt={preview.alt} loading="lazy" />
+            <img id="lightbox-image" src={preview.preview} alt={preview.alt} loading="lazy" />
             <p className="lightbox-caption" aria-live="polite">{preview.title} · {index + 1}/{works.length}</p>
+            {preview.description && <p>{preview.description}</p>}
             {works.length > 1 && (
               <div className="lightbox-nav" aria-label="Navigation de la galerie">
                 <button className="button button-small" type="button" onClick={() => move(-1)}>Précédente</button>
