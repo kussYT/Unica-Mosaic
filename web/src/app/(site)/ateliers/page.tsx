@@ -103,7 +103,7 @@ export default async function WorkshopsPage() {
           <details>
             <summary>Peut-on imaginer un atelier en groupe ?</summary>
             <p>Une envie de moment créatif à plusieurs ? Préparez votre demande en indiquant l’occasion, le nombre de participants et la période souhaitée.</p>
-            <a className="text-link" href="/contact/?sujet=Atelier%20en%20groupe">
+            <a className="text-link" href="/contact/?sujet=Atelier%20priv%C3%A9">
               Préparer mon projet de groupe <span aria-hidden="true"><ArrowRight /></span>
             </a>
           </details>

@@ -8,7 +8,9 @@ type Work = (typeof works)[number]
 
 export function Gallery({ works }: { works: Work[] }) {
   const dialog = useRef<HTMLDialogElement>(null)
-  const [preview, setPreview] = useState({ src: '', alt: '' })
+  const [index, setIndex] = useState(0)
+  const preview = works[index]
+  const move = (step: number) => setIndex((current) => (current + step + works.length) % works.length)
 
   return (
     <section className="wrap gallery-section" aria-label="Galerie des créations sur mesure">
@@ -21,7 +23,7 @@ export function Gallery({ works }: { works: Work[] }) {
                 type="button"
                 aria-label={`Agrandir : ${work.title}`}
                 onClick={() => {
-                  setPreview({ src: `/images/${work.image}-1600.webp`, alt: work.alt })
+                  setIndex(index)
                   dialog.current?.showModal()
                 }}
               >
@@ -43,6 +45,11 @@ export function Gallery({ works }: { works: Work[] }) {
         className="lightbox"
         aria-label="Aperçu de la création"
         ref={dialog}
+        onKeyDown={(event) => {
+          if (works.length < 2 || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return
+          event.preventDefault()
+          move(event.key === 'ArrowLeft' ? -1 : 1)
+        }}
         onClick={(event) => {
           if (event.target === event.currentTarget) event.currentTarget.close()
         }}
@@ -50,7 +57,18 @@ export function Gallery({ works }: { works: Work[] }) {
         <button className="lightbox-close" type="button" aria-label="Fermer l’aperçu" onClick={() => dialog.current?.close()}>
           ×
         </button>
-        <img id="lightbox-image" src={preview.src || undefined} alt={preview.alt} />
+        {preview && (
+          <>
+            <img id="lightbox-image" src={`/images/${preview.image}-1600.webp`} alt={preview.alt} loading="lazy" />
+            <p className="lightbox-caption" aria-live="polite">{preview.title} · {index + 1}/{works.length}</p>
+            {works.length > 1 && (
+              <div className="lightbox-nav" aria-label="Navigation de la galerie">
+                <button className="button button-small" type="button" onClick={() => move(-1)}>Précédente</button>
+                <button className="button button-small" type="button" onClick={() => move(1)}>Suivante</button>
+              </div>
+            )}
+          </>
+        )}
       </dialog>
     </section>
   )

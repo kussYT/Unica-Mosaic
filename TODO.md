@@ -140,6 +140,8 @@ L’accueil montre les quatre premiers ateliers, le catalogue complet reste acce
 
 Catalogue et fiches : accès direct aux dates, tarif et durée sur les cartes, présentation de l’atelier avant son média sur téléphone. Le titre du calendrier reprend la marge des autres sections de l’accueil.
 
+Réalisations et contact : titre et navigation dans la visionneuse, lien vers un projet sur mesure, champs dédiés aux ateliers privés dans le brouillon.
+
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.
 - [ ] Valider les textes et titres de galerie, actuellement des propositions éditoriales.

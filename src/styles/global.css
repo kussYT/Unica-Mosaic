@@ -187,6 +187,16 @@ body:has(.video-intro){overflow:hidden}
 /* Même fond rosé que la navbar (--cream) : aucune démarcation visuelle. */
 .works-gallery-page{padding:clamp(32px,4vw,64px) 0;background:var(--cream)}
 .works-gallery-page .gallery-section{padding:0;background:transparent;box-shadow:none;border-radius:0}
+.works-heading{margin-bottom:28px}
+.works-heading h1{font-size:clamp(40px,8vw,68px)}
+.works-heading p{margin-top:10px}
+.works-contact{display:flex;justify-content:center;margin-top:28px;text-align:center}
+.lightbox #lightbox-image{max-height:65dvh}
+.lightbox .lightbox-caption{font-size:14px}
+.lightbox-nav{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:12px}
+.lightbox-nav .button{font-size:14px}
+.private-workshop-fields{border:1px solid var(--line);border-radius:12px;margin:0;min-inline-size:0;display:grid;gap:12px;padding:12px}
+.private-workshop-fields legend{font-size:14px;font-weight:700}
 body:has(.works-gallery-page) .site-header{border-bottom-color:transparent;background:var(--cream)}
 .gallery-grid{display:block;columns:3;column-gap:24px}
 .gallery-item{break-inside:avoid;margin:0 0 24px}

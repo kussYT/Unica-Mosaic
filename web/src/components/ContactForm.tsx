@@ -11,7 +11,7 @@ const subjects = [
   'Pixel Kids',
   'Ma croix, mes couleurs',
   'Numéro de maison',
-  'Atelier en groupe',
+  'Atelier privé',
   'Autre envie',
 ]
 
@@ -19,7 +19,8 @@ export function ContactForm({ email }: { email: string }) {
   const requested = useSearchParams().get('sujet')
   const [subject, setSubject] = useState(subjects[0])
   useEffect(() => {
-    if (requested && subjects.includes(requested)) setSubject(requested)
+    const initial = requested === 'Atelier en groupe' ? 'Atelier privé' : requested
+    if (initial && subjects.includes(initial)) setSubject(initial)
   }, [requested])
   const [draft, setDraft] = useState('')
   const [ready, setReady] = useState(false)
@@ -32,7 +33,20 @@ export function ContactForm({ email }: { email: string }) {
         onSubmit={(event) => {
           event.preventDefault()
           const data = new FormData(event.currentTarget)
-          const text = `Bonjour Marie,\n\nJe vous contacte pour : ${data.get('sujet')}.\n\n${data.get('message')}\n\n${data.get('prenom')}\n${data.get('email')}`
+          const details = subject === 'Atelier privé'
+            ? [
+                ['Date souhaitée', data.get('date')],
+                ['Nombre de participants', data.get('effectif')],
+                ['Lieu envisagé', data.get('lieu')],
+              ].flatMap(([label, value]) => typeof value === 'string' && value.trim() ? [`${label} : ${value.trim()}`] : [])
+            : []
+          const text = [
+            'Bonjour Marie,',
+            `Je vous contacte pour : ${subject}.`,
+            details.join('\n'),
+            data.get('message'),
+            [data.get('prenom'), data.get('email')].join('\n'),
+          ].filter(Boolean).join('\n\n')
           setDraft(text)
           setReady(true)
           setStatus('')
@@ -55,6 +69,14 @@ export function ContactForm({ email }: { email: string }) {
             ))}
           </select>
         </label>
+        {subject === 'Atelier privé' && (
+          <fieldset className="private-workshop-fields">
+            <legend>Votre atelier privé</legend>
+            <label>Date souhaitée <input type="date" name="date" /></label>
+            <label>Nombre de participants <input type="number" name="effectif" min="1" step="1" /></label>
+            <label>Lieu envisagé <input name="lieu" maxLength={160} placeholder="Ville ou lieu, si vous le connaissez" /></label>
+          </fieldset>
+        )}
         <label>
           Racontez-nous{' '}
           <textarea name="message" rows={5} required minLength={10} maxLength={4000} placeholder="L’idée, les couleurs, l’occasion, la période souhaitée…" />
