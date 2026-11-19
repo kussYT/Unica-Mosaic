@@ -67,7 +67,9 @@ export async function POST(request: Request) {
     windowStart = now
     attempts = 0
   }
-  if (attempts >= 5) return Response.json({ error: 'Réessayez dans une minute.' }, { status: 429 })
+  if (attempts >= 5) {
+    return Response.json({ error: 'Réessayez dans une minute.' }, { status: 429, headers: { 'Retry-After': '60' } })
+  }
   attempts += 1
 
   const text = [
