@@ -1,5 +1,5 @@
 import { Gallery } from '@/components/Gallery'
-import { works } from '@/data/site'
+import { getPublicRealisations } from '@/lib/realisations'
 import { pageMeta } from '@/lib/meta'
 
 export const metadata = pageMeta(
@@ -7,7 +7,10 @@ export const metadata = pageMeta(
   'Découvrez les créations sur mesure en mosaïque UNICA, réalisées à partir de projets et de pièces existants.',
 )
 
-export default function WorksPage() {
+export const dynamic = 'force-dynamic'
+
+export default async function WorksPage() {
+  const works = await getPublicRealisations()
   return (
     <div className="works-gallery-page">
       <header className="wrap works-heading">

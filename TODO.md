@@ -142,6 +142,8 @@ Catalogue et fiches : accès direct aux dates, tarif et durée sur les cartes, p
 
 Réalisations et contact : titre et navigation dans la visionneuse, lien vers un projet sur mesure, champs dédiés aux ateliers privés dans le brouillon.
 
+Galerie Payload : collection Réalisations, photos et textes alternatifs repris des médias, ordre et publication. Import des œuvres historiques vérifiable en local. Validation du compte de Marie et reprise sur la préproduction à planifier.
+
 Parcours éditorial : infos structurées sur les fiches et présentation de Marie. Le formulaire privé peut utiliser Resend une fois l’expéditeur, le destinataire et la clé configurés. Portrait, avis et réseaux restent à valider avec Marie.
 
 ## 2. Validation avec Marie — prochain lot

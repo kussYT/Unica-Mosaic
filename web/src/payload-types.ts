@@ -72,6 +72,7 @@ export interface Config {
     workshops: Workshop;
     sessions: Session;
     reservations: Reservation;
+    realisations: Realisation;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     workshops: WorkshopsSelect<false> | WorkshopsSelect<true>;
     sessions: SessionsSelect<false> | SessionsSelect<true>;
     reservations: ReservationsSelect<false> | ReservationsSelect<true>;
+    realisations: RealisationsSelect<false> | RealisationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -306,6 +308,20 @@ export interface Reservation {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realisations".
+ */
+export interface Realisation {
+  id: number;
+  title: string;
+  description?: string | null;
+  displayOrder: number;
+  photos: (number | Media)[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -347,6 +363,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reservations';
         value: number | Reservation;
+      } | null)
+    | ({
+        relationTo: 'realisations';
+        value: number | Realisation;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -499,6 +519,19 @@ export interface ReservationsSelect<T extends boolean = true> {
   adminNote?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realisations_select".
+ */
+export interface RealisationsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  displayOrder?: T;
+  photos?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
