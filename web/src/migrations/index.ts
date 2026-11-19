@@ -5,6 +5,7 @@ import * as migration_20261108_161000_reservation_session_sync from './20261108_
 import * as migration_20261108_161100_reservation_hold_expiry from './20261108_161100_reservation_hold_expiry';
 import * as migration_20261108_220000_stripe_booking from './20261108_220000_stripe_booking';
 import * as migration_20261119_132320_realisations from './20261119_132320_realisations';
+import * as migration_20261119_135755_mosaic_kids_products from './20261119_135755_mosaic_kids_products';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20261119_132320_realisations.up,
     down: migration_20261119_132320_realisations.down,
-    name: '20261119_132320_realisations'
+    name: '20261119_132320_realisations',
+  },
+  {
+    up: migration_20261119_135755_mosaic_kids_products.up,
+    down: migration_20261119_135755_mosaic_kids_products.down,
+    name: '20261119_135755_mosaic_kids_products'
   },
 ];
