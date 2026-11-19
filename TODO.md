@@ -134,8 +134,9 @@ Suivi mobile : masquer l’ornement des trois cartes d’accueil, rétablir les 
 
 Passe accueil : flèches des ateliers agrandies, espace réservé à la flèche des cartes Univers, marges mobiles harmonisées et pinces du hero rétablies.
 
-Calendrier : cinq exemples identifiés « Démo » dans la base locale. Le script `web/scripts/seed-calendar-demo.ts` vérifie dates, capacité, places restantes, tarifs et calcul de l’acompte ou du paiement intégral.
+Calendrier : cinq sessions de démonstration dans la base locale, dont trois rattachées aux fiches d’origine. Le script `web/scripts/seed-calendar-demo.ts` vérifie dates, capacité, places restantes, tarifs et calcul de l’acompte ou du paiement intégral.
 Les cartes du calendrier permettent de choisir le paiement avant d’ouvrir la réservation.
+L’accueil montre les quatre premiers ateliers, le catalogue complet reste accessible par « Tous les ateliers ».
 
 ## 2. Validation avec Marie — prochain lot
 - [ ] Valider le rendu réel sur ordinateur et téléphone.

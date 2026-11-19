@@ -5,6 +5,7 @@ import config from '../src/payload.config.ts'
 import { buildBookingQuote } from '../src/lib/booking.ts'
 import { dayAvailability, parisDayKey } from '../src/lib/calendar.ts'
 import { getCalendarSessions } from '../src/lib/catalogue.ts'
+import { workshops } from '../src/data/site.ts'
 
 const database = new URL(process.env.DATABASE_URL || 'postgres://invalid')
 if (
@@ -27,28 +28,58 @@ const examples = [
 const payload = await getPayload({ config })
 try {
   for (const example of examples) {
-    const slug = 'demo-calendrier-' + example.slug
+    const legacySlug = 'demo-calendrier-' + example.slug
+    const canonicalSlugs: Record<string, string> = {
+      'recolle-afterwork': 'recolle-toi-meuf',
+      'ma-croix': 'ma-croix-mes-couleurs',
+      'numero-maison': 'numero-de-maison',
+    }
+    const slug = canonicalSlugs[example.slug] ?? legacySlug
+    const source = workshops.find((item) => item.slug === slug)
     const starts = new Date()
     starts.setUTCHours(example.weekday === 4 ? 17 : 13, 0, 0, 0)
     starts.setUTCDate(starts.getUTCDate() + example.elapsed)
     while (starts.getUTCDay() !== example.weekday) starts.setUTCDate(starts.getUTCDate() + 1)
     const startsAt = starts.toISOString()
     const endsAt = new Date(starts.getTime() + example.duration * 60_000).toISOString()
-    const existing = await payload.find({ collection: 'workshops', where: { slug: { equals: slug } }, limit: 1 })
-    const workshop = existing.docs[0] ?? await payload.create({
-      collection: 'workshops',
-      data: {
-        title: example.name + ' · Démo',
-        slug,
-        label: 'SESSION DE TEST',
-        summary: 'Exemple local pour vérifier le calendrier et les tarifs.',
-        description: 'Session de démonstration. Date, horaire et capacité fictifs.',
-        priceCents: example.price,
-        depositCents: example.deposit,
-        durationMinutes: example.duration,
-        _status: 'published',
-      },
-    })
+    const existing = await payload.find({ collection: 'workshops', draft: true, where: { slug: { equals: slug } }, limit: 1 })
+    const pricing = {
+      priceCents: example.price,
+      depositCents: example.deposit,
+      durationMinutes: example.duration,
+      _status: 'published' as const,
+    }
+    const current = existing.docs[0]
+    const workshop = current
+      ? await payload.update({ collection: 'workshops', id: current.id, data: pricing })
+      : await payload.create({
+          collection: 'workshops',
+          data: {
+            title: source?.name ?? example.name + ' · Démo',
+            slug,
+            label: source?.label ?? 'SESSION DE TEST',
+            summary: source?.intro ?? 'Exemple local pour vérifier le calendrier et les tarifs.',
+            description: source?.description ?? 'Session de démonstration. Date, horaire et capacité fictifs.',
+            tone: source?.tone,
+            practicalInfo: source?.detail,
+            ...pricing,
+          },
+        })
+    if (legacySlug !== slug) {
+      const legacy = await payload.find({ collection: 'workshops', where: { slug: { equals: legacySlug } }, limit: 1 })
+      const duplicate = legacy.docs[0]
+      if (duplicate?._status === 'published') {
+        const linked = await payload.find({
+          collection: 'sessions',
+          where: { workshop: { equals: duplicate.id } },
+          pagination: false,
+        })
+        for (const session of linked.docs) {
+          await payload.update({ collection: 'sessions', id: session.id, data: { workshop: workshop.id } })
+        }
+        await payload.update({ collection: 'workshops', id: duplicate.id, data: { _status: 'draft' } })
+      }
+    }
     const future = await payload.find({
       collection: 'sessions',
       where: { and: [{ workshop: { equals: workshop.id } }, { startsAt: { greater_than_equal: new Date().toISOString() } }] },

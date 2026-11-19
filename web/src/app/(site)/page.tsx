@@ -131,7 +131,7 @@ export default async function HomePage() {
             </a>
           </div>
           <div className="workshop-grid">
-            {workshops.map((workshop, index) => (
+            {workshops.slice(0, 4).map((workshop, index) => (
               <WorkshopCard workshop={workshop} index={index} key={workshop.slug} rotating />
             ))}
           </div>
