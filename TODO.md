@@ -124,7 +124,8 @@ Mis à jour le 18 novembre 2026. Lire et mettre à jour ce fichier à chaque int
 - [x] Calendrier élargi sur téléphone : sept colonnes conservées et jours d’au moins 44 × 48 px à 360/390/430 px.
 - [x] Aucun débordement horizontal constaté après correction ; contrôle visuel du contact, des fiches et du calendrier réussi.
 - [x] Build Next réussi ; vérifications catalogue, réservations et Stripe réussies.
-- [ ] `verify.mjs` reste bloqué par l’assertion visuelle obsolète « La carte Créations sur mesure manque », sans rapport avec ce lot.
+- [x] Suite `npm run verify` repassée après correction de l’assertion sur le titre de carte avec saut de ligne.
+- [x] Mise en page mobile de la réservation ajustée et build réussi. Paiement Stripe de test et envoi réel de la confirmation restent à vérifier avec les services configurés.
 - [x] Trois issues mobiles créées sur GitHub : #8 lisibilité/ergonomie, #9 accueil/décor, #10 médias/pages secondaires.
 
 Passe mobile ciblée : alignement des flèches de mois et masquage des décors du hero, des CTA, des cartes ateliers et du calendrier.
