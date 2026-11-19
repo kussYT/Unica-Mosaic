@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useRef, useState } from 'react'
 
 import type { GalleryImage } from '@/lib/realisations'
@@ -25,7 +26,16 @@ export function Gallery({ works }: { works: GalleryImage[] }) {
                   dialog.current?.showModal()
                 }}
               >
-                <img
+                {work.width && work.height && work.src.startsWith('/api/media/file/') && !/\.svg\/?$/i.test(work.src) ? (
+                  <Image
+                    src={work.src.replace(/\/$/, '')}
+                    alt={work.alt}
+                    width={work.width}
+                    height={work.height}
+                    sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 33vw"
+                    loading={index < 3 ? 'eager' : 'lazy'}
+                  />
+                ) : <img
                   src={work.src}
                   srcSet={work.srcSet}
                   sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 33vw"
@@ -33,7 +43,7 @@ export function Gallery({ works }: { works: GalleryImage[] }) {
                   loading={index < 3 ? 'eager' : 'lazy'}
                   fetchPriority={index < 3 ? 'high' : 'auto'}
                   decoding="async"
-                />
+                />}
               </button>
             </article>
           )

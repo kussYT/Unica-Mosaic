@@ -27,10 +27,8 @@ export default function ContactPage() {
         <p>
           Une pièce pour chez vous, un cadeau à imaginer, un moment à partager… Racontez-nous le petit morceau d’histoire que vous avez en tête.
         </p>
-        <Photo name="atelier-mains" alt="Une création en mosaïque prend forme, tesselle après tesselle." />
-        <span className="photo-caption">LES BELLES HISTOIRES COMMENCENT PAR UN PREMIER MORCEAU.</span>
       </div>
-      <div className="contact-panel">
+      <div id="formulaire" className="contact-panel">
         <h2>Votre projet, en quelques mots.</h2>
         <p className="contact-notice">
           {privateSend
@@ -45,6 +43,10 @@ export default function ContactPage() {
         <noscript>
           <p>Activez JavaScript pour préparer votre demande dans cette version de travail.</p>
         </noscript>
+      </div>
+      <div className="contact-photo">
+        <Photo name="atelier-mains" alt="Une création en mosaïque prend forme, tesselle après tesselle." />
+        <span className="photo-caption">LES BELLES HISTOIRES COMMENCENT PAR UN PREMIER MORCEAU.</span>
       </div>
     </section>
   )

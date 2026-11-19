@@ -11,6 +11,8 @@ export type GalleryImage = {
   src: string
   srcSet?: string
   preview: string
+  width?: number
+  height?: number
 }
 
 const fallback: GalleryImage[] = works.map((work) => ({
@@ -43,6 +45,8 @@ export async function getPublicRealisations(): Promise<GalleryImage[]> {
         alt: photo.alt,
         src: photo.url,
         preview: photo.url,
+        width: photo.width ?? undefined,
+        height: photo.height ?? undefined,
       }]
     }))
     return images.length ? images : fallback

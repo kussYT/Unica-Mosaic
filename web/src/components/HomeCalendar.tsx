@@ -1,10 +1,11 @@
 import { WorkshopCalendar } from '@/components/WorkshopCalendar'
 import { getCalendarSessions } from '@/lib/catalogue'
+import { stripeConfigured } from '@/lib/stripe'
 import '@/styles/calendar.css'
 
 export async function CalendarSection() {
   const sessions = await getCalendarSessions()
-  return <WorkshopCalendar sessions={sessions} />
+  return <WorkshopCalendar sessions={sessions} checkoutAvailable={stripeConfigured()} />
 }
 
 export function CalendarSkeleton() {

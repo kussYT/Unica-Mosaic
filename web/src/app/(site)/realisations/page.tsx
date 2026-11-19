@@ -16,10 +16,11 @@ export default async function WorksPage() {
       <header className="wrap works-heading">
         <h1>Créations sur mesure</h1>
         <p>Sélectionnez une photo pour l’agrandir.</p>
+        <a className="text-link" href="/contact/?sujet=Cr%C3%A9ation%20sur%20mesure#formulaire">Parler de mon projet sur mesure</a>
       </header>
       <Gallery works={works} />
       <div className="wrap works-contact">
-        <a className="button" href="/contact/?sujet=Cr%C3%A9ation%20sur%20mesure">
+        <a className="button" href="/contact/?sujet=Cr%C3%A9ation%20sur%20mesure#formulaire">
           Parler de mon projet sur mesure
         </a>
       </div>

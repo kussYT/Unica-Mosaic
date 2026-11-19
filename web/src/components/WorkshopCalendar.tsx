@@ -22,7 +22,7 @@ import {
 
 const monthIndex = (year: number, month: number) => year * 12 + month
 
-export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) {
+export function WorkshopCalendar({ sessions, checkoutAvailable }: { sessions: CalendarSession[]; checkoutAvailable: boolean }) {
   const today = useMemo(() => parisToday(), [])
   const firstSession = sessions[0] ? parisDay(sessions[0].startsAt) : null
   const opening = firstSession || today
@@ -212,7 +212,7 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
                       </ul>
                       <div className="calendar-actions">
                         <a href={`/ateliers/${session.workshopSlug}/`}>Voir l’atelier</a>
-                        {session.priceCents != null &&
+                        {checkoutAvailable && session.priceCents != null &&
                         session.depositCents != null &&
                         typeof session.remainingSeats === 'number' &&
                         session.remainingSeats > 0 &&
@@ -229,6 +229,9 @@ export function WorkshopCalendar({ sessions }: { sessions: CalendarSession[] }) 
                           </>
                         ) : null}
                       </div>
+                      {!checkoutAvailable && session.state === 'scheduled' && (
+                        <p>Réservation en ligne indisponible. <a href={`/contact/?sujet=${encodeURIComponent(session.workshopTitle)}#formulaire`}>Demander des informations</a></p>
+                      )}
                     </div>
                   </article>
                 ))}

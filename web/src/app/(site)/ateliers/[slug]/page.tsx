@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { Agenda } from '@/components/Agenda'
 import { ArrowLeft, ArrowNorthEast } from '@/components/Icons'
 import { Photo } from '@/components/Photo'
+import { stripeConfigured } from '@/lib/stripe'
 import { workshopFacts } from '@/data/site'
 import { formatDuration, formatEuros, getPublicWorkshops, getUpcomingSessions } from '@/lib/catalogue'
 import { pageMeta } from '@/lib/meta'
@@ -24,7 +25,7 @@ const workshopVideos: Record<string, { src: string; poster: string; label: strin
   },
   'ma-croix-mes-couleurs': {
     src: '/workshop-videos/workshop-gesture-web.mp4',
-    poster: '/workshop-videos/workshop-gesture-poster.webp',
+    poster: '/images/croix-960.webp',
     label: 'Les gestes de création pendant un atelier UNICA.',
   },
   'numero-de-maison': {
@@ -55,6 +56,7 @@ export default async function WorkshopPage({ params }: Args) {
   const minutes = workshop.durationMinutes ?? facts?.durationMinutes
   const duration = minutes == null ? null : formatDuration(minutes)
   const video = workshopVideos[slug]
+  const checkoutAvailable = stripeConfigured()
 
   return (
     <>
@@ -83,7 +85,8 @@ export default async function WorkshopPage({ params }: Args) {
               {[workshop.priceCents != null ? price : null, duration].filter(Boolean).join(' · ')}
             </p>
           )}
-          {sessions.some(
+          {facts?.audience && <p className="workshop-audience">{facts.audience}</p>}
+          {checkoutAvailable && sessions.some(
             (session) =>
               session.priceCents != null &&
               session.depositCents != null &&
@@ -102,7 +105,7 @@ export default async function WorkshopPage({ params }: Args) {
           <p className="quiet-note">
             {workshop.priceCents == null || workshop.depositCents == null
               ? 'La réservation en ligne s’ouvre dès que le tarif et l’acompte sont confirmés.'
-              : 'Les places ne sont retenues qu’après démarrage du paiement Stripe.'}
+              : checkoutAvailable ? 'Les places ne sont retenues qu’après démarrage du paiement Stripe.' : 'La réservation en ligne est actuellement indisponible.'}
           </p>
         </div>
       </section>

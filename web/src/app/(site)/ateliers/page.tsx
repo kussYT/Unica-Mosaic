@@ -9,7 +9,7 @@ import '@/styles/agenda.css'
 
 export const metadata = pageMeta(
   'Les ateliers créatifs',
-  'Découvrez les ateliers UNICA : Recolle-toi meuf, Pixel Kids, Ma croix mes couleurs et Numéro de maison.',
+  'Découvrez les ateliers UNICA : Recolle-toi Meuf, Pixel Kids, Ma croix mes couleurs et Numéro de maison.',
 )
 
 export const dynamic = 'force-dynamic'
@@ -19,7 +19,7 @@ export default async function WorkshopsPage() {
   const sessions = await getUpcomingSessions()
   return (
     <>
-      <section className="page-hero pink-hero">
+      <section className="page-hero pink-hero workshop-catalogue-hero">
         <div className="wrap split">
           <div>
             <p className="eyebrow">DU TEMPS POUR CRÉER. DU PLAISIR À PARTAGER.</p>
@@ -103,7 +103,7 @@ export default async function WorkshopsPage() {
           <details>
             <summary>Peut-on imaginer un atelier en groupe ?</summary>
             <p>Une envie de moment créatif à plusieurs ? Préparez votre demande en indiquant l’occasion, le nombre de participants et la période souhaitée.</p>
-            <a className="text-link" href="/contact/?sujet=Atelier%20priv%C3%A9">
+            <a className="text-link" href="/contact/?sujet=Atelier%20priv%C3%A9#formulaire">
               Préparer mon projet de groupe <span aria-hidden="true"><ArrowRight /></span>
             </a>
           </details>

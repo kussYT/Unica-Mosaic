@@ -14,6 +14,7 @@ function isHomePath(pathname: string) {
 
 /** Vrai pour un chargement ou un rafraîchissement de l’accueil, faux pour une arrivée interne. */
 function arrivalShouldPlay() {
+  if (window.location.hash) return false
   const entry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
   if (entry) {
     try {
