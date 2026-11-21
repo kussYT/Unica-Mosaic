@@ -24,3 +24,43 @@
 .unica-admin-card h2 { margin: 0 0 .4rem; font-size: 1.1rem; }
 .unica-admin-card p { margin: 0 0 .5rem; }
 .unica-admin-card a { text-underline-offset: .2em; }
+
+html:not([data-theme='dark']) {
+  --theme-bg: #fff8f4;
+  --theme-text: #480030;
+  --theme-elevation-0: #fffaf7;
+  --theme-elevation-50: #f8ebe5;
+  --theme-elevation-100: #f2ded7;
+  --theme-elevation-150: #e9d3cd;
+  --theme-elevation-200: #ddc3bd;
+}
+.unica-admin-logo { display: block; width: min(260px, 70vw); height: auto; }
+.unica-admin-icon { display: block; width: 30px; height: 30px; object-fit: contain; }
+.unica-admin-home { border-top: 4px solid #b00063; }
+.unica-admin-home h1 { font-weight: 700; }
+.unica-admin-home .unica-admin-primary,
+.unica-admin-home .unica-admin-primary:hover,
+.btn.btn--style-primary:not([disabled]) {
+  background: #a9005d;
+  color: #fff;
+}
+.unica-admin-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.unica-admin-card { border-radius: 12px; }
+.unica-admin-card a:focus-visible, .unica-admin-primary:focus-visible {
+  outline: 3px solid #bd1972;
+  outline-offset: 4px;
+}
+html:not([data-theme='dark']) .field-type input,
+html:not([data-theme='dark']) .field-type textarea { border-radius: 8px; }
+html:not([data-theme='dark']) .pill--style-success { background: #ddf2e5; color: #164932; }
+html:not([data-theme='dark']) .pill--style-warning { background: #fff0c2; color: #634700; }
+html:not([data-theme='dark']) .pill--style-error { background: #f9dfeb; color: #771641; }
