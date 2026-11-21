@@ -28,6 +28,10 @@ export default buildConfig({
     user: Users.slug,
     components: {
       beforeDashboard: ['./components/admin/MarieDashboard#MarieDashboard'],
+      graphics: {
+        Logo: './components/admin/UnicaGraphics#UnicaLogo',
+        Icon: './components/admin/UnicaGraphics#UnicaIcon',
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),
